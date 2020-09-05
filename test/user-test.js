@@ -4,10 +4,11 @@ import User from '../src/user.js';
 import recipeData from '../src/data/recipes.js'
 
 let user1
+let pantry1
 
 describe('User', () => {
   beforeEach(() => {
-    user1 = new User(1, 'Boba', [
+    pantry1 = [
       {
         'ingredient': 1077,
         'amount': 1
@@ -19,7 +20,8 @@ describe('User', () => {
       {
         'ingredient': 1009054,
         'amount': 3
-      }]
+      }];
+    user1 = new User(1, 'Boba', pantry1
     );
   });
 
