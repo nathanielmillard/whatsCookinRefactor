@@ -6,7 +6,7 @@ import ingredientsData from '../src/data/ingredients.js';
 
 let recipe;
 
-describe.only('Recipe', () => {
+describe('Recipe', () => {
   beforeEach(() => {
     recipe = new Recipe(recipeData[47], ingredientsData);
   });

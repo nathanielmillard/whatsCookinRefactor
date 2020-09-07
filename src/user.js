@@ -1,7 +1,7 @@
 class User {
-  constructor(id, name, pantry) {
-    this.id = id;
-    this.name = name;
+  constructor(user, pantry) {
+    this.id = user.id;
+    this.name = user.name;
     this.pantry = pantry;
     this.favoriteRecipes = [];
     this.recipesToCook = [];
@@ -31,6 +31,20 @@ class User {
         return ingredient.name.includes(strgToSrch)
       });
     });
+  }
+
+  checkPantry(recipe) {
+    let missingIngredients = recipe.ingredients.reduce((notPresent, ingredient) => {
+      let ingredientName = ingredient.name;
+      if(ingredient.quantity.amount > this.pantry.userIngredients[ingredientName]) {
+        notPresent.push(ingredientName);
+      };
+    }, []);
+    if(missingIngredients === undefined) {
+      return 'You have the ingredients!';
+    } else {
+      return `You still need ${missingIngredients.join(' and ')}`
+    };
   }
 }
 

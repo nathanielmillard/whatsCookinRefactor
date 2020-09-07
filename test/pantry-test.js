@@ -7,7 +7,7 @@ import ingredientsData from '../src/data/ingredients.js';
 let pantry
 let pantryItem
 
-describe.only('Pantry', () => {
+describe('Pantry', () => {
   beforeEach(() => {
     pantry = new Pantry(users[0].pantry);
     pantryItem = {
