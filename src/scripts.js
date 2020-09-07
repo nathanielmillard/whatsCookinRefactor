@@ -1,36 +1,36 @@
-import './css/base.scss';
+// import './css/base.scss';
 import './css/styles.scss';
 
 import recipeData from './data/recipes';
-import ingredientData from './data/ingredients';
+import ingredientsData from './data/ingredients';
 import users from './data/users';
 
-import Pantry from './pantry'; //haven't seen import from yet
+import Pantry from './pantry';
 import Recipe from './recipe';
 import User from './user';
 import Cookbook from './cookbook';
 
-let favButton = document.querySelector('.view-favorites'); // could be better named
-let homeButton = document.querySelector('.home')
-let cardArea = document.querySelector('.all-cards');
-let cookbook = new Cookbook(recipeData); //might want to see recpies instantiated first so method can be used
-let user, pantry; //comma syntax is interesting
-let ingredientsSpan = document.querySelector('.ingredients');// I don't think you can have query selectors on elements that don't exist on load
-let instructionsSpan = document.querySelector('.instructions');
+const showFavorites = document.querySelector('.view-favorites');
+const homeButton = document.querySelector('.home')
+const cardArea = document.querySelector('.all-cards');
+const welcomeMessage = document.querySelector('.greeting');
+
+let user, pantry, cookbook; //comma syntax is interesting
 
 window.onload = onStartup();
-
 homeButton.addEventListener('click', cardButtonConditionals);
-favButton.addEventListener('click', viewFavorites);
+showFavorites.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
 
 function onStartup() {
-  let userId = (Math.floor(Math.random() * 49) + 1) //might want the ability to select a user
-  let newUser = users.find(user => {
-    return user.id === Number(userId); // could be a line of code
+  let recipeDeck = [];
+  recipeData.forEach((recipe) => {
+    let instance = new Recipe(recipe, ingredientsData)
+    recipeDeck.push(instance)
   });
-  user = new User(userId, newUser.name, newUser.pantry) //would we want to build this class in a way to pass in just a user obj?
-  pantry = new Pantry(newUser.pantry)// should be passed in when instatiating the user
+  cookbook = new Cookbook(recipeDeck);
+  pantry = new Pantry(users[0].pantry);
+  user = new User(users[0], pantry);
   populateCards(cookbook.recipes);
   greetUser();
 }
@@ -38,7 +38,7 @@ function onStartup() {
 function populateCards(recipes) {
   cardArea.innerHTML = '';
   if (cardArea.classList.contains('all')) {
-    cardArea.classList.remove('all')
+    cardArea.classList.remove('all') // what does this all do?
   }
   recipes.forEach(recipe => { // I want to break this into a more modular card function that accepts a recipe argument
     cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
@@ -63,9 +63,7 @@ function populateCards(recipes) {
 };
 
 function greetUser() {
-  const userName = document.querySelector('.user-name');
-  userName.innerHTML =
-  user.name.split(' ')[0] + ' ' + user.name.split(' ')[1][0];
+  welcomeMessage.innerText = `Welcome ${user.name}!`;
 }
 
 function viewFavorites() {
@@ -126,6 +124,7 @@ function cardButtonConditionals(event) {
     populateCards(cookbook.recipes);
   }
 }
+
 
 
 function displayDirections(event) {
