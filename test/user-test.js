@@ -23,6 +23,30 @@ describe('User', () => {
     );
   });
 
+  it('Should have an id', () => {
+    expect(user1.id).to.equal(1);
+  });
+
+  it('Should have a name', () => {
+    expect(user1.name).to.equal('Boba');
+  });
+
+  it('Should have a pantry', () => {
+    expect(user1.pantry).to.deep.equal([
+      {
+        'ingredient': 1077,
+        'amount': 1
+      },
+      {
+        'ingredient': 14412,
+        'amount': 1
+      },
+      {
+        'ingredient': 1009054,
+        'amount': 3
+      }]);
+  });
+
   it('Should have a property of favoriteRecipes with a default value', () => {
     expect(user1.favoriteRecipes).to.eql([]);
   });
