@@ -17,20 +17,20 @@ const welcomeMessage = document.querySelector('.greeting');
 
 let user, pantry, cookbook; //comma syntax is interesting
 
-window.onload = onStartup();
+window.onload = onStartup(users[0]);
 homeButton.addEventListener('click', cardButtonConditionals);
 showFavorites.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
 
-function onStartup() {
+const onStartup = (user) => {
   let recipeDeck = [];
   recipeData.forEach((recipe) => {
     let instance = new Recipe(recipe, ingredientsData)
     recipeDeck.push(instance)
   });
   cookbook = new Cookbook(recipeDeck);
-  pantry = new Pantry(users[0].pantry);
-  user = new User(users[0], pantry);
+  pantry = new Pantry(user.pantry);
+  user = new User(user, pantry);
   populateCards(cookbook.recipes);
   greetUser();
 }
