@@ -128,36 +128,32 @@ function cardButtonConditionals(event) {
 }
 
 
-function displayDirections(event) { //doesn't appear to work
+function displayDirections(event) {
   let newRecipeInfo = cookbook.recipes.find(recipe => {
     if (recipe.id === Number(event.target.id)) {
       return recipe;
-    }
-  })
-  let recipeObject = new Recipe(newRecipeInfo, ingredientsData);// could we be instantiating recipes earlier in the class?
-  let cost = recipeObject.calculateCost()
-  let costInDollars = (cost / 100).toFixed(2)// this functionality could be moved into calcualte cost
+    };
+  });
+  let recipeObject = new Recipe(newRecipeInfo, ingredientData);// could we be instantiating recipes earlier in the class?
+  let cost = recipeObject.calculateCost();
+  let costInDollars = (cost / 100).toFixed(2);// this functionality could be moved into calcualte cost
   cardArea.classList.add('all');// could be more semantically named
-  cardArea.innerHTML = `<h3>${recipeObject.name}</h3> 
-  <p class='all-recipe-info'>
-  <strong>It will cost: </strong><span class='cost recipe-info'>
-  $${costInDollars}</span><br><br>
-  <strong>You will need: </strong><span class='ingredients recipe-info'></span>
-  <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
-  </span></ol>
-  </p>`;
+  let neededIngredients = [];
   recipeObject.ingredients.forEach(ingredient => {
-    ingredientsSpan.insertAdjacentHTML('afterbegin', `<ul><li>
-    ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
-    ${ingredient.name}</li></ul>
-    `)
+    neededIngredients.push(`${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit} ${ingredient.name}`)
   })
-  recipeObject.instructions.forEach(instruction => {
-    instructionsSpan.insertAdjacentHTML('beforebegin', `<li>
-    ${instruction.instruction}</li>
-    `)
+  let neededSteps = [];
+  recipeObject.instructions.forEach(step => {
+   neededSteps.push(`${step.number}. ${step.instruction} `)
   })
-}
+  cardArea.innerHTML = `<h3>${recipeObject.name}</h3>
+  <img src='${recipeObject.image}' alt='Recipe image for ${recipeObject.name}'>
+  <div class='all-recipe-info'>
+  <h4>It will cost: ${costInDollars} </h4>
+  <h5>You will need: ${neededIngredients.join(', ')} </h5>
+  <h5>Instructions: ${neededSteps.join(', ')} </h5>
+  </div>`;
+};
 
 function getFavorites() {
   if (user.favoriteRecipes.length) {
