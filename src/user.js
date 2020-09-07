@@ -36,14 +36,16 @@ class User {
   checkPantry(recipe) {
     let missingIngredients = recipe.ingredients.reduce((notPresent, ingredient) => {
       let ingredientName = ingredient.name;
-      if(ingredient.quantity.amount > this.pantry.userIngredients[ingredientName]) {
+      if(!this.pantry.userIngredients[ingredientName] || ingredient.quantity.amount > this.pantry.userIngredients[ingredientName]) {
         notPresent.push(ingredientName);
       };
+      return notPresent;
     }, []);
-    if(missingIngredients === undefined) {
+    if(missingIngredients.length === 0) {
       return 'You have the ingredients!';
     } else {
-      return `You still need ${missingIngredients.join(' and ')}`
+      let missing = missingIngredients.join(' and ');
+      return `You still need ${missing}.`;
     };
   }
 }

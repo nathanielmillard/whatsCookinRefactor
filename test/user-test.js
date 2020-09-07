@@ -9,6 +9,7 @@ let user1;
 let user;
 let pantry;
 let recipe1;
+let recipe2;
 
 describe.only('User', () => {
   beforeEach(() => {
@@ -18,11 +19,11 @@ describe.only('User', () => {
       pantry: [
         {
           'ingredient': 1077,
-          'amount': 1
+          'amount': 10
         },
         {
           'ingredient': 14412,
-          'amount': 1
+          'amount': 10
         },
         {
           'ingredient': 1009054,
@@ -51,8 +52,48 @@ describe.only('User', () => {
           }
         } ]
       };
+      recipe2 = {
+        "name": "milk ice",
+        "id": 595701,
+        "image": "https://spoonacular.com/recipeImages/595736-556x370.jpg",
+        "ingredients": [
+          {
+            "name": "full-fat milk",
+            "id": 1077,
+            "quantity": {
+              "amount": 1,
+              "unit": "c"
+            }
+          },
+          {
+            "name": "ice water",
+            "id": 14412,
+            "quantity": {
+              "amount": 1,
+              "unit": "tsp"
+            }
+          },
+          {
+            "name": "tapioca starch",
+            "id": 93696,
+            "quantity": {
+              "amount": 4,
+              "unit": "cup"
+            }
+          },
+          {
+            "name": "xanthan gum",
+            "id": 93626,
+            "quantity": {
+              "amount": 2,
+              "unit": "teaspoons"
+            }
+          }
+        ]
+        };
     pantry = new Pantry(user.pantry);
     user1 = new User(user, pantry);
+    user1.pantry.createPantry(ingredientsData);
   });
 
   it('Should have an id', () => {
@@ -94,11 +135,10 @@ describe.only('User', () => {
   });
 
   it('Should be able to check ingredients in User/s pantry for a given recipe', () => {
-    user1.pantry.createPantry(ingredientsData);
     expect(user1.checkPantry(recipe1)).to.eql('You have the ingredients!');
   });
 
-  it('Should inform User if they lack required ingredients for a given recipe', () => {
-    expect(user1.checkPantry(recipeIngredients)).to.eql(missingIngredientsWithPrice);
+  it('Should inform User of the ingredients that they lack for a given recipe', () => {
+    expect(user1.checkPantry(recipe2)).to.eql('You still need tapioca starch and xanthan gum.');
   });
 });
