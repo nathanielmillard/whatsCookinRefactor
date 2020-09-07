@@ -62,9 +62,9 @@ function populateCards(recipes) {
   getFavorites();
 };
 
-function greetUser() {
+const greetUser = () => {
   welcomeMessage.innerText = `Welcome ${user.name}!`;
-}
+};
 
 function viewFavorites() {
   if (cardArea.classList.contains('all')) {
