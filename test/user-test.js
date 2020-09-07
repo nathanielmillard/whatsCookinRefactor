@@ -135,10 +135,10 @@ describe.only('User', () => {
   });
 
   it('Should be able to check ingredients in User/s pantry for a given recipe', () => {
-    expect(user1.checkPantry(recipe1)).to.eql('You have the ingredients!');
+    expect(user1.checkPantryIngredients(recipe1)).to.eql('You have the ingredients!');
   });
 
   it('Should inform User of the ingredients that they lack for a given recipe', () => {
-    expect(user1.checkPantry(recipe2)).to.eql('You still need tapioca starch and xanthan gum.');
+    expect(user1.checkPantryIngredients(recipe2)).to.eql('You still need tapioca starch and xanthan gum.');
   });
 });

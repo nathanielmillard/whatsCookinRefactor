@@ -9,13 +9,26 @@ class User {
 
   addToFavorites(recipe) {
     if (!this.favoriteRecipes.includes(recipe)) {
-      this.favoriteRecipes.push(recipe)
-    }
+      this.favoriteRecipes.push(recipe);
+    };
+  }
+
+  addToRecipesToCook(recipe) {
+    if (!this.recipesToCook.includes(recipe)) {
+      this.recipesToCook.push(recipe);
+    };
+  }
+
+  haveCookedThisRecipe(recipe){
+    //remove ingredient quantities from user Pantry
+    //remove recipe from array
+    const i = this.recipesToCook.indexOf(recipe);
+    this.recipesToCook.splice(i, 1);
   }
 
   removeFromFavorites(recipe) {
     const i = this.favoriteRecipes.indexOf(recipe);
-    this.favoriteRecipes.splice(i, 1)
+    this.favoriteRecipes.splice(i, 1);
   }
 
   filterFavorites(tag) {
@@ -33,7 +46,7 @@ class User {
     });
   }
 
-  checkPantry(recipe) {
+  checkPantryIngredients(recipe) {
     let missingIngredients = recipe.ingredients.reduce((notPresent, ingredient) => {
       let ingredientName = ingredient.name;
       if(!this.pantry.userIngredients[ingredientName] || ingredient.quantity.amount > this.pantry.userIngredients[ingredientName]) {
@@ -45,8 +58,12 @@ class User {
       return 'You have the ingredients!';
     } else {
       let missing = missingIngredients.join(' and ');
-      return `You still need ${missing}.`;
+      return `You still need more ${missing}.`;
     };
+  }
+
+  checkHowMuchMore(recipe) {
+    //want to return quantity and cost to fufill a recipe.
   }
 }
 
