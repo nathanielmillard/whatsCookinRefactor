@@ -41,26 +41,30 @@ function populateCards(recipes) {
     cardArea.classList.remove('all') // what does this all do?
   }
   recipes.forEach(recipe => { // I want to break this into a more modular card function that accepts a recipe argument
-    cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
-    class='card'>
-    <header id='${recipe.id}' class='card-header'>
-    <label for='add-button' class='hidden'>Click to add recipe</label>
-    <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
-    <img id='${recipe.id} favorite' class='add'
-    src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
-    recipes to cook'>
-    </button>
-    <label for='favorite-button' class='hidden'>Click to favorite recipe
-    </label>
-    <button id='${recipe.id}' aria-label='favorite-button' class='favorite favorite${recipe.id} card-button'></button>
-    </header>
-    <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
-    <img id='${recipe.id}' tabindex='0' class='card-picture'
-    src='${recipe.image}' alt='click to view recipe for ${recipe.name}'>
-    </div>`)
+    cardArea.insertAdjacentHTML('afterbegin', constructCard(recipe))
   })
   getFavorites();
 };
+
+const constructCard (recipe) => {
+  return `<div id='${recipe.id}'
+  class='card'>
+  <header class='card-header'>
+  <label for='add-button' class='hidden'>Click to add recipe</label>
+  <button aria-label='add-button' class='add-button card-button'>
+  <img favorite' class='add' src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
+  recipes to cook'>
+  </button>
+  <label for='favorite-button' class='hidden'>Click to favorite recipe
+  </label>
+  <button aria-label='favorite-button' class='favorite favorite${recipe.name} card-button'></button>
+  </header>
+  <span class='recipe-name'>${recipe.name}</span>
+  <img tabindex='0' class='card-picture'
+  src='${recipe.image}' alt='click to view recipe for ${recipe.name}'>
+  </div>`
+};
+
 
 const greetUser = () => {
   welcomeMessage.innerText = `Welcome ${user.name}!`;
