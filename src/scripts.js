@@ -17,8 +17,6 @@ const welcomeMessage = document.querySelector('.greeting');
 
 let domUser, pantry, cookbook; //comma syntax is interesting
 
-
-
 const onStartup = (user) => {
   let recipeDeck = [];
   recipeData.forEach((recipe) => {
@@ -124,7 +122,7 @@ const viewFavorites = () => {
   }
 };
 
-function cardButtonConditionals(event) {
+const cardButtonConditionals = (event) => {
   if (event.target.classList.contains('favorite')) {
     favoriteCard(event);
   } else if (event.target.classList.contains('card-picture')) {
@@ -135,7 +133,7 @@ function cardButtonConditionals(event) {
   }
 }
 
-function displayDirections(event) {
+const displayDirections = (event) => {
   let newRecipeInfo = cookbook.recipes.find(recipe => {
     if (recipe.id === Number(event.target.id)) {
       return recipe;
@@ -161,8 +159,6 @@ function displayDirections(event) {
   <h5>Instructions: ${neededSteps.join(', ')} </h5>
   </div>`;
 };
-
-
 
 window.onload = onStartup(users[0]);
 homeButton.addEventListener('click', cardButtonConditionals);
