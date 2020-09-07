@@ -32,7 +32,11 @@ const onStartup = (user) => {
   greetUser();
 }
 
-function populateCards(recipes) {
+const greetUser = () => {
+  welcomeMessage.innerText = `Welcome ${domUser.name}!`;
+};
+
+const populateCards = (recipes) => {
   cardArea.innerHTML = '';
   if (cardArea.classList.contains('all')) {
     cardArea.classList.remove('all') // what does this all do?
@@ -43,37 +47,33 @@ function populateCards(recipes) {
   getFavorites();
 };
 
-function getFavorites() {
+const getFavorites = () => {
   if (domUser.favoriteRecipes.length) {
     domUser.favoriteRecipes.forEach(recipe => {
       document.querySelector(`.favorite${recipe.id}`).classList.add('favorite-active')
     })
-  } else return
+  }
 }
 
 const constructCard = (recipe) => {
   return `<div id='${recipe.id}'
   class='card'>
-  <header class='card-header'>
+  <header id='${recipe.id}' class='card-header'>
   <label for='add-button' class='hidden'>Click to add recipe</label>
-  <button aria-label='add-button' class='add-button card-button'>
-  <img favorite' class='add' src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
-  recipes to cook'>
-  </button>
+  <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
+  <img id='${recipe.id}' class='add'
+  src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
+  recipes to cook'></button>
   <label for='favorite-button' class='hidden'>Click to favorite recipe
   </label>
-  <button aria-label='favorite-button' class='favorite favorite${recipe.name} card-button'></button>
-  </header>
-  <span class='recipe-name'>${recipe.name}</span>
-  <img tabindex='0' class='card-picture'
-  src='${recipe.image}' alt='click to view recipe for ${recipe.name}'>
+  <button id='${recipe.id}' aria-label='favorite-button' class='favorite card-button'>
+  </button></header>
+  <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
+  <img id='${recipe.id}' tabindex='0' class='card-picture'
+  src='${recipe.image}' alt='Food from recipe'>
   </div>`
+  //The over use of ID's makes me nervous but idk if it's a real issue
 };
-
-const greetUser = () => {
-  welcomeMessage.innerText = `Welcome ${domUser.name}!`;
-};
-
 
 const favoriteCard = (event) => {
     let specificRecipe = cookbook.recipes.find(recipe => {
@@ -82,12 +82,14 @@ const favoriteCard = (event) => {
       }
     })
     if (!event.target.classList.contains('favorite-active')) {
-      event.target.classList.add('favorite-active');
-      favButton.innerHTML = 'View Favorites';
-      user.addToFavorites(specificRecipe);
+      event.target.classList.add('favorite-active'); //may be a use case for toggle
+      // showFavorites.innerHTML = 'View Favorites'; seems not needed
+      domUser.addToFavorites(specificRecipe);
+      console.log(domUser.favoriteRecipes)
     } else if (event.target.classList.contains('favorite-active')) {
       event.target.classList.remove('favorite-active');
-      user.removeFromFavorites(specificRecipe)
+      domUser.removeFromFavorites(specificRecipe)
+      console.log(domUser.favoriteRecipes)
     }
   }
 
@@ -95,14 +97,14 @@ const viewFavorites = () => {
   if (cardArea.classList.contains('all')) {
     cardArea.classList.remove('all')
   }
-  if (!user.favoriteRecipes.length) {
+  if (!domUser.favoriteRecipes.length) {
     favButton.innerHTML = 'You have no favorites!';
     populateCards(cookbook.recipes);
     return
   } else {
-    favButton.innerHTML = 'Refresh Favorites'
+    showFavorites.innerHTML = 'Refresh Favorites'
     cardArea.innerHTML = '';
-    user.favoriteRecipes.forEach(recipe => {
+    domUser.favoriteRecipes.forEach(recipe => {
       cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
       class='card'>
       <header id='${recipe.id}' class='card-header'>
