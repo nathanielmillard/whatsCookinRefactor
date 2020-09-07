@@ -15,7 +15,9 @@ const homeButton = document.querySelector('.home')
 const cardArea = document.querySelector('.all-cards');
 const welcomeMessage = document.querySelector('.greeting');
 
-let user, pantry, cookbook; //comma syntax is interesting
+let domUser, pantry, cookbook; //comma syntax is interesting
+
+
 
 const onStartup = (user) => {
   let recipeDeck = [];
@@ -24,8 +26,8 @@ const onStartup = (user) => {
     recipeDeck.push(instance)
   });
   cookbook = new Cookbook(recipeDeck);
-  pantry = new Pantry(user.pantry);
-  user = new User(user, pantry);
+  pantry = new Pantry(users[0].pantry);
+  domUser = new User(user, pantry);
   populateCards(cookbook.recipes);
   greetUser();
 }
@@ -40,6 +42,14 @@ function populateCards(recipes) {
   });
   getFavorites();
 };
+
+function getFavorites() {
+  if (domUser.favoriteRecipes.length) {
+    domUser.favoriteRecipes.forEach(recipe => {
+      document.querySelector(`.favorite${recipe.id}`).classList.add('favorite-active')
+    })
+  } else return
+}
 
 const constructCard = (recipe) => {
   return `<div id='${recipe.id}'
@@ -60,17 +70,12 @@ const constructCard = (recipe) => {
   </div>`
 };
 
-
 const greetUser = () => {
-  welcomeMessage.innerText = `Welcome ${user.name}!`;
+  welcomeMessage.innerText = `Welcome ${domUser.name}!`;
 };
 
-function viewFavorites() {
-  if (cardArea.classList.contains('all')) {
-    cardArea.classList.remove('all')
-  }
 
-  function favoriteCard(event) {
+const favoriteCard = (event) => {
     let specificRecipe = cookbook.recipes.find(recipe => {
       if (recipe.id  === Number(event.target.id)) {
         return recipe;
@@ -84,6 +89,11 @@ function viewFavorites() {
       event.target.classList.remove('favorite-active');
       user.removeFromFavorites(specificRecipe)
     }
+  }
+
+const viewFavorites = () => {
+  if (cardArea.classList.contains('all')) {
+    cardArea.classList.remove('all')
   }
   if (!user.favoriteRecipes.length) {
     favButton.innerHTML = 'You have no favorites!';
@@ -124,8 +134,6 @@ function cardButtonConditionals(event) {
   }
 }
 
-
-
 function displayDirections(event) {
   let newRecipeInfo = cookbook.recipes.find(recipe => {
     if (recipe.id === Number(event.target.id)) {
@@ -153,13 +161,7 @@ function displayDirections(event) {
   </div>`;
 };
 
-function getFavorites() {
-  if (user.favoriteRecipes.length) {
-    user.favoriteRecipes.forEach(recipe => {
-      document.querySelector(`.favorite${recipe.id}`).classList.add('favorite-active')
-    })
-  } else return
-}
+
 
 window.onload = onStartup(users[0]);
 homeButton.addEventListener('click', cardButtonConditionals);
