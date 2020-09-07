@@ -76,22 +76,20 @@ const constructCard = (recipe) => {
 };
 
 const favoriteCard = (event) => {
-    let specificRecipe = cookbook.recipes.find(recipe => {
-      if (recipe.id  === Number(event.target.id)) {
-        return recipe;
-      }
-    })
-    if (!event.target.classList.contains('favorite-active')) {
-      event.target.classList.add('favorite-active'); //may be a use case for toggle
-      // showFavorites.innerHTML = 'View Favorites'; seems not needed
-      domUser.addToFavorites(specificRecipe);
-      console.log(domUser.favoriteRecipes)
-    } else if (event.target.classList.contains('favorite-active')) {
-      event.target.classList.remove('favorite-active');
-      domUser.removeFromFavorites(specificRecipe)
-      console.log(domUser.favoriteRecipes)
+  let specificRecipe = cookbook.recipes.find(recipe => {
+    if (recipe.id  === Number(event.target.id)) {
+      return recipe;
     }
+  })
+  if (!event.target.classList.contains('favorite-active')) {
+    event.target.classList.add('favorite-active'); //may be a use case for toggle
+    // showFavorites.innerHTML = 'View Favorites'; seems not needed
+    domUser.addToFavorites(specificRecipe);
+  } else if (event.target.classList.contains('favorite-active')) {
+    event.target.classList.remove('favorite-active');
+    domUser.removeFromFavorites(specificRecipe)
   }
+};
 
 const viewFavorites = () => {
   if (cardArea.classList.contains('all')) {
@@ -121,9 +119,10 @@ const viewFavorites = () => {
       <img id='${recipe.id}' tabindex='0' class='card-picture'
       src='${recipe.image}' alt='Food from recipe'>
       </div>`)
+      //need to figure how to flexible show favorites availability if I recycle card constructor.
     })
   }
-}
+};
 
 function cardButtonConditionals(event) {
   if (event.target.classList.contains('favorite')) {
