@@ -89,6 +89,21 @@ const favoriteCard = (event) => {
   }
 };
 
+const addToToCook = (event) => {
+  let specificRecipe = cookbook.recipes.find(recipe => {
+    if (recipe.id  === Number(event.target.id)) {
+      return recipe;
+    }
+  });
+  if (!event.target.classList.contains('add-active')) {
+    event.target.classList.add('add-active'); //add-active isn't a class styling
+    domUser.addToRecipesToCook(specificRecipe);
+  } else if (event.target.classList.contains('add-active')) {
+    event.target.classList.remove('add-active');
+    domUser.haveCookedThisRecipe(specificRecipe) //may want two functions here one to remove and one to cook that meal
+  };
+};
+
 const viewFavorites = () => {
   if (cardArea.classList.contains('all')) {
     cardArea.classList.remove('all')
@@ -109,6 +124,8 @@ const viewFavorites = () => {
 const cardButtonConditionals = (event) => {
   if (event.target.classList.contains('favorite')) {
     favoriteCard(event);
+  } else if (event.target.classList.contains('add-button')) {
+    addToToCook(event);
   } else if (event.target.classList.contains('card-picture')) {
     displayDirections(event);
   } else if (event.target.classList.contains('home')) {
