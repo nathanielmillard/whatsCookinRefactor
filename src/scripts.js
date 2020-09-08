@@ -156,12 +156,12 @@ const displayDirections = (event) => {
   <img src='${recipeObject.image}' alt='Recipe image for ${recipeObject.name}'>
   <div class='all-recipe-info'>
   <h5>You will need: ${neededIngredients.join(', ')} </h5>
-  <h5>Instructions: ${neededSteps.join(', ')} </h5>
-  </div>
-  <h5>This recipe generally costs: ${costInDollars} </h5>`;
+  <h5>Instructions: ${neededSteps.join(' ')} </h5>
+  <h5>This recipe generally costs: ${costInDollars} </h5>
+  </div>`;
 };
 
-window.onload = onStartup(users[0]);
+window.onload = onStartup(users[1]);
 homeButton.addEventListener('click', cardButtonConditionals);
-showFavoritesButton.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
+showFavoritesButton.addEventListener('click', viewFavorites);
