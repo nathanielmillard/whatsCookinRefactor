@@ -15,7 +15,7 @@ const homeButton = document.querySelector('.home')
 const cardArea = document.querySelector('.all-cards');
 const welcomeMessage = document.querySelector('.greeting');
 
-let domUser, pantry, cookbook; //comma syntax is interesting
+let domUser, pantry, cookbook;
 
 const onStartup = (user) => {
   let recipeDeck = [];
@@ -53,7 +53,7 @@ const getFavorites = () => {
   }
 }
 
-const constructCard = (recipe) => {
+const constructCard = (recipe, addedClass) => {
   return `<div id='${recipe.id}'
   class='card'>
   <header id='${recipe.id}' class='card-header'>
@@ -64,7 +64,7 @@ const constructCard = (recipe) => {
   recipes to cook'></button>
   <label for='favorite-button' class='hidden'>Click to favorite recipe
   </label>
-  <button id='${recipe.id}' aria-label='favorite-button' class='favorite card-button'>
+  <button id='${recipe.id}' aria-label='favorite-button' class='favorite card-button ${addedClass}'>
   </button></header>
   <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
   <img id='${recipe.id}' tabindex='0' class='card-picture'
@@ -94,30 +94,14 @@ const viewFavorites = () => {
     cardArea.classList.remove('all')
   }
   if (!domUser.favoriteRecipes.length) {
-    favButton.innerHTML = 'You have no favorites!';
+    showFavorites.innerHTML = 'You have no favorites!';
     populateCards(cookbook.recipes);
     return
   } else {
     showFavorites.innerHTML = 'Refresh Favorites'
     cardArea.innerHTML = '';
     domUser.favoriteRecipes.forEach(recipe => {
-      cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
-      class='card'>
-      <header id='${recipe.id}' class='card-header'>
-      <label for='add-button' class='hidden'>Click to add recipe</label>
-      <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
-      <img id='${recipe.id}' class='add'
-      src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
-      recipes to cook'></button>
-      <label for='favorite-button' class='hidden'>Click to favorite recipe
-      </label>
-      <button id='${recipe.id}' aria-label='favorite-button' class='favorite favorite-active card-button'>
-      </button></header>
-      <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
-      <img id='${recipe.id}' tabindex='0' class='card-picture'
-      src='${recipe.image}' alt='Food from recipe'>
-      </div>`)
-      //need to figure how to flexible show favorites availability if I recycle card constructor.
+      cardArea.insertAdjacentHTML('afterbegin', constructCard(recipe, "favorite-active"))
     })
   }
 };
@@ -139,7 +123,7 @@ const displayDirections = (event) => {
       return recipe;
     };
   });
-  let recipeObject = new Recipe(newRecipeInfo, ingredientData);// could we be instantiating recipes earlier in the class?
+  let recipeObject = new Recipe(newRecipeInfo, ingredientsData);// could we be instantiating recipes earlier in the class?
   let cost = recipeObject.calculateCost();
   let costInDollars = (cost / 100).toFixed(2);// this functionality could be moved into calcualte cost
   cardArea.classList.add('all');// could be more semantically named
@@ -154,10 +138,10 @@ const displayDirections = (event) => {
   cardArea.innerHTML = `<h3>${recipeObject.name}</h3>
   <img src='${recipeObject.image}' alt='Recipe image for ${recipeObject.name}'>
   <div class='all-recipe-info'>
-  <h4>It will cost: ${costInDollars} </h4>
   <h5>You will need: ${neededIngredients.join(', ')} </h5>
   <h5>Instructions: ${neededSteps.join(', ')} </h5>
-  </div>`;
+  </div>
+  <h5>This recipe generally costs: ${costInDollars} </h5>`;
 };
 
 window.onload = onStartup(users[0]);
