@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import ingredientsData from '../src/data/ingredients.js';
 import Pantry from '../src/pantry.js';
 import User from '../src/user.js';
+import Recipe from '../src/recipe.js';
 import recipeData from '../src/data/recipes.js';
 
 let user1;
@@ -29,6 +30,10 @@ describe.only('User', () => {
         {
           'ingredient': 1009054,
           'amount': 3
+        },
+        {
+          'ingredient': 93696,
+          'amount': 1
         }
       ]
     };
@@ -96,17 +101,19 @@ describe.only('User', () => {
         };
     pantry = new Pantry(user.pantry);
     user1 = new User(user, pantry);
+    recipe1 = new Recipe(recipe1, ingredientsData);
+    recipe2 = new Recipe(recipe2, ingredientsData);
     user1.pantry.createPantry(ingredientsData);
     needed = [
       {
         name: 'tapioca starch',
-        quantityNeeded: 4,
-        costInCents: 656
+        quantityNeeded: 3,
+        cost: 19.68
       },
       {
         name: 'xanthan gum',
         quantityNeeded: 2,
-        costInCents: 625
+        cost: 12.50
       }
     ];
   });
@@ -157,7 +164,7 @@ describe.only('User', () => {
     expect(user1.checkPantryIngredients(recipe2)).to.eql('You still need more tapioca starch and xanthan gum.');
   });
 
-  it('should determine the amount of ingredients still needed to cook a given meal, based on what’s in my pantry', () => {
-    expect(user1.checkHowMuchMore(recipe2)).to.equal(needed);
+  it('should determine the amount of ingredients still needed to cook a given meal, based on what’s in my pantry, and how much they will cost', () => {
+    expect(user1.checkHowMuchMore(recipe2)).to.deep.equal(needed);
   })
 });
