@@ -112,7 +112,7 @@ const cardButtonConditionals = (event) => {
   } else if (event.target.classList.contains('card-picture')) {
     displayDirections(event);
   } else if (event.target.classList.contains('home')) {
-    favButton.innerHTML = 'View Favorites';
+    showFavorites.innerHTML = 'View Favorites';
     populateCards(cookbook.recipes);
   }
 }
