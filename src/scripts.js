@@ -10,7 +10,7 @@ import Recipe from './recipe';
 import User from './user';
 import Cookbook from './cookbook';
 
-const showFavorites = document.querySelector('.view-favorites');
+const showFavoritesButton = document.querySelector('.view-favorites');
 const homeButton = document.querySelector('.home')
 const cardArea = document.querySelector('.all-cards');
 const welcomeMessage = document.querySelector('.greeting');
@@ -81,7 +81,7 @@ const favoriteCard = (event) => {
   })
   if (!event.target.classList.contains('favorite-active')) {
     event.target.classList.add('favorite-active'); //may be a use case for toggle
-    // showFavorites.innerHTML = 'View Favorites'; seems not needed
+    // showFavoritesButton.innerHTML = 'View Favorites'; seems not needed
     domUser.addToFavorites(specificRecipe);
   } else if (event.target.classList.contains('favorite-active')) {
     event.target.classList.remove('favorite-active');
@@ -94,11 +94,11 @@ const viewFavorites = () => {
     cardArea.classList.remove('all')
   }
   if (!domUser.favoriteRecipes.length) {
-    showFavorites.innerHTML = 'You have no favorites!';
+    showFavoritesButton.innerHTML = 'You have no favorites!';
     populateCards(cookbook.recipes);
     return
   } else {
-    showFavorites.innerHTML = 'Refresh Favorites'
+    showFavoritesButton.innerHTML = 'Refresh Favorites'
     cardArea.innerHTML = '';
     domUser.favoriteRecipes.forEach(recipe => {
       cardArea.insertAdjacentHTML('afterbegin', constructCard(recipe, "favorite-active"))
@@ -112,7 +112,7 @@ const cardButtonConditionals = (event) => {
   } else if (event.target.classList.contains('card-picture')) {
     displayDirections(event);
   } else if (event.target.classList.contains('home')) {
-    showFavorites.innerHTML = 'View Favorites';
+    showFavoritesButton.innerHTML = 'View Favorites';
     populateCards(cookbook.recipes);
   }
 }
@@ -146,5 +146,5 @@ const displayDirections = (event) => {
 
 window.onload = onStartup(users[0]);
 homeButton.addEventListener('click', cardButtonConditionals);
-showFavorites.addEventListener('click', viewFavorites);
+showFavoritesButton.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
