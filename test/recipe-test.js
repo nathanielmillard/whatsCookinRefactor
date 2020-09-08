@@ -6,7 +6,7 @@ import ingredientsData from '../src/data/ingredients.js';
 
 let recipe;
 
-describe.only('Recipe', () => {
+describe('Recipe', () => {
   beforeEach(() => {
     recipe = new Recipe(recipeData[47], ingredientsData);
   });
@@ -36,8 +36,7 @@ describe.only('Recipe', () => {
   });
 
   it('Should be able to calculate the cost of its ingredients', () => {
-    // console.log(ingredientsData);
-    expect(recipe.calculateCost()).to.equal(4166);
+    expect(recipe.calculateCost()).to.equal(41.66);
   });
 
 });
