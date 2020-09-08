@@ -19,7 +19,7 @@ class Recipe {
         }
       })
     });
-    return costCounter;
+    return parseFloat((costCounter / 100).toFixed(2));
   }
 
 }
