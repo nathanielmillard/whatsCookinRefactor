@@ -10,6 +10,7 @@ let user;
 let pantry;
 let recipe1;
 let recipe2;
+let needed;
 
 describe.only('User', () => {
   beforeEach(() => {
@@ -28,7 +29,8 @@ describe.only('User', () => {
         {
           'ingredient': 1009054,
           'amount': 3
-        }]
+        }
+      ]
     };
     recipe1 = {
       "name": "ice milk",
@@ -50,7 +52,8 @@ describe.only('User', () => {
             "amount": 1,
             "unit": "tsp"
           }
-        } ]
+        }
+      ]
       };
       recipe2 = {
         "name": "milk ice",
@@ -94,6 +97,18 @@ describe.only('User', () => {
     pantry = new Pantry(user.pantry);
     user1 = new User(user, pantry);
     user1.pantry.createPantry(ingredientsData);
+    needed = [
+      {
+        name: 'tapioca starch',
+        quantityNeeded: 4,
+        costInCents: 656
+      },
+      {
+        name: 'xanthan gum',
+        quantityNeeded: 2,
+        costInCents: 625
+      }
+    ];
   });
 
   it('Should have an id', () => {
@@ -139,6 +154,10 @@ describe.only('User', () => {
   });
 
   it('Should inform User of the ingredients that they lack for a given recipe', () => {
-    expect(user1.checkPantryIngredients(recipe2)).to.eql('You still need tapioca starch and xanthan gum.');
+    expect(user1.checkPantryIngredients(recipe2)).to.eql('You still need more tapioca starch and xanthan gum.');
   });
+
+  it('should determine the amount of ingredients still needed to cook a given meal, based on what’s in my pantry', () => {
+    expect(user1.checkHowMuchMore(recipe2)).to.equal(needed);
+  })
 });

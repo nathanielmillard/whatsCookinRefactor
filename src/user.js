@@ -20,8 +20,8 @@ class User {
   }
 
   haveCookedThisRecipe(recipe){
-    //remove ingredient quantities from user Pantry
-    //remove recipe from array
+    //remove ingredient quantities from user Pantry, leave till later [ ]
+    //remove recipe from array [x]
     const i = this.recipesToCook.indexOf(recipe);
     this.recipesToCook.splice(i, 1);
   }
@@ -64,6 +64,23 @@ class User {
 
   checkHowMuchMore(recipe) {
     //want to return quantity and cost to fufill a recipe.
+    let missingIngredients = recipe.ingredients.reduce((notPresent, ingredient) => {
+      let ingredientName = ingredient.name;
+      if(!this.pantry.userIngredients[ingredientName] || ingredient.quantity.amount > this.pantry.userIngredients[ingredientName]) {
+        notPresent.push(ingredient);
+      };
+      return notPresent;
+    }, []);
+    // console.log(missingIngredients);
+    let difference = missingIngredients.map(ingredient => {
+      if (!this.pantry.userIngredients[ingredient.id] === undefined) {
+        let neededIng = {
+          name: ingredient.name,
+          quantityNeeded: ingredient.quantity.amount - this.pantry.userIngredients[ingredient.id]
+        };
+        console.log(neededIng);
+      };
+    })
   }
 }
 
