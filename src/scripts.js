@@ -93,12 +93,11 @@ const addToToCook = (event) => {
     }
   });
   if (!event.target.classList.contains('add-active')) {
-    event.target.classList.add('add-active'); //add-active isn't a class styling
     domUser.addToRecipesToCook(specificRecipe);
   } else if (event.target.classList.contains('add-active')) {
-    event.target.classList.remove('add-active');
-    domUser.haveCookedThisRecipe(specificRecipe) //may want two functions here one to remove and one to cook that meal
+    domUser.removeFromRecipesToCook(specificRecipe) 
   };
+  event.target.classList.toggle('add-active');
 };
 
 const viewFavorites = () => {

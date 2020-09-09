@@ -19,11 +19,14 @@ class User {
     };
   }
 
-  haveCookedThisRecipe(recipe){
-    //remove ingredient quantities from user Pantry, leave till later [ ]
-    //remove recipe from array [x]
+  removeFromRecipesToCook(recipe){
     const i = this.recipesToCook.indexOf(recipe);
     this.recipesToCook.splice(i, 1);
+  }
+
+  updatePantry() {
+  //remove ingredient quantities from user Pantry, leave till later [ ]
+  //remove recipe from array [x]
   }
 
   removeFromFavorites(recipe) {
