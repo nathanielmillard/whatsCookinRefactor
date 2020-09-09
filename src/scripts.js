@@ -36,9 +36,9 @@ const greetUser = () => {
 
 const populateCards = (recipes) => {
   cardArea.innerHTML = '';
-  if (cardArea.classList.contains('all')) {
-    cardArea.classList.remove('all') // what does this all do?
-  }
+  // if (cardArea.classList.contains('all')) {
+  //   cardArea.classList.remove('all') // what does this all do?
+  // }
   recipes.forEach(recipe => {
     cardArea.insertAdjacentHTML('afterbegin', constructCard(recipe))
   });
@@ -54,28 +54,26 @@ const getFavorites = () => {
 }
 
 const constructCard = (recipe, addedClass) => {
-  return `<div id='${recipe.id}'
-  class='card'>
-  <header id='${recipe.id}' class='card-header'>
+  return `<div class='card ${recipe.id}'>
+  <header class='card-header ${recipe.id}'>
   <label for='add-button' class='hidden'>Click to add recipe</label>
-  <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
-  <img id='${recipe.id}' class='add'
+  <button aria-label='add-button' class='add-button card-button ${recipe.id}'>
+  <img class='add ${recipe.id}'
   src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
   recipes to cook'></button>
   <label for='favorite-button' class='hidden'>Click to favorite recipe
   </label>
-  <button id='${recipe.id}' aria-label='favorite-button' class='favorite card-button ${addedClass}'>
+  <button aria-label='favorite-button' class='favorite card-button favorite${recipe.id} ${recipe.id} ${addedClass}'>
   </button></header>
-  <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
-  <img id='${recipe.id}' tabindex='0' class='card-picture'
+  <span class='recipe-name ${recipe.id}'>${recipe.name}</span>
+  <img tabindex='0' class='card-picture ${recipe.id}'
   src='${recipe.image}' alt='Food from recipe'>
   </div>`
-  //The over use of ID's makes me nervous but idk if it's a real issue
 };
 
 const favoriteCard = (event) => {
   let specificRecipe = cookbook.recipes.find(recipe => {
-    if (recipe.id  === Number(event.target.id)) {
+    if (event.target.classList.contains(recipe.id)) {
       return recipe;
     }
   })
@@ -83,6 +81,7 @@ const favoriteCard = (event) => {
     event.target.classList.add('favorite-active'); //may be a use case for toggle
     // showFavoritesButton.innerHTML = 'View Favorites'; seems not needed
     domUser.addToFavorites(specificRecipe);
+    console.log(domUser.favoriteRecipes)
   } else if (event.target.classList.contains('favorite-active')) {
     event.target.classList.remove('favorite-active');
     domUser.removeFromFavorites(specificRecipe)
