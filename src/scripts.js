@@ -78,14 +78,12 @@ const favoriteCard = (event) => {
     }
   })
   if (!event.target.classList.contains('favorite-active')) {
-    event.target.classList.add('favorite-active'); //may be a use case for toggle
-    // showFavoritesButton.innerHTML = 'View Favorites'; seems not needed
+    showFavoritesButton.innerHTML = 'View Favorites';
     domUser.addToFavorites(specificRecipe);
-    console.log(domUser.favoriteRecipes)
   } else if (event.target.classList.contains('favorite-active')) {
-    event.target.classList.remove('favorite-active');
     domUser.removeFromFavorites(specificRecipe)
   }
+  event.target.classList.toggle('favorite-active');
 };
 
 const addToToCook = (event) => {
