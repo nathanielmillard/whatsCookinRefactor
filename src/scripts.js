@@ -95,7 +95,7 @@ const addToToCook = (event) => {
   if (!event.target.classList.contains('add-active')) {
     domUser.addToRecipesToCook(specificRecipe);
   } else if (event.target.classList.contains('add-active')) {
-    domUser.removeFromRecipesToCook(specificRecipe) 
+    domUser.removeFromRecipesToCook(specificRecipe)
   };
   event.target.classList.toggle('add-active');
 };
@@ -131,29 +131,33 @@ const cardButtonConditionals = (event) => {
 }
 
 const displayDirections = (event) => {
-  let newRecipeInfo = cookbook.recipes.find(recipe => {
-    if (recipe.id === Number(event.target.id)) {
+  let newRecipe = cookbook.recipes.find(recipe => {
+    if (event.target.classList.contains(`${recipe.id}`)) {
       return recipe;
     };
   });
-  let recipeObject = new Recipe(newRecipeInfo, ingredientsData);// could we be instantiating recipes earlier in the class?
-  let cost = recipeObject.calculateCost();
-  let costInDollars = (cost / 100).toFixed(2);// this functionality could be moved into calcualte cost
-  cardArea.classList.add('all');// could be more semantically named
+  let cost = newRecipe.calculateCost();
+  cardArea.innerHTML = '';
   let neededIngredients = [];
-  recipeObject.ingredients.forEach(ingredient => {
+  newRecipe.ingredients.forEach(ingredient => {
     neededIngredients.push(`${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit} ${ingredient.name}`)
   })
   let neededSteps = [];
-  recipeObject.instructions.forEach(step => {
+  newRecipe.instructions.forEach(step => {
    neededSteps.push(`${step.number}. ${step.instruction} `)
   })
-  cardArea.innerHTML = `<h3>${recipeObject.name}</h3>
-  <img src='${recipeObject.image}' alt='Recipe image for ${recipeObject.name}'>
+  cardArea.innerHTML = `<h3>${newRecipe.name}</h3>
+  <img src='${newRecipe.image}' alt='Recipe image for ${newRecipe.name}'>
   <div class='all-recipe-info'>
-  <h5>You will need: ${neededIngredients.join(', ')} </h5>
-  <h5>Instructions: ${neededSteps.join(' ')} </h5>
-  <h5>This recipe generally costs: ${costInDollars} </h5>
+  <h5>You will need: </h5>
+  <ul>
+  <li>${neededIngredients.join('</li><li>')}</li>
+  </ul>
+  <h5>Instructions: </h5>
+  <ul style='list-style-type:none;'>
+  <li>${neededSteps.join('</li><li>')}</li>
+  </ul>
+  <h5>This recipe generally costs: $${cost} </h5>
   </div>`;
 };
 
