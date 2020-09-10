@@ -56,18 +56,17 @@ const getFavorites = () => {
 const constructCard = (recipe, addedClass) => {
   return `<div class='card ${recipe.id}'>
   <header class='card-header ${recipe.id}'>
-  <label for='add-button' class='hidden'>Click to add recipe</label>
-  <button aria-label='add-button' class='add-button card-button ${recipe.id}'>
-  <img class='add ${recipe.id}'
-  src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
-  recipes to cook'></button>
-  <label for='favorite-button' class='hidden'>Click to favorite recipe
-  </label>
-  <button aria-label='favorite-button' class='favorite card-button favorite${recipe.id} ${recipe.id} ${addedClass}'>
-  </button></header>
+    <label for='add-button' class='hidden'>Click to add recipe</label>
+    <button aria-label='add-button' class='add-button card-button ${recipe.id}'>
+      <img class='add ${recipe.id}' src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
+      recipes to cook'>
+    </button>
+    <label for='favorite-button' class='hidden'>Click to favorite recipe</label>
+    <button aria-label='favorite-button' class='favorite card-button favorite${recipe.id} ${recipe.id} ${addedClass}'>
+    </button>
+  </header>
   <span class='recipe-name ${recipe.id}'>${recipe.name}</span>
-  <img tabindex='0' class='card-picture ${recipe.id}'
-  src='${recipe.image}' alt='Food from recipe'>
+    <img tabindex='0' class='card-picture ${recipe.id}'src='${recipe.image}' alt='Food from recipe'>
   </div>`
 };
 
@@ -92,7 +91,6 @@ const addToToCook = (event) => {
       return recipe;
     }
   });
-  //console.log(specificRecipe);
   if (!event.target.classList.contains('add-active')) {
     alert(domUser.checkPantryIngredients(specificRecipe));
     domUser.addToRecipesToCook(specificRecipe);
@@ -122,7 +120,7 @@ const viewFavorites = () => {
 const cardButtonConditionals = (event) => {
   if (event.target.classList.contains('favorite')) {
     favoriteCard(event);
-  } else if (event.target.classList.contains('add-button')) {
+  } else if (event.target.classList.contains('add')) {
     addToToCook(event);
   } else if (event.target.classList.contains('card-picture')) {
     displayDirections(event);
