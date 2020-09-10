@@ -88,11 +88,13 @@ const favoriteCard = (event) => {
 
 const addToToCook = (event) => {
   let specificRecipe = cookbook.recipes.find(recipe => {
-    if (recipe.id  === Number(event.target.id)) {
+    if (event.target.classList.contains(recipe.id)) {
       return recipe;
     }
   });
+  //console.log(specificRecipe);
   if (!event.target.classList.contains('add-active')) {
+    alert(domUser.checkPantryIngredients(specificRecipe));
     domUser.addToRecipesToCook(specificRecipe);
   } else if (event.target.classList.contains('add-active')) {
     domUser.removeFromRecipesToCook(specificRecipe)
