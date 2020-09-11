@@ -14,6 +14,7 @@ const showFavoritesButton = document.querySelector('.view-favorites');
 const homeButton = document.querySelector('.home')
 const cardArea = document.querySelector('.all-cards');
 const welcomeMessage = document.querySelector('.greeting');
+const searchBar = document.querySelector('.search-input');
 
 let domUser, pantry, cookbook;
 
@@ -192,7 +193,7 @@ let cardSection = document.querySelector('.card-section')
   <p>Cost to Still Get:$${neededCost}</p>
 </div>`);
   });
-}
+};
 // for display 'to cook' cards function
 const showToCookButton = document.querySelector('.to-cook');
 const showToCookRecipes = () => {
@@ -202,10 +203,31 @@ if (!domUser.recipesToCook.length) {
   return
 } else {
   displayToCookCards();
-}}
+}};
+
+const filterRecipes = () => {
+  var searchTerm = event.target.value.toLowerCase();
+  if (searchTerm !== '') {
+    cardArea.innerHTML = '';
+    displayFilteredRecipes(searchTerm);
+  } else {
+    populateCards(cookbook.recipes);
+  }
+};
+
+const displayFilteredRecipes = (searchTerm) => {
+  let allRecipeResults = cookbook.recipes.filter((recipe)=>{
+    let ingredientNames = recipe.ingredients.map((ingredient)=>{
+      return ingredient.name
+    })
+    return recipe.name.toLowerCase().includes(searchTerm) || recipe.tags.includes(searchTerm) || ingredientNames.includes(searchTerm)
+  })
+  populateCards(allRecipeResults)
+};
 
 window.onload = onStartup(users[1]);
 homeButton.addEventListener('click', cardButtonConditionals);
 cardArea.addEventListener('click', cardButtonConditionals);
 showFavoritesButton.addEventListener('click', viewFavorites);
 showToCookButton.addEventListener('click', showToCookRecipes);
+searchBar.addEventListener('keyup', filterRecipes);
