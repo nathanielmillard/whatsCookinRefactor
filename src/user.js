@@ -66,25 +66,37 @@ class User {
   }
 
   checkHowMuchMore(recipe) {
-    //want to return quantity and cost to fufill a recipe.
     let missingIngredients = recipe.ingredients.reduce((notPresent, ingredient) => {
-      let ingredientName = ingredient.name;
-      if(!this.pantry.userIngredients[ingredientName] || ingredient.quantity.amount > this.pantry.userIngredients[ingredientName]) {
+      if(!this.pantry.userIngredients[ingredient.name] || ingredient.quantity.amount > this.pantry.userIngredients[ingredient.name]) {
         notPresent.push(ingredient);
       };
       return notPresent;
     }, []);
-    // console.log(missingIngredients);
     let difference = missingIngredients.map(ingredient => {
-      if (!this.pantry.userIngredients[ingredient.id] === undefined) {
-        let neededIng = {
+      let neededIng;
+      if (this.pantry.userIngredients[ingredient.name]) {
+        neededIng = {
+          cost: 0,
           name: ingredient.name,
-          quantityNeeded: ingredient.quantity.amount - this.pantry.userIngredients[ingredient.id]
-        };
-        console.log(neededIng);
-      };
-    })
-  }
+          quantityNeeded: ingredient.quantity.amount - this.pantry.userIngredients[ingredient.name]
+        }
+      } else {
+          neededIng = {
+            cost: 0,
+            name: ingredient.name,
+            quantityNeeded: ingredient.quantity.amount
+          }
+        }
+        let ingredientItem = recipe.ingredientsData.find(item => {
+          return ingredient.name === item.name;
+        });
+      let totalCost = (neededIng.quantityNeeded * ingredientItem.estimatedCostInCents) / 100;
+      neededIng.cost = totalCost;
+      return neededIng;
+      })
+      return difference;
+    }
+
 }
 
 
