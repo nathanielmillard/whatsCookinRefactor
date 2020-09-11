@@ -161,6 +161,39 @@ const displayDirections = (event) => {
   </div>`;
 };
 
+// for display 'to cook' cards function
+displayToCookCards = () => {
+  let neededIngredientsAndAmounts = domUser.checkHowMuchMore(recipe).map(obj => {
+    return `${obj.quantityNeeded} cups more ${obj.name}`;
+  });
+  let neededCost = domUser.checkHowMuchMore(recipe).reduce((total, ingredient) => {
+    return total += ingredient.cost;
+  }, 0);
+  cardArea.innerHTML =
+    `<section class='to-cook'>
+  <h1>Recipes To Cook</h1>
+  <div class='card-section'>
+  </div>
+</section>`
+  let cardSection = document.querySelector('.card-section')
+
+  domUser.recipesToCook.forEach(recipe => {
+    cardSection.insertAdjacentHTML('beforeend', `<div class='card ${recipe.id}'>
+  <header class='recipe-name ${recipe.id}'>${recipe.name}</header>
+  <img tabindex='0' class='card-picture ${recipe.id}'
+  src='${recipe.image}' alt='Food from recipe'>
+  <label>Have Cooked</label> //this might not be the right tag
+  <input type="checkbox">
+  <p>Ingredients Still Needed:</p>
+  <ul >
+  <li>${neededIngredientsAndAmounts.join('</li><li>')}</li>
+  </ul>
+  <p>Cost to Still Get:$${neededCost}</p>
+</div>`);
+  });
+}
+// for display 'to cook' cards function
+
 window.onload = onStartup(users[1]);
 homeButton.addEventListener('click', cardButtonConditionals);
 cardArea.addEventListener('click', cardButtonConditionals);
