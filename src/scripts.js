@@ -54,7 +54,7 @@ const getFavorites = () => {
   }
 }
 
-const constructCard = (recipe, addedClass) => {
+const constructCard = (recipe) => {
   return `<div class='card ${recipe.id}'>
   <header class='card-header ${recipe.id}'>
     <label for='add-button' class='hidden'>Click to add recipe</label>
@@ -63,7 +63,7 @@ const constructCard = (recipe, addedClass) => {
       recipes to cook'>
     </button>
     <label for='favorite-button' class='hidden'>Click to favorite recipe</label>
-    <button aria-label='favorite-button' class='favorite card-button favorite${recipe.id} ${recipe.id} ${addedClass}'>
+    <button aria-label='favorite-button' class='favorite card-button favorite${recipe.id} ${recipe.id}'>
     </button>
   </header>
   <span class='recipe-name ${recipe.id}'>${recipe.name}</span>
@@ -181,10 +181,19 @@ let cardSection = document.querySelector('.card-section')
       return total += ingredient.cost;
     }, 0);
     cardSection.insertAdjacentHTML('beforeend', `<div class='card ${recipe.id}'>
-  <header class='recipe-name ${recipe.id}'>${recipe.name}</header>
+  <header class='recipe-name ${recipe.id}'>
+    <label for='add-button' class='hidden'>Click to add recipe</label>
+    <button aria-label='add-button' class='add-button card-button ${recipe.id}'>
+      <img class='add ${recipe.id}' src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to recipes to cook'>
+    </button>
+    <label for='favorite-button' class='hidden'>Click to favorite recipe</label>
+    <button aria-label='favorite-button' class='favorite card-button favorite${recipe.id} ${recipe.id}'>
+    </button>
+</header>
+  <h3>${recipe.name}</h3>
   <img tabindex='0' class='card-picture ${recipe.id}'
   src='${recipe.image}' alt='Food from recipe'>
-  <label>Have Cooked</label> //this might not be the right tag
+  <label>Have Cooked</label>
   <input type="checkbox">
   <p>Ingredients Still Needed:</p>
   <ul >
