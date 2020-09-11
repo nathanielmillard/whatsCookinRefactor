@@ -72,23 +72,28 @@ class User {
       };
       return notPresent;
     }, []);
+    // console.log(missingIngredients);
     let difference = missingIngredients.map(ingredient => {
       let neededIng;
       if (this.pantry.userIngredients[ingredient.name]) {
         neededIng = {
+          id: ingredient.id,
           cost: 0,
           name: ingredient.name,
           quantityNeeded: ingredient.quantity.amount - this.pantry.userIngredients[ingredient.name]
         }
       } else {
           neededIng = {
+            id: NaN,
             cost: 0,
             name: ingredient.name,
             quantityNeeded: ingredient.quantity.amount
           }
         }
         let ingredientItem = recipe.ingredientsData.find(item => {
-          return ingredient.name === item.name;
+          // console.log(item.name);
+          // console.log(ingredient.name);
+          return ingredient.id === item.id;
         });
       let totalCost = (neededIng.quantityNeeded * ingredientItem.estimatedCostInCents) / 100;
       neededIng.cost = totalCost;
