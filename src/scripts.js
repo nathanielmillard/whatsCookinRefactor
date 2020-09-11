@@ -193,8 +193,18 @@ displayToCookCards = () => {
   });
 }
 // for display 'to cook' cards function
+const showToCookButton = document.querySelector('.to-cook-button');
+const showToCookRecipes = () => {
+if (!domUser.favoriteRecipes.length) {
+  showToCookButton.innerText = 'You have no saved Recipes!';
+  populateCards(cookbook.recipes);
+  return
+} else {
+  displayToCookCards();
+}}
 
 window.onload = onStartup(users[1]);
 homeButton.addEventListener('click', cardButtonConditionals);
 cardArea.addEventListener('click', cardButtonConditionals);
 showFavoritesButton.addEventListener('click', viewFavorites);
+showToCookButton.addEventListener('click', showToCookRecipes);
