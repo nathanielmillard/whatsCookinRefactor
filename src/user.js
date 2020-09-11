@@ -80,13 +80,15 @@ class User {
           id: ingredient.id,
           cost: 0,
           name: ingredient.name,
-          quantityNeeded: ingredient.quantity.amount - this.pantry.userIngredients[ingredient.name]
+          unit: ingredient.quantity.unit,
+          quantityNeeded: parseFloat(ingredient.quantity.amount - this.pantry.userIngredients[ingredient.name].toFixed(2))
         }
       } else {
           neededIng = {
             id: NaN,
             cost: 0,
             name: ingredient.name,
+            unit: ingredient.quantity.unit,
             quantityNeeded: ingredient.quantity.amount
           }
         }
@@ -96,7 +98,7 @@ class User {
           return ingredient.id === item.id;
         });
       let totalCost = (neededIng.quantityNeeded * ingredientItem.estimatedCostInCents) / 100;
-      neededIng.cost = totalCost;
+      neededIng.cost = parseFloat((totalCost).toFixed(2));
       return neededIng;
       })
       return difference;

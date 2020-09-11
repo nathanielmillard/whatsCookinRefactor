@@ -174,7 +174,7 @@ let cardSection = document.querySelector('.card-section')
 
   domUser.recipesToCook.forEach(recipe => {
     let neededIngredientsAndAmounts = domUser.checkHowMuchMore(recipe).map(obj => {
-      return `${obj.quantityNeeded} cups more ${obj.name}`;
+      return `${obj.quantityNeeded} ${obj.unit} more ${obj.name}`;
     });
     let neededCost = domUser.checkHowMuchMore(recipe).reduce((total, ingredient) => {
       return total += ingredient.cost;
