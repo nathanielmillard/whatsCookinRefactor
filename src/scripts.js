@@ -59,7 +59,7 @@ const constructCard = (recipe) => {
   <header class='card-header ${recipe.id}'>
     <label for='add-button' class='hidden'>Click to add recipe</label>
     <button aria-label='add-button' class='add-button card-button ${recipe.id}'>
-      <img class='add ${recipe.id}' src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
+      <img class='add ${recipe.id} add-button' src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
       recipes to cook'>
     </button>
     <label for='favorite-button' class='hidden'>Click to favorite recipe</label>
@@ -119,18 +119,6 @@ const viewFavorites = () => {
   }
 };
 
-const cardButtonConditionals = (event) => {
-  if (event.target.classList.contains('favorite')) {
-    favoriteCard(event);
-  } else if (event.target.classList.contains('add')) {
-    addToToCook(event);
-  } else if (event.target.classList.contains('card-picture')) {
-    displayDirections(event);
-  } else if (event.target.classList.contains('home')) {
-    showFavoritesButton.innerHTML = 'View Favorites';
-    populateCards(cookbook.recipes);
-  }
-}
 
 const displayDirections = (event) => {
   let newRecipe = cookbook.recipes.find(recipe => {
@@ -182,9 +170,9 @@ let cardSection = document.querySelector('.card-section')
     }, 0);
     cardSection.insertAdjacentHTML('beforeend', `<div class='card ${recipe.id}'>
   <header class='recipe-name ${recipe.id}'>
-    <label for='add-button' class='hidden'>Click to add recipe</label>
-    <button aria-label='add-button' class='add-button card-button ${recipe.id}'>
-      <img class='add ${recipe.id}' src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to recipes to cook'>
+    <label for='close-button' class='hidden'></label>
+    <button aria-label='close-button' class='close-button card-button ${recipe.id}'>
+      <img class='close ${recipe.id}' src='https://www.flaticon.com/svg/static/icons/svg/446/446091.svg' alt='remove from recipes to cook'>
     </button>
     <label for='favorite-button' class='hidden'>Click to favorite recipe</label>
     <button aria-label='favorite-button' class='favorite card-button favorite${recipe.id} ${recipe.id}'>
@@ -233,6 +221,31 @@ const displayFilteredRecipes = (searchTerm) => {
   })
   populateCards(allRecipeResults)
 };
+
+const removeFromToCook = (event) => {
+  let specificRecipe = cookbook.recipes.find(recipe => {
+    if (event.target.classList.contains(recipe.id)) {
+      return recipe;
+    }
+  })
+  domUser.removeFromRecipesToCook(specificRecipe);
+  displayToCookCards();
+}
+
+const cardButtonConditionals = (event) => {
+  if (event.target.classList.contains('favorite')) {
+    favoriteCard(event);
+  } else if (event.target.classList.contains('add-button')) {
+    addToToCook(event);
+  } else if (event.target.classList.contains('card-picture')) {
+    displayDirections(event);
+  } else if (event.target.classList.contains('home')) {
+    showFavoritesButton.innerHTML = 'View Favorites';
+    populateCards(cookbook.recipes);
+  } else if (event.target.classList.contains('close-button')) {
+    removeFromToCook(event);
+  }
+}
 
 window.onload = onStartup(users[1]);
 homeButton.addEventListener('click', cardButtonConditionals);
