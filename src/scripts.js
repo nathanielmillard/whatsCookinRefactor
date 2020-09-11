@@ -94,6 +94,7 @@ const addToToCook = (event) => {
   if (!event.target.classList.contains('add-active')) {
     alert(domUser.checkPantryIngredients(specificRecipe));
     domUser.addToRecipesToCook(specificRecipe);
+    // console.log(domUser.recipesToCook);
   } else if (event.target.classList.contains('add-active')) {
     domUser.removeFromRecipesToCook(specificRecipe)
   };
@@ -162,22 +163,22 @@ const displayDirections = (event) => {
 };
 
 // for display 'to cook' cards function
-displayToCookCards = () => {
-  let neededIngredientsAndAmounts = domUser.checkHowMuchMore(recipe).map(obj => {
-    return `${obj.quantityNeeded} cups more ${obj.name}`;
-  });
-  let neededCost = domUser.checkHowMuchMore(recipe).reduce((total, ingredient) => {
-    return total += ingredient.cost;
-  }, 0);
+const displayToCookCards = () => {
   cardArea.innerHTML =
     `<section class='to-cook'>
   <h1>Recipes To Cook</h1>
   <div class='card-section'>
   </div>
 </section>`
-  let cardSection = document.querySelector('.card-section')
+let cardSection = document.querySelector('.card-section')
 
   domUser.recipesToCook.forEach(recipe => {
+    let neededIngredientsAndAmounts = domUser.checkHowMuchMore(recipe).map(obj => {
+      return `${obj.quantityNeeded} cups more ${obj.name}`;
+    });
+    let neededCost = domUser.checkHowMuchMore(recipe).reduce((total, ingredient) => {
+      return total += ingredient.cost;
+    }, 0);
     cardSection.insertAdjacentHTML('beforeend', `<div class='card ${recipe.id}'>
   <header class='recipe-name ${recipe.id}'>${recipe.name}</header>
   <img tabindex='0' class='card-picture ${recipe.id}'
@@ -193,9 +194,9 @@ displayToCookCards = () => {
   });
 }
 // for display 'to cook' cards function
-const showToCookButton = document.querySelector('.to-cook-button');
+const showToCookButton = document.querySelector('.to-cook');
 const showToCookRecipes = () => {
-if (!domUser.favoriteRecipes.length) {
+if (!domUser.recipesToCook.length) {
   showToCookButton.innerText = 'You have no saved Recipes!';
   populateCards(cookbook.recipes);
   return
