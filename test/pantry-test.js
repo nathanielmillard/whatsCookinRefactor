@@ -21,28 +21,20 @@ describe('Pantry', () => {
       amount: 1
     };
     recipe1 = new Recipe(recipes[0])
-    // newPantry =
   });
 
   it('should store a user pantry', () => {
     expect(pantry.userIngredients.length).to.equal(users[0].pantry.length);
   });
 
-  it.only('should remove an item from the pantry', () => {
-    pantry.removeFromPantry(pantryItem);
-    expect(pantry.userPantry).to.deep.equal(pantry.userPantry)
-  })
-
   it.only('Should update the user pantry when a recipe has been cooked', () => {
     pantry.updatePantry(recipe1);
     pantry.createPantry(ingredientsData);
-    console.log(pantry.userIngredients);
-    expect(pantry.userPantry).to.deep.equal(newPantry);
+    expect(pantry.userPantry[1].amount).to.equal(0);
   });
 
   it('should add name and estimated cost to pantry item', () => {
     pantry.createPantry(ingredientsData);
-    // console.log(users[0].pantry);
     expect(pantry.userIngredients[0]).to.deep.equal(pantryItem);
   })
 })
