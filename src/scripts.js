@@ -3,27 +3,36 @@ import './css/styles.scss';
 
 // import recipeData from './data/recipes';
 // import ingredientsData from './data/ingredients';
-import users from './data/users';
+// import users from './data/users';
 
+let users = [{}];
 let serverRecipeData = [{}];
 let ingredientsData = [{}];
+
+fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData')
+  .then(response => response.json())
+  .then(data => {
+    users = data.wcUsersData
+    onStartup(users[1]);
+  })
+  .catch(err => console.log('error'))
 
 fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/recipes/recipeData')
   .then(response => response.json())
   .then(recipeData => {
     serverRecipeData = recipeData.recipeData
-    onStartup(domUser);
+    onStartup(users[1]);
   })
-  .catch(err => console.log(error))
+  .catch(err => console.log('error'))
 
 fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/ingredients/ingredientsData')
   .then(response => response.json())
-  .then(test => {
-    ingredientsData = test.ingredientsData
-    console.log(ingredientsData);
-    onStartup(domUser);
+  .then(data => {
+    ingredientsData = data.ingredientsData
+    onStartup(users[1]);
   })
-  .catch(err => console.log(error))
+  .catch(err => console.log('error'))
+
 
 import Pantry from './pantry';
 import Recipe from './recipe';
@@ -45,7 +54,7 @@ const onStartup = (user) => {
     recipeDeck.push(instance)
   });
   cookbook = new Cookbook(recipeDeck);
-  pantry = new Pantry(users[0].pantry);
+  pantry = new Pantry(users[1].pantry);
   domUser = new User(user, pantry);
   populateCards(cookbook.recipes);
   greetUser();
@@ -267,7 +276,6 @@ const cardButtonConditionals = (event) => {
   }
 }
 
-window.onload = onStartup(users[1]);
 homeButton.addEventListener('click', cardButtonConditionals);
 cardArea.addEventListener('click', cardButtonConditionals);
 showFavoritesButton.addEventListener('click', viewFavorites);
