@@ -1,9 +1,38 @@
 // import './css/base.scss';
 import './css/styles.scss';
 
-import recipeData from './data/recipes';
-import ingredientsData from './data/ingredients';
-import users from './data/users';
+// import recipeData from './data/recipes';
+// import ingredientsData from './data/ingredients';
+// import users from './data/users';
+
+let users = [{}];
+let serverRecipeData = [{}];
+let ingredientsData = [{}];
+
+fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData')
+  .then(response => response.json())
+  .then(data => {
+    users = data.wcUsersData
+    onStartup(users[1]);
+  })
+  .catch(err => console.log('error'))
+
+fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/recipes/recipeData')
+  .then(response => response.json())
+  .then(recipeData => {
+    serverRecipeData = recipeData.recipeData
+    onStartup(users[1]);
+  })
+  .catch(err => console.log('error'))
+
+fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/ingredients/ingredientsData')
+  .then(response => response.json())
+  .then(data => {
+    ingredientsData = data.ingredientsData
+    onStartup(users[1]);
+  })
+  .catch(err => console.log('error'))
+
 
 import Pantry from './pantry';
 import Recipe from './recipe';
@@ -20,12 +49,12 @@ let domUser, pantry, cookbook;
 
 const onStartup = (user) => {
   let recipeDeck = [];
-  recipeData.forEach((recipe) => {
+  serverRecipeData.forEach((recipe) => {
     let instance = new Recipe(recipe, ingredientsData)
     recipeDeck.push(instance)
   });
   cookbook = new Cookbook(recipeDeck);
-  pantry = new Pantry(users[0].pantry);
+  pantry = new Pantry(users[1].pantry);
   domUser = new User(user, pantry);
   populateCards(cookbook.recipes);
   greetUser();
@@ -247,7 +276,6 @@ const cardButtonConditionals = (event) => {
   }
 }
 
-window.onload = onStartup(users[1]);
 homeButton.addEventListener('click', cardButtonConditionals);
 cardArea.addEventListener('click', cardButtonConditionals);
 showFavoritesButton.addEventListener('click', viewFavorites);
