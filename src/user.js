@@ -19,11 +19,14 @@ class User {
     };
   }
 
-  haveCookedThisRecipe(recipe){
-    //remove ingredient quantities from user Pantry, leave till later [ ]
-    //remove recipe from array [x]
+  removeFromRecipesToCook(recipe){
     const i = this.recipesToCook.indexOf(recipe);
     this.recipesToCook.splice(i, 1);
+  }
+
+  updatePantry() {
+  //remove ingredient quantities from user Pantry, leave till later [ ]
+  //remove recipe from array [x]
   }
 
   removeFromFavorites(recipe) {
@@ -69,26 +72,33 @@ class User {
       };
       return notPresent;
     }, []);
+    // console.log(missingIngredients);
     let difference = missingIngredients.map(ingredient => {
       let neededIng;
       if (this.pantry.userIngredients[ingredient.name]) {
         neededIng = {
+          id: ingredient.id,
           cost: 0,
           name: ingredient.name,
-          quantityNeeded: ingredient.quantity.amount - this.pantry.userIngredients[ingredient.name]
+          unit: ingredient.quantity.unit,
+          quantityNeeded: parseFloat(ingredient.quantity.amount - this.pantry.userIngredients[ingredient.name].toFixed(2))
         }
       } else {
           neededIng = {
+            id: NaN,
             cost: 0,
             name: ingredient.name,
+            unit: ingredient.quantity.unit,
             quantityNeeded: ingredient.quantity.amount
           }
         }
         let ingredientItem = recipe.ingredientsData.find(item => {
-          return ingredient.name === item.name;
+          // console.log(item.name);
+          // console.log(ingredient.name);
+          return ingredient.id === item.id;
         });
       let totalCost = (neededIng.quantityNeeded * ingredientItem.estimatedCostInCents) / 100;
-      neededIng.cost = totalCost;
+      neededIng.cost = parseFloat((totalCost).toFixed(2));
       return neededIng;
       })
       return difference;

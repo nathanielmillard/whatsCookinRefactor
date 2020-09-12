@@ -1,24 +1,22 @@
 class Pantry {
   constructor(userPantry) {
-    this.userIngredients = userPantry
-    // console.log(this.userIngredients);
+    this.userPantry = userPantry;
+    this.userIngredients = {};
+  }
+
+  updatePantry(recipe) {
+    let allIngredients = recipe.ingredients.reduce((allIngredients, item) => {
+      allIngredients[item.id] = item.quantity.amount
+      return allIngredients
+    }, {})
+    this.userPantry.forEach(item => {
+      if(allIngredients[item.ingredient]) {
+        item.amount = (item.amount - allIngredients[item.ingredient])
+      }
+    });
   }
   createPantry(data) {
-    // this.userIngredients = this.userIngredients.map((ingredient) => {
-    //   let foodItem = data.find((food) => {
-    //     return food.id === ingredient.ingredient;
-    //   })
-    //   if(foodItem === undefined) {
-    //     foodItem = {
-    //       name: 'not present',
-    //       estimatedCostInCents: 'n/a'
-    //     }
-    //   }
-    //   ingredient['name'] = foodItem.name;
-    //   ingredient['estimatedCostInCents'] = foodItem.estimatedCostInCents;
-    //   return ingredient;
-    // })
-    this.userIngredients = this.userIngredients.reduce((pantry, ingredient) => {
+    this.userIngredients = this.userPantry.reduce((pantry, ingredient) => {
       let foodItem = data.find((food) => {
          return food.id === ingredient.ingredient;
        });

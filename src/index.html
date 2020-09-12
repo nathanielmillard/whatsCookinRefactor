@@ -6,21 +6,20 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap' rel='stylesheet'>
   </head>
   <body>
-    <header class='main-header'>
-      <h1>What's Cookin'</h1>
-      <p class='user-info'>Welcome, <span class='user-name'>User</span>.</p>
-      <label for='home-button' class='hidden'>Homepage button</label>
-      <button id='home-button' class='home navButton'>Home</button>
-      <label for='view-favorites-button' class='hidden'>View favorites</label>
-      <button id='view-favorites-button' class=' view-favorites navButton'>View Favorites</button>
-      <form class='search-bar'>
-        <label for='search-button' class='hidden'>Click here to search here</label>
-        <button id='search-button' class='search-button'>
-          <img class='search-image' src='https://image.flaticon.com/icons/svg/660/660029.svg' alt='Search button'>
-        </button>
-        <label for='search-input' class='hidden'>Type search query here</label>
-        <input id='search-input' class='search-input' type='text' placeholder='Search recipes by name or ingredients' value=''>
-      </form>
+    <header>
+      <div class="main-header">
+        <h1>What's Cook'n</h1>
+        <nav>
+          <button type="button" name="button" id='home-button' class='home navButton'>Home</button>
+          <button type="button" name="button" id='to-cook-button' class='to-cook navButton'>To Cook</button>
+          <button type="button" name="button" id='view-favorites-button' class='view-favorites navButton'>Favorites</button>
+        </nav>
+      </div>
+      <div class="lower-header">
+        <h2 class='greeting'> Welcome, User </h2>
+        <img class='search-bar search-image' src='https://image.flaticon.com/icons/svg/660/660029.svg' alt='Search button'>
+        <input id='search-input' class='search-bar search-input searchbar' type='text' placeholder='Search recipes by name or ingredients' value=''>
+      </div>
     </header>
     <main>
       <section class='all-cards'>

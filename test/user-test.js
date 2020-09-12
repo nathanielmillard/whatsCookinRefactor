@@ -134,6 +134,10 @@ describe.only('User', () => {
     expect(user1.favoriteRecipes).to.eql([]);
   });
 
+  it('Should have a property of recipesToCook with a default value', () => {
+    expect(user1.recipesToCook).to.eql([]);
+  });
+
   it('Should be able to add recipes to favoriteRecipes', () =>{
     user1.addToFavorites(recipeData[0])
     expect(user1.favoriteRecipes.includes(recipeData[0])).to.eql(true);
@@ -142,6 +146,16 @@ describe.only('User', () => {
   it('Should be able to remove recipes from favoriteRecipes', () =>{
     user1.removeFromFavorites(recipeData);
     expect(user1.favoriteRecipes).to.eql([]);
+  });
+
+  it('Should be able to add recipes to recipesToCook', () => {
+    user1.addToRecipesToCook(recipeData[0])
+    expect(user1.recipesToCook.includes(recipeData[0])).to.eql(true);
+  });
+
+  it('Should be able to remove recipes from recipesToCook', () =>{
+    user1.removeFromRecipesToCook(recipeData);
+    expect(user1.recipesToCook).to.eql([]);
   });
 
   it('Should be able to filter through favoriteRecipes by tag', () => {
