@@ -24,10 +24,10 @@ class User {
     this.recipesToCook.splice(i, 1);
   }
 
-  updatePantry() {
-  //remove ingredient quantities from user Pantry, leave till later [ ]
-  //remove recipe from array [x]
-  }
+  // updatePantry() {
+  // //remove ingredient quantities from user Pantry, leave till later [ ]
+  // //remove recipe from array [x]
+  // }
 
   removeFromFavorites(recipe) {
     const i = this.favoriteRecipes.indexOf(recipe);
@@ -50,46 +50,51 @@ class User {
   }
 
   checkPantryIngredients(recipe) {
+    console.log(recipe.ingredients);
     let missingIngredients = recipe.ingredients.reduce((notPresent, ingredient) => {
-      let ingredientName = ingredient.name;
-      if(!this.pantry.userIngredients[ingredientName] || ingredient.quantity.amount > this.pantry.userIngredients[ingredientName]) {
-        notPresent.push(ingredientName);
+      let ingredientID = ingredient.id;
+      if(!this.pantry.userIngredients[ingredientID] || ingredient.quantity.amount > this.pantry.userIngredients[ingredientID]) {
+        notPresent.push(ingredientID);
       };
       return notPresent;
     }, []);
+    // console.log(missingIngredients);
     if(missingIngredients.length === 0) {
       return 'You have the ingredients!';
     } else {
-      let missing = missingIngredients.join(' and ');
-      return `You still need more ${missing}.`;
+      let missing = missingIngredients.length;
+      return `You still need ${missing} more ingredients.`;
     };
   }
 
   checkHowMuchMore(recipe) {
     let missingIngredients = recipe.ingredients.reduce((notPresent, ingredient) => {
-      if(!this.pantry.userIngredients[ingredient.name] || ingredient.quantity.amount > this.pantry.userIngredients[ingredient.name]) {
+      if(!this.pantry.userIngredients[ingredient.id] || ingredient.quantity.amount > this.pantry.userIngredients[ingredient.id]) {
         notPresent.push(ingredient);
       };
       return notPresent;
     }, []);
-    // console.log(missingIngredients);
     let difference = missingIngredients.map(ingredient => {
       let neededIng;
-      if (this.pantry.userIngredients[ingredient.name]) {
+      let name = recipe.ingredientsData.find(item => {
+        return item.id === ingredient.id;
+      });
+      name = name.name;
+      if (this.pantry.userIngredients[ingredient.id]) {
         neededIng = {
           id: ingredient.id,
           cost: 0,
-          name: ingredient.name,
+          name: name,
           unit: ingredient.quantity.unit,
-          quantityNeeded: parseFloat(ingredient.quantity.amount - this.pantry.userIngredients[ingredient.name].toFixed(2))
+          quantityNeeded: parseFloat(ingredient.quantity.amount - this.pantry.userIngredients[ingredient.id].toFixed(2))
         }
       } else {
           neededIng = {
-            id: NaN,
+            id: ingredient.id,
             cost: 0,
-            name: ingredient.name,
+            name: name,
             unit: ingredient.quantity.unit,
-            quantityNeeded: ingredient.quantity.amount
+            quantityNeeded: parseFloat(ingredient.quantity.amount.toFixed(2))
           }
         }
         let ingredientItem = recipe.ingredientsData.find(item => {
