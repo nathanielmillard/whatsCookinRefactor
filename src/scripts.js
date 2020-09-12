@@ -2,16 +2,25 @@
 import './css/styles.scss';
 
 // import recipeData from './data/recipes';
-import ingredientsData from './data/ingredients';
+// import ingredientsData from './data/ingredients';
 import users from './data/users';
 
 let serverRecipeData = [{}];
+let ingredientsData = [{}];
 
 fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/recipes/recipeData')
   .then(response => response.json())
   .then(recipeData => {
     serverRecipeData = recipeData.recipeData
-    console.log(serverRecipeData);
+    onStartup(domUser);
+  })
+  .catch(err => console.log(error))
+
+fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/ingredients/ingredientsData')
+  .then(response => response.json())
+  .then(test => {
+    ingredientsData = test.ingredientsData
+    console.log(ingredientsData);
     onStartup(domUser);
   })
   .catch(err => console.log(error))
@@ -31,7 +40,6 @@ let domUser, pantry, cookbook;
 
 const onStartup = (user) => {
   let recipeDeck = [];
-  console.log('in the function' + serverRecipeData);
   serverRecipeData.forEach((recipe) => {
     let instance = new Recipe(recipe, ingredientsData)
     recipeDeck.push(instance)
