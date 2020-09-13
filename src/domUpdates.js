@@ -5,7 +5,6 @@ let domUpdates = {
   ingredientsData: [{}],
   user: //class instance,
   cookbook: //class instance,
-  pantry: //class instance,
 
   getWhatsCookingData() {
     Promise.all([
@@ -22,7 +21,15 @@ let domUpdates = {
     .catch(error => console.log(error))
   }
 
-  
+//We want user to be a certain index.
+  createDataModel(user) {
+    let pantry = new Pantry(user.pantry);
+    this.user = new User(user, pantry);
+    let recipeDeck = this.recipeData.map(recipe => {
+      return recipe = new Recipe(recipe);
+    })
+    this.cookbook = new Cookbook(recipeDeck);
+  }
 
 };
 
