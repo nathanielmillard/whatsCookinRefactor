@@ -38,18 +38,27 @@ h1 {
   width: 30%;
 }
 
-.user-info {
-  font-size: 180%;
-  margin: auto;
-  text-align: center;
-  width: 40%
+.lower-header {
+  display: flex;
+  justify-content: space-between;
 }
+
+.greeting {
+  padding-left: 15px;
+}
+
+// .user-info {
+//   font-size: 180%;
+//   margin: auto;
+//   text-align: center;
+//   width: 40%
+// }
 
 .search-bar {
   display: flex;
   height: 100%;
   margin: 10px 0px 10px 0px;
-  width: 30%;
+  width: 5%;
 }
 
 .search-button {
@@ -81,7 +90,7 @@ h1 {
   height: 7vh;
   margin: 3px 7px 0px 0px;
   padding-left: 10px;
-  width: 90%;
+  width: 40%;
 }
 
 
