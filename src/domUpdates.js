@@ -83,6 +83,42 @@ let domUpdates = {
       })
     }
   },
+
+  favoriteCard: (event) => {
+    const showFavoritesButton = document.querySelector('.view-favorites');
+    let specificRecipe = domUpdates.cookbook.recipes.find(recipe => {
+      if (event.target.classList.contains(recipe.id)) {
+        return recipe;
+      }
+    })
+    if (!event.target.classList.contains('favorite-active')) {
+      showFavoritesButton.innerHTML = 'View Favorites';
+      domUpdates.user.addToFavorites(specificRecipe);
+    } else if (event.target.classList.contains('favorite-active')) {
+      domUpdates.user.removeFromFavorites(specificRecipe)
+    }
+    event.target.classList.toggle('favorite-active');
+  },
+
+  viewFavorites: () => {
+    const showFavoritesButton = document.querySelector('.view-favorites');
+    const cardArea = document.querySelector('.all-cards');
+    if (cardArea.classList.contains('all')) {
+      cardArea.classList.remove('all')
+    }
+    if (!domUpdates.user.favoriteRecipes.length) {
+      showFavoritesButton.innerHTML = 'You have no favorites!';
+      domUpdates.populateCards(domUpdates.cookbook.recipes);
+      return
+    } else {
+      showFavoritesButton.innerHTML = 'Refresh Favorites'
+      cardArea.innerHTML = '';
+      domUpdates.user.favoriteRecipes.forEach(recipe => {
+        cardArea.insertAdjacentHTML('afterbegin', domUpdates.constructCard(recipe))
+      })
+    domUpdates.getFavorites();
+    }
+  }
 };
 
 export default  domUpdates;
