@@ -31,6 +31,23 @@ let domUpdates = {
     this.cookbook = new Cookbook(recipeDeck);
   }
 
+  updateDisplay() {
+    this.greetUser();
+    this.populateCards(this.cookbook);
+  }
+
+  greetUser() {
+    const welcomeMessage = document.querySelector('.greeting');
+    welcomeMessage.innerText = `Welcome ${this.user.name}!`;
+  }
+
+  populateCards(recipes) {
+    cardArea.innerHTML = '';
+    recipes.forEach(recipe => {
+      cardArea.insertAdjacentHTML('afterbegin', constructCard(recipe))
+    });
+    getFavorites();
+  }
 };
 
 export default  domUpdates;
