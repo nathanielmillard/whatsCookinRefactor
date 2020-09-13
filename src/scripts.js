@@ -12,56 +12,9 @@ const showFavoritesButton = document.querySelector('.view-favorites');
 const homeButton = document.querySelector('.home')
 const cardArea = document.querySelector('.all-cards');
 const searchBar = document.querySelector('.search-input');
+const showToCookButton = document.querySelector('.to-cook');
 
 let domUser, pantry, cookbook;
-
-// const favoriteCard = (event) => {
-//   let specificRecipe = cookbook.recipes.find(recipe => {
-//     if (event.target.classList.contains(recipe.id)) {
-//       return recipe;
-//     }
-//   })
-//   if (!event.target.classList.contains('favorite-active')) {
-//     showFavoritesButton.innerHTML = 'View Favorites';
-//     domUser.addToFavorites(specificRecipe);
-//   } else if (event.target.classList.contains('favorite-active')) {
-//     domUser.removeFromFavorites(specificRecipe)
-//   }
-//   event.target.classList.toggle('favorite-active');
-// };
-
-const addToToCook = (event) => {
-  let specificRecipe = cookbook.recipes.find(recipe => {
-    if (event.target.classList.contains(recipe.id)) {
-      return recipe;
-    }
-  });
-  if (!event.target.classList.contains('add-active')) {
-    alert(domUser.checkPantryIngredients(specificRecipe));
-    domUser.addToRecipesToCook(specificRecipe);
-    // console.log(domUser.recipesToCook);
-  } else if (event.target.classList.contains('add-active')) {
-    domUser.removeFromRecipesToCook(specificRecipe)
-  };
-  event.target.classList.toggle('add-active');
-};
-
-// const viewFavorites = () => {
-//   if (cardArea.classList.contains('all')) {
-//     cardArea.classList.remove('all')
-//   }
-//   if (!domUser.favoriteRecipes.length) {
-//     showFavoritesButton.innerHTML = 'You have no favorites!';
-//     populateCards(cookbook.recipes);
-//     return
-//   } else {
-//     showFavoritesButton.innerHTML = 'Refresh Favorites'
-//     cardArea.innerHTML = '';
-//     domUser.favoriteRecipes.forEach(recipe => {
-//       cardArea.insertAdjacentHTML('afterbegin', constructCard(recipe, "favorite-active"))
-//     })
-//   }
-// };
 
 const displayDirections = (event) => {
   let newRecipe = cookbook.recipes.find(recipe => {
@@ -94,56 +47,6 @@ const displayDirections = (event) => {
   </div>`;
 };
 
-const displayToCookCards = () => {
-  cardArea.innerHTML =
-    `<section class='to-cook'>
-  <h1>Recipes To Cook</h1>
-  <div class='card-section'>
-  </div>
-</section>`
-let cardSection = document.querySelector('.card-section')
-
-  domUser.recipesToCook.forEach(recipe => {
-    let neededIngredientsAndAmounts = domUser.checkHowMuchMore(recipe).map(obj => {
-      return `${obj.quantityNeeded} ${obj.unit} more ${obj.name}`;
-    });
-    let neededCost = domUser.checkHowMuchMore(recipe).reduce((total, ingredient) => {
-      return total += ingredient.cost;
-    }, 0);
-    cardSection.insertAdjacentHTML('beforeend', `<div class='card ${recipe.id}'>
-  <header class='recipe-name ${recipe.id}'>
-    <label for='close-button' class='hidden'></label>
-    <button aria-label='close-button' class='close-button card-button ${recipe.id}'>
-      <img class='close ${recipe.id}' src='https://www.flaticon.com/svg/static/icons/svg/446/446091.svg' alt='remove from recipes to cook'>
-    </button>
-    <label for='favorite-button' class='hidden'>Click to favorite recipe</label>
-    <button aria-label='favorite-button' class='favorite card-button favorite${recipe.id} ${recipe.id}'>
-    </button>
-</header>
-  <h3>${recipe.name}</h3>
-  <img tabindex='0' class='card-picture ${recipe.id}'
-  src='${recipe.image}' alt='Food from recipe'>
-  <label>Have Cooked</label>
-  <input type="checkbox">
-  <p>Ingredients Still Needed:</p>
-  <ul >
-  <li>${neededIngredientsAndAmounts.join('</li><li>')}</li>
-  </ul>
-  <p>Cost to Still Get:$${neededCost}</p>
-</div>`);
-  });
-};
-
-const showToCookButton = document.querySelector('.to-cook');
-const showToCookRecipes = () => {
-if (!domUser.recipesToCook.length) {
-  showToCookButton.innerText = 'You have no saved Recipes!';
-  populateCards(cookbook.recipes);
-  return
-} else {
-  displayToCookCards();
-}};
-
 const filterRecipes = () => {
   var searchTerm = event.target.value.toLowerCase();
   if (searchTerm !== '') {
@@ -164,28 +67,18 @@ const displayFilteredRecipes = (searchTerm) => {
   populateCards(allRecipeResults)
 };
 
-const removeFromToCook = (event) => {
-  let specificRecipe = cookbook.recipes.find(recipe => {
-    if (event.target.classList.contains(recipe.id)) {
-      return recipe;
-    }
-  })
-  domUser.removeFromRecipesToCook(specificRecipe);
-  displayToCookCards();
-}
-
 const cardButtonConditionals = (event) => {
   if (event.target.classList.contains('favorite')) {
     domUpdates.favoriteCard(event);
   } else if (event.target.classList.contains('add-button')) {
-    addToToCook(event);
+    domUpdates.addToToCook(event);
   } else if (event.target.classList.contains('card-picture')) {
     displayDirections(event);
   } else if (event.target.classList.contains('home')) {
     showFavoritesButton.innerHTML = 'View Favorites';
     domUpdates.populateCards(domUpdates.cookbook.recipes);
   } else if (event.target.classList.contains('close-button')) {
-    removeFromToCook(event);
+    domUpdates.removeFromToCook(event);
   }
 }
 
@@ -193,5 +86,5 @@ window.onload = domUpdates.getWhatsCookingData()
 homeButton.addEventListener('click', cardButtonConditionals);
 cardArea.addEventListener('click', cardButtonConditionals);
 showFavoritesButton.addEventListener('click', domUpdates.viewFavorites);
-showToCookButton.addEventListener('click', showToCookRecipes);
+showToCookButton.addEventListener('click', domUpdates.showToCookRecipes);
 searchBar.addEventListener('keyup', filterRecipes);
