@@ -16,36 +16,36 @@ const showToCookButton = document.querySelector('.to-cook');
 
 let domUser, pantry, cookbook;
 
-const displayDirections = (event) => {
-  let newRecipe = cookbook.recipes.find(recipe => {
-    if (event.target.classList.contains(`${recipe.id}`)) {
-      return recipe;
-    };
-  });
-  let cost = newRecipe.calculateCost();
-  cardArea.innerHTML = '';
-  let neededIngredients = [];
-  newRecipe.ingredients.forEach(ingredient => {
-    neededIngredients.push(`${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit} ${ingredient.name}`)
-  })
-  let neededSteps = [];
-  newRecipe.instructions.forEach(step => {
-   neededSteps.push(`${step.number}. ${step.instruction} `)
-  })
-  cardArea.innerHTML = `<h3>${newRecipe.name}</h3>
-  <img src='${newRecipe.image}' alt='Recipe image for ${newRecipe.name}'>
-  <div class='all-recipe-info'>
-  <h5>You will need: </h5>
-  <ul>
-  <li>${neededIngredients.join('</li><li>')}</li>
-  </ul>
-  <h5>Instructions: </h5>
-  <ul style='list-style-type:none;'>
-  <li>${neededSteps.join('</li><li>')}</li>
-  </ul>
-  <h5>This recipe generally costs: $${cost} </h5>
-  </div>`;
-};
+// const displayDirections = (event) => {
+//   let newRecipe = cookbook.recipes.find(recipe => {
+//     if (event.target.classList.contains(`${recipe.id}`)) {
+//       return recipe;
+//     };
+//   });
+//   let cost = newRecipe.calculateCost();
+//   cardArea.innerHTML = '';
+//   let neededIngredients = [];
+//   newRecipe.ingredients.forEach(ingredient => {
+//     neededIngredients.push(`${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit} ${ingredient.name}`)
+//   })
+//   let neededSteps = [];
+//   newRecipe.instructions.forEach(step => {
+//    neededSteps.push(`${step.number}. ${step.instruction} `)
+//   })
+//   cardArea.innerHTML = `<h3>${newRecipe.name}</h3>
+//   <img src='${newRecipe.image}' alt='Recipe image for ${newRecipe.name}'>
+//   <div class='all-recipe-info'>
+//   <h5>You will need: </h5>
+//   <ul>
+//   <li>${neededIngredients.join('</li><li>')}</li>
+//   </ul>
+//   <h5>Instructions: </h5>
+//   <ul style='list-style-type:none;'>
+//   <li>${neededSteps.join('</li><li>')}</li>
+//   </ul>
+//   <h5>This recipe generally costs: $${cost} </h5>
+//   </div>`;
+// };
 
 const filterRecipes = () => {
   var searchTerm = event.target.value.toLowerCase();
@@ -73,7 +73,7 @@ const cardButtonConditionals = (event) => {
   } else if (event.target.classList.contains('add-button')) {
     domUpdates.addToToCook(event);
   } else if (event.target.classList.contains('card-picture')) {
-    displayDirections(event);
+    domUpdates.displayDirections(event);
   } else if (event.target.classList.contains('home')) {
     showFavoritesButton.innerHTML = 'View Favorites';
     domUpdates.populateCards(domUpdates.cookbook.recipes);
