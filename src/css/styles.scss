@@ -50,7 +50,7 @@ nav {
   }
 
   &:active {
-    background-color: #C3C2C6;
+    background-color: $button-active-color;
   }
 }
 
@@ -89,7 +89,7 @@ nav {
   }
 
   &:active {
-    background-color: #C3C2C6;
+    background-color: $button-active-color;
   }
 }
 
@@ -126,7 +126,7 @@ img {
   }
 
   &:active {
-    background-color: #C3C2C6;
+    background-color: $button-active-color;
   }
 }
 
