@@ -212,7 +212,8 @@ let domUpdates = {
     newRecipe.instructions.forEach(step => {
      neededSteps.push(`${step.number}. ${step.instruction} `)
     })
-    cardArea.innerHTML = `<h3>${newRecipe.name}</h3>
+    cardArea.innerHTML = `<section class='display-recipe'>
+    <h3>${newRecipe.name}</h3>
     <img src='${newRecipe.image}' alt='Recipe image for ${newRecipe.name}'>
     <div class='all-recipe-info'>
     <h5>You will need: </h5>
@@ -220,11 +221,12 @@ let domUpdates = {
     <li>${neededIngredients.join('</li><li>')}</li>
     </ul>
     <h5>Instructions: </h5>
-    <ul style='list-style-type:none;'>
+    <ul class='instruction-list' style='list-style-type:none;'>
     <li>${neededSteps.join('</li><li>')}</li>
     </ul>
     <h5>This recipe generally costs: $${cost} </h5>
-    </div>`;
+    </div>
+    </section>`;
   },
 
   filterRecipes: () => {
