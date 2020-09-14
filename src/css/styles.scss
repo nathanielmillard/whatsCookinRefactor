@@ -37,11 +37,10 @@ nav {
 }
 
 .navButton {
+  @include font-appearance(130%, #000 !important);
   background-color: $primary-background-color;
-  color: #000 !important;
   border-left: $box-border;
   border-right: $box-border;
-  font-size: 130%;
   margin: 1%;
   margin-right: 20px;
 
@@ -59,10 +58,9 @@ nav {
 }
 
 .greeting {
-  color: $primary-background-color;
+  @include font-appearance(30px, $primary-background-color);
   padding-left: 15px;
   margin-top: 10px;
-  font-size: 30px;
 }
 
 .search-area {
@@ -137,11 +135,8 @@ img {
 }
 
 .favorite {
-  background-color: $primary-background-color;
+  @include button-background($primary-background-color, no-repeat, center, 13%);
   background-image: url(https://image.flaticon.com/icons/svg/149/149222.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 13%;
 }
 
 .card {
@@ -163,8 +158,7 @@ img {
 
 .all-recipe-info,
 ol {
-  color: $primary-background-color;
-  font-size: 150%;
+  @include font-appearance(150%, $primary-background-color);
   width: 100%;
 }
 
@@ -229,8 +223,7 @@ main {
   @include grid-settings(2, 1 / 2);
   overflow: hidden;
   max-height: auto;
-  font-size: 15px;
-  color: $primary-background-color;
+  @include font-appearance(15px, $primary-background-color);
 }
 
 .recipe-ingredients-title {
@@ -240,9 +233,8 @@ main {
 
 .recipe-instructions {
   @include grid-settings(1/span 2, 2);
+  @include font-appearance(20px, $primary-background-color);
   max-width: 90vw;
-  font-size: 20px;
-  color: $primary-background-color;
   margin-top: 100px;
 }
 
@@ -250,19 +242,14 @@ main {
 .to-cook-greeting {
   color: $primary-background-color;
 }
+
 .close-button {
-  background-color: $primary-background-color;
+  @include button-background($primary-background-color, no-repeat, center, 13%);
   background-image: url(https://www.flaticon.com/svg/static/icons/svg/446/446091.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 13%;
   font-weight: bold;
 }
 
-label {
-  margin-left: 10px;
-}
-
+label,
 .needed-ings,
 .ing-cost {
   margin-left: 10px;

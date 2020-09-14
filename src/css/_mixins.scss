@@ -16,3 +16,15 @@
   grid-column: $columns;
   grid-row: $rows;
 }
+
+@mixin button-background($color, $repeat, $position, $width) {
+  background-color: $color;
+  background-repeat: $repeat;
+  background-position: $position;
+  width: $width;
+}
+
+@mixin font-appearance($size, $color) {
+  font-size: $size;
+  color: $color;
+}
