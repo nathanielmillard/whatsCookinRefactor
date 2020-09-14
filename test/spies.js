@@ -72,5 +72,8 @@ describe('domUpdates', () => {
     expect(displayDirections()).to.have.been.called.with('event');
   });
 
-  
+  it('should filter recipes by search', () => {
+    domUpdates.filterRecipes();
+    expect(filterRecipes()).to.have.been.called(1);
+  });
 })
