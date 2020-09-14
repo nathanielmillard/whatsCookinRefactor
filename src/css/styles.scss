@@ -39,7 +39,6 @@ nav {
 }
 
 h1 {
-  border-right: 2px solid #000;
   font-size: 255%;
   margin-top: 0;
   margin-bottom: 0;
@@ -177,7 +176,10 @@ h3 {
 }
 
 .recipe-name {
-  display: block;
+  background-color: #EBF5EE;
+  border-bottom: 1px solid #000;
+  display: flex;
+  justify-content: space-between;
   font-size: 150%;
   text-align: center;
 }
