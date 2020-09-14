@@ -1,7 +1,18 @@
 //--Mixins--//
 
-@mixin common-display($display, $justify, $direction) {
+@mixin common-flex-display($display, $justify, $direction) {
   display: $display;
   justify-content: $justify;
   flex-direction: $direction;
+}
+
+@mixin common-grid-display($display, $gap, $columns) {
+  display: $display;
+  grid-gap: $gap;
+  grid-template-columns: $columns;
+}
+
+@mixin grid-settings($columns, $rows) {
+  grid-column: $columns;
+  grid-row: $rows;
 }

@@ -15,7 +15,7 @@ body {
 
 //--Home page view--//
 .main-header {
-  @include common-display(flex, space-between, row);
+  @include common-flex-display(flex, space-between, row);
   background-color: $primary-background-color;
   border: $main-border;
   height: auto;
@@ -55,7 +55,7 @@ nav {
 }
 
 .lower-header {
-  @include common-display(flex, space-between, row);
+  @include common-flex-display(flex, space-between, row);
 }
 
 .greeting {
@@ -66,7 +66,7 @@ nav {
 }
 
 .search-area {
-  @include common-display(flex, flex-end, row);
+  @include common-flex-display(flex, flex-end, row);
 
 }
 
@@ -98,9 +98,7 @@ nav {
 }
 
 .all-cards {
-  display: grid;
-  grid-gap: 30px;
-  grid-template-columns: repeat(4, 1fr);
+  @include common-grid-display(grid, 30px, repeat(4, 1fr));
   padding: 30px 0 30px 30px;
   width: 95.5vw;
 }
@@ -155,7 +153,7 @@ img {
 .card-header {
   background-color: $primary-background-color;
   border-bottom: $box-border;
-  @include common-display(flex, space-between, row);
+  @include common-flex-display(flex, space-between, row);
 }
 
 .all {
@@ -184,7 +182,7 @@ h3 {
 .recipe-name {
   background-color: $primary-background-color;
   border-bottom: $box-border;
-  @include common-display(flex, center, row);
+  @include common-flex-display(flex, center, row);
   font-size: 150%;
   text-align: center;
 }
@@ -216,23 +214,19 @@ main {
 }
 
 .display-recipe {
-  display: grid;
-  grid-gap: 7px;
+  @include common-grid-display(grid, 7px, .6fr 1fr);
   grid-template-rows: 1fr 3fr;
-  grid-template-columns: .6fr 1fr;
   margin: 15px;
 }
 
 .display-recipe-info {
-  grid-column: 1;
-  grid-row: 1 / 2;
+  @include grid-settings(1, 1 / 2);
   height: 40vh;
 }
 
 .recipe-ingredients {
   justify-self: center;
-  grid-column: 2;
-  grid-row: 1 / 2;
+  @include grid-settings(2, 1 / 2);
   overflow: hidden;
   max-height: auto;
   font-size: 15px;
@@ -245,8 +239,7 @@ main {
 }
 
 .recipe-instructions {
-  grid-column: 1/span 2;
-  grid-row: 2;
+  @include grid-settings(1/span 2, 2);
   max-width: 90vw;
   font-size: 20px;
   color: $primary-background-color;
