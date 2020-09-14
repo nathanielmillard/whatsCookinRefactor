@@ -72,6 +72,8 @@ let domUpdates = {
     </header>
     <span class='recipe-name ${recipe.id}'>${recipe.name}</span>
       <img tabindex='0' class='card-picture ${recipe.id}'src='${recipe.image}' alt='Food from recipe'>
+      <label>Buy Needed Ingredients</label>
+      <input type="checkbox" class="bought-ingridients ${recipe.id}">
     </div>`
   },
 
@@ -159,18 +161,18 @@ let domUpdates = {
       <label for='favorite-button' class='hidden'>Click to favorite recipe</label>
       <button aria-label='favorite-button' class='favorite card-button favorite${recipe.id} ${recipe.id}'>
       </button>
-  </header>
-    <h3>${recipe.name}</h3>
-    <img tabindex='0' class='card-picture ${recipe.id}'
-    src='${recipe.image}' alt='Food from recipe'>
-    <label>Have Cooked</label>
-    <input type="checkbox" class = "have-cooked ${recipe.id}">
-    <p>Ingredients Still Needed:</p>
-    <ul >
-    <li>${neededIngredientsAndAmounts.join('</li><li>')}</li>
-    </ul>
-    <p>Cost to Still Get:$${neededCost}</p>
-  </div>`);
+    </header>
+      <h3>${recipe.name}</h3>
+      <img tabindex='0' class='card-picture ${recipe.id}'
+      src='${recipe.image}' alt='Food from recipe'>
+      <label>Have Cooked</label>
+      <input type="checkbox" class = "have-cooked ${recipe.id}">
+      <p>Ingredients Still Needed:</p>
+      <ul >
+      <li>${neededIngredientsAndAmounts.join('</li><li>')}</li>
+      </ul>
+      <p>Cost to Still Get:$${neededCost}</p>
+    </div>`);
     });
   },
 
@@ -260,6 +262,15 @@ let domUpdates = {
       domUpdates.user.removePantryIngridients(specificRecipe)
     }
   },
+
+  buyIngredients: (event) => {
+    let specificRecipe = domUpdates.cookbook.recipes.find(recipe => {
+      if (event.target.classList.contains(recipe.id)) {
+        return recipe;
+      }
+    })
+    domUpdates.user.addNeededPantryIngridients(specificRecipe)
+  }
 
 };
 
