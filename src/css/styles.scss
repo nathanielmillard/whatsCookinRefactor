@@ -44,6 +44,10 @@ nav {
   font-size: 130%;
   margin: 1%;
   margin-right: 20px;
+
+  &:hover {
+    background-color: #cff2da;
+  }
 }
 
 .lower-header {
@@ -75,20 +79,16 @@ nav {
   border: $box-border;
   width: 20%;
   margin-right: 0;
+
+  &:hover {
+    background-color: #cff2da;
+  }
 }
 
 .search-input {
   border: $box-border;
   font-size: 100%;
   min-width: 90%;
-}
-
-//nest in respective classes
-.search-image:hover,
-.card-button:hover,
-.navButton:hover,
-.search-button:hover {
-  background-color: #cff2da;
 }
 
 //nest
@@ -120,6 +120,10 @@ img {
   height: 27px;
   margin: 3px;
   cursor: pointer;
+
+  &:hover {
+    background-color: #cff2da;
+  }
 }
 
 .add-button {
