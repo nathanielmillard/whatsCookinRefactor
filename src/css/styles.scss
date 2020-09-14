@@ -2,7 +2,7 @@
 
 html {
   background-color: #37515C;
-  border: 2px solid #000;
+  border: $main-border;
   height: 100vh;
 }
 
@@ -15,7 +15,7 @@ body {
 //--Home page view--//
 .main-header {
   background-color: $primary-background-color;
-  border: 2px solid #000;
+  border: $main-border;
   display: flex;
   height: auto;
   justify-content: space-between;
@@ -39,8 +39,8 @@ nav {
 .navButton {
   background-color: $primary-background-color;
   color: #000 !important;
-  border-left: 1px solid #000;
-  border-right: 1px solid #000;
+  border-left: $box-border;
+  border-right: $box-border;
   font-size: 130%;
   margin: 1%;
   margin-right: 20px;
@@ -72,13 +72,13 @@ nav {
 
 .search-image {
   background-color: $primary-background-color;
-  border: 1px solid #000;
+  border: $box-border;
   width: 20%;
   margin-right: 0;
 }
 
 .search-input {
-  border: 1px solid #000;
+  border: $box-border;
   font-size: 100%;
   min-width: 90%;
 }
@@ -116,7 +116,7 @@ img {
 }
 
 .card-button {
-  border: 1px solid #000;
+  border: $box-border;
   height: 27px;
   margin: 3px;
   cursor: pointer;
@@ -148,7 +148,7 @@ img {
 
 .card-header {
   background-color: $primary-background-color;
-  border-bottom: 1px solid #000;
+  border-bottom: $box-border;
   display: flex;
   justify-content: space-between;
 }
@@ -169,7 +169,7 @@ h3 {
   font-size: 150%;
   margin: 0;
   background-color: $primary-background-color;
-  border-bottom: 1px solid #000;
+  border-bottom: $box-border;
   text-align: center;
   font-weight: normal;
   padding-top: 5px;
@@ -178,7 +178,7 @@ h3 {
 
 .recipe-name {
   background-color: $primary-background-color;
-  border-bottom: 1px solid #000;
+  border-bottom: $box-border;
   display: flex;
   justify-content: center;
   font-size: 150%;
@@ -190,11 +190,11 @@ h3 {
 }
 
 .card-picture:active {
-  border: 2px solid #000;
+  border: $main-border;
 }
 
 .card-picture {
-  border: 1px solid #000;
+  border: $box-border;
   height: 200px;
   margin: 10px 3% 8px 2.6%;
   width: 94%;
