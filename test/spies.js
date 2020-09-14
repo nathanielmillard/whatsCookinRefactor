@@ -37,6 +37,12 @@ describe('domUpdates', () => {
     expect(domUpdates.greetUser()).to.have.been.called(1);
   });
 
+  it('should display recipe cards', () => {
+    domUpdates.updateDisplay();
+    expect(domUpdates.populateCards()).to.have.been.called.with(domUpdates.cookbook.recipes);
+    //arguments?
+  });
+
   
 
 })
