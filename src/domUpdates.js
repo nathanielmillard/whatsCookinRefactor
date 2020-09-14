@@ -271,20 +271,7 @@ let domUpdates = {
       }
     })
     domUpdates.user.addNeededPantryIngridients(specificRecipe)
-    // setTimeout(domUpdates.user.updateUserPantry(), 4000)
   },
-
-  // updateUserPantry: () => {
-  //   console.log('Started');
-  //   fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData')
-  //   .then(response => response.json())
-  //   .then(response => {
-  //     console.log('Resolved')
-  //     let pantry = new Pantry(response.wcUsersData[0].pantry)
-  //     domUpdates.user = new User(response.wcUsersData[0], pantry)}
-  //   )
-  //   .catch(err => console.log(err))
-  // }
 
 };
 
