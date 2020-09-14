@@ -72,8 +72,6 @@ let domUpdates = {
     </header>
     <span class='recipe-name ${recipe.id}'>${recipe.name}</span>
       <img tabindex='0' class='card-picture ${recipe.id}'src='${recipe.image}' alt='Food from recipe'>
-      <label>Buy Needed Ingredients</label>
-      <input type="checkbox" class="bought-ingridients ${recipe.id}">
     </div>`
   },
 
@@ -166,8 +164,10 @@ let domUpdates = {
       <h3>${recipe.name}</h3>
       <img tabindex='0' class='card-picture ${recipe.id}'
       src='${recipe.image}' alt='Food from recipe'>
-      <label>Have Cooked</label>
-      <input type="checkbox" class = "have-cooked ${recipe.id}">
+      <div class = "pantry-buttons">
+        <button type="button" name="Add Needed Ingredients"></button>
+        <button type="button" name="Have Cooked"></button>
+      </div>
       <p>Ingredients Still Needed:</p>
       <ul >
       <li>${neededIngredientsAndAmounts.join('</li><li>')}</li>
