@@ -151,7 +151,7 @@ let domUpdates = {
         return total += ingredient.cost;
       }, 0);
       cardSection.insertAdjacentHTML('beforeend', `<div class='card ${recipe.id}'>
-    <header class='recipe-name ${recipe.id}'>
+    <header class='card-header ${recipe.id}'>
       <label for='close-button' class='hidden'></label>
       <button aria-label='close-button' class='close-button card-button ${recipe.id}'>
         <img class='close-button ${recipe.id}' src='https://www.flaticon.com/svg/static/icons/svg/446/446091.svg' alt='remove from recipes to cook'>
@@ -165,11 +165,11 @@ let domUpdates = {
     src='${recipe.image}' alt='Food from recipe'>
     <label>Have Cooked</label>
     <input type="checkbox">
-    <p>Ingredients Still Needed:</p>
+    <p class='needed-ings'>Ingredients Still Needed:</p>
     <ul >
     <li>${neededIngredientsAndAmounts.join('</li><li>')}</li>
     </ul>
-    <p>Cost to Still Get:$${neededCost}</p>
+    <p class='ing-cost'>Cost to Still Get:$${neededCost}</p>
   </div>`);
     });
   },
