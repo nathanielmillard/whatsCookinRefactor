@@ -160,17 +160,15 @@ img {
 .all-recipe-info,
 ol {
   color: #EBF5EE;
-  font-size: 220%;
+  font-size: 150%;
   width: 100%;
 }
 
 h3 {
-  color: #EBF5EE;
-  font-size: 250%;
+  font-size: 150%;
 }
 
 .recipe-name {
-
   display: block;
   font-size: 150%;
   text-align: center;
@@ -201,3 +199,16 @@ main {
   background-image: url(https://image.flaticon.com/icons/svg/148/148841.svg);
   background-repeat: no-repeat;
 }
+
+.display-recipe {
+  display: flex;
+  flex-direction: column;
+}
+
+.instruction-list {
+  width: 100%;
+}
+
+// .recipe-name, ${recipe.id} {
+//
+// }
