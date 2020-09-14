@@ -48,6 +48,10 @@ nav {
   &:hover {
     background-color: $button-hover-color;
   }
+
+  &:active {
+    background-color: #C3C2C6;
+  }
 }
 
 .lower-header {
@@ -83,20 +87,16 @@ nav {
   &:hover {
     background-color: $button-hover-color;
   }
+
+  &:active {
+    background-color: #C3C2C6;
+  }
 }
 
 .search-input {
   border: $box-border;
   font-size: 100%;
   min-width: 90%;
-}
-
-//nest
-.search-image:active,
-.card-button:active,
-.navButton:active,
-.search-button:active {
-  background-color: #C3C2C6;
 }
 
 .all-cards {
@@ -123,6 +123,10 @@ img {
 
   &:hover {
     background-color: $button-hover-color;
+  }
+
+  &:active {
+    background-color: #C3C2C6;
   }
 }
 
