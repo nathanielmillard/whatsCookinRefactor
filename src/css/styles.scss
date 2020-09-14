@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'mixins';
 
 html {
   background-color: #37515C;
@@ -14,11 +15,10 @@ body {
 
 //--Home page view--//
 .main-header {
+  @include common-display(flex, space-between, row);
   background-color: $primary-background-color;
   border: $main-border;
-  display: flex;
   height: auto;
-  justify-content: space-between;
   width: 100%;
 }
 
@@ -55,8 +55,7 @@ nav {
 }
 
 .lower-header {
-  display: flex;
-  justify-content: space-between;
+  @include common-display(flex, space-between, row);
 }
 
 .greeting {
@@ -67,9 +66,8 @@ nav {
 }
 
 .search-area {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+  @include common-display(flex, flex-end, row);
+
 }
 
 .search-bar {
@@ -157,8 +155,7 @@ img {
 .card-header {
   background-color: $primary-background-color;
   border-bottom: $box-border;
-  display: flex;
-  justify-content: space-between;
+  @include common-display(flex, space-between, row);
 }
 
 .all {
@@ -187,8 +184,7 @@ h3 {
 .recipe-name {
   background-color: $primary-background-color;
   border-bottom: $box-border;
-  display: flex;
-  justify-content: center;
+  @include common-display(flex, center, row);
   font-size: 150%;
   text-align: center;
 }

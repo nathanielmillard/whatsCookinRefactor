@@ -1,0 +1,7 @@
+//--Mixins--//
+
+@mixin common-display($display, $justify, $direction) {
+  display: $display;
+  justify-content: $justify;
+  flex-direction: $direction;
+}
