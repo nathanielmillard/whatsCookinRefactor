@@ -164,7 +164,7 @@ let domUpdates = {
     <img tabindex='0' class='card-picture ${recipe.id}'
     src='${recipe.image}' alt='Food from recipe'>
     <label>Have Cooked</label>
-    <input type="checkbox">
+    <input type="checkbox" class = "have-cooked ${recipe.id}">
     <p>Ingredients Still Needed:</p>
     <ul >
     <li>${neededIngredientsAndAmounts.join('</li><li>')}</li>
@@ -246,7 +246,21 @@ let domUpdates = {
       return recipe.name.toLowerCase().includes(searchTerm) || recipe.tags.includes(searchTerm) || ingredientNames.includes(searchTerm)
     })
     domUpdates.populateCards(allRecipeResults)
-  }
+  },
+
+  haveCookedRecipe: (event) => {
+    let specificRecipe = domUpdates.cookbook.recipes.find(recipe => {
+      if (event.target.classList.contains(recipe.id)) {
+        return recipe;
+      }
+    })
+    if (domUpdates.user.checkPantryIngredients(specificRecipe) !== 'You have the ingredients!'){
+      alert("You don't have what you need yet")
+    } else {
+      domUpdates.user.removePantryIngridients(specificRecipe)
+    }
+  },
+
 };
 
 export default  domUpdates;
