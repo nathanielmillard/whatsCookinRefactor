@@ -32,7 +32,7 @@ let domUpdates = {
 
   createDataModel: () => {
     let pantry = new Pantry(domUpdates.users[0].pantry);
-    domUpdates.user = new User(domUpdates.users[0], pantry);
+    domUpdates.user = new User(domUpdates.users[0], pantry, domUpdates.ingredientsData);
     let recipeDeck = domUpdates.recipeData.map(recipe => {
       return recipe = new Recipe(recipe, domUpdates.ingredientsData);
     })
@@ -126,6 +126,7 @@ let domUpdates = {
       }
     });
     if (!event.target.classList.contains('add-active')) {
+      console.log(domUpdates.user.checkPantryIngredients(specificRecipe))
       alert(domUpdates.user.checkPantryIngredients(specificRecipe));
       domUpdates.user.addToRecipesToCook(specificRecipe);
     } else if (event.target.classList.contains('add-active')) {
@@ -159,18 +160,20 @@ let domUpdates = {
       <label for='favorite-button' class='hidden'>Click to favorite recipe</label>
       <button aria-label='favorite-button' class='favorite card-button favorite${recipe.id} ${recipe.id}'>
       </button>
-  </header>
-    <h3>${recipe.name}</h3>
-    <img tabindex='0' class='card-picture ${recipe.id}'
-    src='${recipe.image}' alt='Food from recipe'>
-    <label>Have Cooked</label>
-    <input type="checkbox">
-    <p>Ingredients Still Needed:</p>
-    <ul >
-    <li>${neededIngredientsAndAmounts.join('</li><li>')}</li>
-    </ul>
-    <p>Cost to Still Get:$${neededCost}</p>
-  </div>`);
+    </header>
+      <h3>${recipe.name}</h3>
+      <img tabindex='0' class='card-picture ${recipe.id}'
+      src='${recipe.image}' alt='Food from recipe'>
+      <div class = "pantry-buttons">
+        <button type="button" name="Add Needed Ingredients" class="bought-ingredients ${recipe.id}">Add Needed Ingredients</button>
+        <button type="button" name="Have Cooked" class="have-cooked ${recipe.id}">Have Cooked</button>
+      </div>
+      <p>Ingredients Still Needed:</p>
+      <ul >
+      <li>${neededIngredientsAndAmounts.join('</li><li>')}</li>
+      </ul>
+      <p>Cost to Still Get:$${neededCost}</p>
+    </div>`);
     });
   },
 
@@ -246,7 +249,30 @@ let domUpdates = {
       return recipe.name.toLowerCase().includes(searchTerm) || recipe.tags.includes(searchTerm) || ingredientNames.includes(searchTerm)
     })
     domUpdates.populateCards(allRecipeResults)
-  }
+  },
+
+  haveCookedRecipe: (event) => {
+    let specificRecipe = domUpdates.cookbook.recipes.find(recipe => {
+      if (event.target.classList.contains(recipe.id)) {
+        return recipe;
+      }
+    })
+    if (domUpdates.user.checkPantryIngredients(specificRecipe) !== 'You have the ingredients!'){
+      alert("You don't have what you need yet")
+    } else {
+      domUpdates.user.removePantryIngridients(specificRecipe)
+    }
+  },
+
+  buyIngredients: (event) => {
+    let specificRecipe = domUpdates.cookbook.recipes.find(recipe => {
+      if (event.target.classList.contains(recipe.id)) {
+        return recipe;
+      }
+    })
+    domUpdates.user.addNeededPantryIngridients(specificRecipe)
+  },
+
 };
 
 export default  domUpdates;
