@@ -50,7 +50,8 @@ let domUpdates = {
   },
 
   populateCards: (recipes) => {
-    const cardArea = document.querySelector('.all-cards');
+    const cardArea = document.querySelector('#main-section');
+    cardArea.classList = 'all-cards';
     cardArea.innerHTML = '';
     recipes.forEach(recipe => {
       cardArea.insertAdjacentHTML('afterbegin', domUpdates.constructCard(recipe))
@@ -101,10 +102,11 @@ let domUpdates = {
 
   viewFavorites: () => {
     const showFavoritesButton = document.querySelector('.view-favorites');
-    const cardArea = document.querySelector('.all-cards');
-    if (cardArea.classList.contains('all')) {
-      cardArea.classList.remove('all')
-    }
+    const cardArea = document.querySelector('#main-section');
+    cardArea.classList = 'all-cards';
+    // if (cardArea.classList.contains('all')) {
+    //   cardArea.classList.remove('all')
+    // }
     if (!domUpdates.user.favoriteRecipes.length) {
       showFavoritesButton.innerHTML = 'You have no favorites!';
       domUpdates.populateCards(domUpdates.cookbook.recipes);
@@ -120,12 +122,14 @@ let domUpdates = {
   },
 
   addToToCook: (event) => {
+    const showToCookButton = document.querySelector('.to-cook');
     let specificRecipe = domUpdates.cookbook.recipes.find(recipe => {
       if (event.target.classList.contains(recipe.id)) {
         return recipe;
       }
     });
     if (!event.target.classList.contains('add-active')) {
+      showToCookButton.innerText = 'To Cook'
       alert(domUpdates.user.checkPantryIngredients(specificRecipe));
       domUpdates.user.addToRecipesToCook(specificRecipe);
     } else if (event.target.classList.contains('add-active')) {
@@ -135,11 +139,12 @@ let domUpdates = {
   },
 
   displayToCookCards: () => {
-    const cardArea = document.querySelector('.all-cards');
+    const cardArea = document.querySelector('#main-section');
+    cardArea.classList = '';
     cardArea.innerHTML =
       `<section class='to-cook'>
         <h1>Recipes To Cook</h1>
-        <div class='card-section'>
+        <div class='card-section all-cards'>
         </div>
       </section>`
     let cardSection = document.querySelector('.card-section')
@@ -196,7 +201,8 @@ let domUpdates = {
   },
 
   displayDirections: (event) => {
-    const cardArea = document.querySelector('.all-cards');
+    const cardArea = document.querySelector('#main-section');
+    cardArea.classList = 'recipe-directions';
     let newRecipe = domUpdates.cookbook.recipes.find(recipe => {
       if (event.target.classList.contains(`${recipe.id}`)) {
         return recipe;
