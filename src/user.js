@@ -25,28 +25,41 @@ class User {
   }
 
   removePantryIngridients(recipe) {
-    let initArray = [];
     recipe.ingredients.forEach((item) => {
-    initArray.push(`{
-      "userId": this.id,
-      "ingredientID": item.id,
-      "ingredientModification": -(item.quantity.amount)
-    }`)
-    });
     fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData', {
       method: 'POST',
       headers: {
   	     'Content-Type': 'application/json'
        },
-       body: JSON.stringify(`{
+       body: JSON.stringify({
          "userID": this.id,
          "ingredientID": item.id,
          "ingredientModification": -(item.quantity.amount)
-       }`)
+       })
      })
      .then(response => response.json())
      .then(respone => console.log(response))
      .catch(error => console.log(error));
+   });
+  }
+
+  addNeededPantryIngridients(recipe) {
+    this.checkHowMuchMore(recipe).forEach((item) => {
+    fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData', {
+      method: 'POST',
+      headers: {
+  	     'Content-Type': 'application/json'
+       },
+       body: JSON.stringify({
+         "userID": this.id,
+         "ingredientID": item.id,
+         "ingredientModification": item.quantityNeeded
+       })
+     })
+     .then(response => response.json())
+     .then(response => console.log(response))
+     .catch(error => console.log(error));
+   });
   }
 
   removeFromFavorites(recipe) {
@@ -77,7 +90,6 @@ class User {
       };
       return notPresent;
     }, []);
-    // console.log(missingIngredients);
     if(missingIngredients.length === 0) {
       return 'You have the ingredients!';
     } else {
@@ -117,8 +129,6 @@ class User {
           }
         }
         let ingredientItem = recipe.ingredientsData.find(item => {
-          // console.log(item.name);
-          // console.log(ingredient.name);
           return ingredient.id === item.id;
         });
       let totalCost = (neededIng.quantityNeeded * ingredientItem.estimatedCostInCents) / 100;
