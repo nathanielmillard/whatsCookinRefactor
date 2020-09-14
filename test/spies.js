@@ -48,6 +48,11 @@ describe('domUpdates', () => {
     expect(domUpdates.favoriteCard()).to.have.been.called(1);
   });
 
-  
+  it('should show favorites', () => {
+    domUpdates.viewFavorites();
+    expect(domUpdates.viewFavorites()).to.have.been.called(1);
+  });
+
+
 
 })
