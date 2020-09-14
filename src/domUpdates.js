@@ -55,7 +55,6 @@ let domUpdates = {
     recipes.forEach(recipe => {
       cardArea.insertAdjacentHTML('afterbegin', domUpdates.constructCard(recipe))
     });
-    // domUpdates.getFavorites();
   },
 
   constructCard: (recipe) => {
@@ -82,15 +81,6 @@ let domUpdates = {
       <input type="checkbox" class="bought-ingridients ${recipe.id}">
     </div>`
   },
-
-  // getFavorites: () => {
-  //   if (domUpdates.user.favoriteRecipes.length) {
-  //     domUpdates.user.favoriteRecipes.forEach(recipe => {
-  //       console.log(`.favorite${recipe.id}`)
-  //       document.querySelector(`.favorite${recipe.id}`).classList.add('favorite-active')
-  //     })
-  //   }
-  // },
 
   favoriteCard: (event) => {
     const showFavoritesButton = document.querySelector('.view-favorites');
@@ -124,7 +114,6 @@ let domUpdates = {
       domUpdates.user.favoriteRecipes.forEach(recipe => {
         cardArea.insertAdjacentHTML('afterbegin', domUpdates.constructCard(recipe))
       })
-    // domUpdates.getFavorites();
     }
   },
 
