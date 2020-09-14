@@ -41,7 +41,7 @@ class User {
        })
      })
      .then(response => response.json())
-     .then(response => console.log(response))
+     .then(this.updateUserPantry())
      .catch(error => console.log(error));
     setTimeout(this.updateUserPantry(), 4000)
    });
