@@ -67,5 +67,10 @@ describe('domUpdates', () => {
     expect(removeFromToCook()).to.have.been.called(1);
   });
 
+  it('should show recipe directions', () => {
+    domUpdates.displayDirections();
+    expect(displayDirections()).to.have.been.called.with('event');
+  });
 
+  
 })
