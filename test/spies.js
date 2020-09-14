@@ -43,6 +43,11 @@ describe('domUpdates', () => {
     //arguments?
   });
 
+  it('should add cards to favorites', () => {
+    domUpdates.favoriteCard();
+    expect(domUpdates.favoriteCard()).to.have.been.called(1);
+  });
+
   
 
 })
