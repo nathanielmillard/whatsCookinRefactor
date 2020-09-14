@@ -36,15 +36,11 @@ nav {
 
 .navButton {
   background-color: #EBF5EE;
+  color: #000 !important;
   border-left: 1px solid #000;
   border-right: 1px solid #000;
   font-size: 130%;
   margin: 1%;
-}
-
-.home.navButton,
-.to-cook.navButton,
-.view-favorites.navButton {
   margin-right: 20px;
 }
 
@@ -54,35 +50,38 @@ nav {
 }
 
 .greeting {
+  color: #EBF5EE;
   padding-left: 15px;
   margin-top: 10px;
   font-size: 30px;
 }
 
-.search-bar {
+.search-area {
   display: flex;
-  height: 100%;
-  margin: 10px 0px 10px 0px;
-  width: 5%;
+  flex-direction: row;
+  justify-content: flex-end;
 }
 
-.search-button {
+.search-bar {
+  max-height: 6vh;
+  margin: 5px;
+  padding: 3px;
+}
+
+.search-image {
   background-color: #EBF5EE;
   border: 1px solid #000;
   width: 20%;
-  height: 58px;
-  margin-top: 3px;
+  margin-right: 0;
 }
 
 .search-input {
   border: 1px solid #000;
   font-size: 100%;
-  height: 7vh;
-  margin: 3px 7px 0px 0px;
-  padding-left: 10px;
-  width: 40%;
+  min-width: 90%;
 }
 
+//nest in respective classes
 .search-image:hover,
 .card-button:hover,
 .navButton:hover,
@@ -90,6 +89,7 @@ nav {
   background-color: #cff2da;
 }
 
+//nest
 .search-image:active,
 .card-button:active,
 .navButton:active,
@@ -210,15 +210,47 @@ main {
 }
 
 .display-recipe {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-gap: 7px;
+  grid-template-rows: 1fr 3fr;
+  grid-template-columns: .6fr 1fr;
+  margin: 15px;
 }
 
-.instruction-list {
-  width: 100%;
+.display-recipe-info {
+  grid-column: 1;
+  grid-row: 1 / 2;
+  height: 40vh;
+}
+
+.recipe-ingredients {
+  justify-self: center;
+  grid-column: 2;
+  grid-row: 1 / 2;
+  overflow: hidden;
+  max-height: auto;
+  font-size: 15px;
+  color: #EBF5EE;
+}
+
+.recipe-ingredients-title {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.recipe-instructions {
+  grid-column: 1/span 2;
+  grid-row: 2;
+  max-width: 90vw;
+  font-size: 20px;
+  color: #EBF5EE;
+  margin-top: 100px;
 }
 
 //--To Cook View--//
+.to-cook-greeting {
+  color: #EBF5EE;
+}
 .close-button {
   background-color: #EBF5EE;
   background-image: url(https://www.flaticon.com/svg/static/icons/svg/446/446091.svg);
