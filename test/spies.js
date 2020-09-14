@@ -55,7 +55,12 @@ describe('domUpdates', () => {
 
   it('should add cards to to cook section', () => {
     domUpdates.addToToCook();
-    expect(domUpdates.addToToCook()).to.have.been.called(1);
+    expect(domUpdates.addToToCook()).to.have.been.called.with(event);
+  });
+
+  it('should display to cook section', () => {
+    domUpdates.displayToCookCards();
+    expect(domUpdates.displayToCookCards()).to.have.been.called();
   });
 
 })
