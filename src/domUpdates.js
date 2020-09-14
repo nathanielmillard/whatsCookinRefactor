@@ -143,7 +143,7 @@ let domUpdates = {
     cardArea.classList = '';
     cardArea.innerHTML =
       `<section class='to-cook'>
-        <h1>Recipes To Cook</h1>
+        <h1 class='to-cook-greeting'>Recipes To Cook</h1>
         <div class='card-section all-cards'>
         </div>
       </section>`
@@ -219,13 +219,17 @@ let domUpdates = {
      neededSteps.push(`${step.number}. ${step.instruction} `)
     })
     cardArea.innerHTML = `<section class='display-recipe'>
-    <h3>${newRecipe.name}</h3>
-    <img src='${newRecipe.image}' alt='Recipe image for ${newRecipe.name}'>
-    <div class='all-recipe-info'>
-    <h5>You will need: </h5>
+    <div class='display-recipe-info'>
+      <h3>${newRecipe.name}</h3>
+      <img src='${newRecipe.image}' alt='Recipe image for ${newRecipe.name}'>
+    </div>
+    <div class='recipe-ingredients'>
+    <h5 class='recipe-ingredients-title'>You will need: </h5>
     <ul>
     <li>${neededIngredients.join('</li><li>')}</li>
     </ul>
+    </div>
+    <div class='recipe-instructions'>
     <h5>Instructions: </h5>
     <ul class='instruction-list' style='list-style-type:none;'>
     <li>${neededSteps.join('</li><li>')}</li>
