@@ -1,3 +1,5 @@
+@import 'variables';
+
 html {
   background-color: #37515C;
   border: 2px solid #000;
@@ -12,7 +14,7 @@ body {
 
 //--Home page view--//
 .main-header {
-  background-color: #EBF5EE;
+  background-color: $primary-background-color;
   border: 2px solid #000;
   display: flex;
   height: auto;
@@ -35,7 +37,7 @@ nav {
 }
 
 .navButton {
-  background-color: #EBF5EE;
+  background-color: $primary-background-color;
   color: #000 !important;
   border-left: 1px solid #000;
   border-right: 1px solid #000;
@@ -50,7 +52,7 @@ nav {
 }
 
 .greeting {
-  color: #EBF5EE;
+  color: $primary-background-color;
   padding-left: 15px;
   margin-top: 10px;
   font-size: 30px;
@@ -69,7 +71,7 @@ nav {
 }
 
 .search-image {
-  background-color: #EBF5EE;
+  background-color: $primary-background-color;
   border: 1px solid #000;
   width: 20%;
   margin-right: 0;
@@ -121,7 +123,7 @@ img {
 }
 
 .add-button {
-  background-color: #EBF5EE;
+  background-color: $primary-background-color;
   display: flex;
   width: 12%;
 }
@@ -131,7 +133,7 @@ img {
 }
 
 .favorite {
-  background-color: #EBF5EE;
+  background-color: $primary-background-color;
   background-image: url(https://image.flaticon.com/icons/svg/149/149222.svg);
   background-repeat: no-repeat;
   background-position: center;
@@ -145,7 +147,7 @@ img {
 }
 
 .card-header {
-  background-color: #EBF5EE;
+  background-color: $primary-background-color;
   border-bottom: 1px solid #000;
   display: flex;
   justify-content: space-between;
@@ -158,7 +160,7 @@ img {
 
 .all-recipe-info,
 ol {
-  color: #EBF5EE;
+  color: $primary-background-color;
   font-size: 150%;
   width: 100%;
 }
@@ -166,7 +168,7 @@ ol {
 h3 {
   font-size: 150%;
   margin: 0;
-  background-color: #EBF5EE;
+  background-color: $primary-background-color;
   border-bottom: 1px solid #000;
   text-align: center;
   font-weight: normal;
@@ -175,7 +177,7 @@ h3 {
 }
 
 .recipe-name {
-  background-color: #EBF5EE;
+  background-color: $primary-background-color;
   border-bottom: 1px solid #000;
   display: flex;
   justify-content: center;
@@ -230,7 +232,7 @@ main {
   overflow: hidden;
   max-height: auto;
   font-size: 15px;
-  color: #EBF5EE;
+  color: $primary-background-color;
 }
 
 .recipe-ingredients-title {
@@ -243,16 +245,16 @@ main {
   grid-row: 2;
   max-width: 90vw;
   font-size: 20px;
-  color: #EBF5EE;
+  color: $primary-background-color;
   margin-top: 100px;
 }
 
 //--To Cook View--//
 .to-cook-greeting {
-  color: #EBF5EE;
+  color: $primary-background-color;
 }
 .close-button {
-  background-color: #EBF5EE;
+  background-color: $primary-background-color;
   background-image: url(https://www.flaticon.com/svg/static/icons/svg/446/446091.svg);
   background-repeat: no-repeat;
   background-position: center;
