@@ -24,10 +24,30 @@ class User {
     this.recipesToCook.splice(i, 1);
   }
 
-  // updatePantry() {
-  // //remove ingredient quantities from user Pantry, leave till later [ ]
-  // //remove recipe from array [x]
-  // }
+  removePantryIngridients(recipe) {
+    let initArray = [];
+    recipe.ingredients.forEach((item) => {
+    initArray.push(`{
+      "userId": this.id,
+      "ingredientID": item.id,
+      "ingredientModification": -(item.quantity.amount)
+    }`)
+    });
+    fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData', {
+      method: 'POST',
+      headers: {
+  	     'Content-Type': 'application/json'
+       },
+       body: JSON.stringify(`{
+         "userID": this.id,
+         "ingredientID": item.id,
+         "ingredientModification": -(item.quantity.amount)
+       }`)
+     })
+     .then(response => response.json())
+     .then(respone => console.log(response))
+     .catch(error => console.log(error));
+  }
 
   removeFromFavorites(recipe) {
     const i = this.favoriteRecipes.indexOf(recipe);
@@ -50,7 +70,6 @@ class User {
   }
 
   checkPantryIngredients(recipe) {
-    console.log(recipe.ingredients);
     let missingIngredients = recipe.ingredients.reduce((notPresent, ingredient) => {
       let ingredientID = ingredient.id;
       if(!this.pantry.userIngredients[ingredientID] || ingredient.quantity.amount > this.pantry.userIngredients[ingredientID]) {
