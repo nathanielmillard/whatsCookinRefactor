@@ -32,9 +32,9 @@ nav {
   margin: 1%;
 }
 
-.home,
-.to-cook,
-.view-favorites {
+.home.navButton,
+.to-cook.navButton,
+.view-favorites.navButton {
   margin-right: 20px;
 }
 
@@ -55,6 +55,8 @@ h1 {
 
 .greeting {
   padding-left: 15px;
+  margin-top: 10px;
+  font-size: 30px;
 }
 
 // .user-info {
@@ -213,6 +215,14 @@ main {
 
 .instruction-list {
   width: 100%;
+}
+
+.close-button {
+  background-color: #EBF5EE;
+  background-image: url(https://www.flaticon.com/svg/static/icons/svg/446/446091.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 13%;
 }
 
 // .recipe-name, ${recipe.id} {

@@ -154,7 +154,7 @@ let domUpdates = {
     <header class='recipe-name ${recipe.id}'>
       <label for='close-button' class='hidden'></label>
       <button aria-label='close-button' class='close-button card-button ${recipe.id}'>
-        <img class='close ${recipe.id}' src='https://www.flaticon.com/svg/static/icons/svg/446/446091.svg' alt='remove from recipes to cook'>
+        <img class='close-button ${recipe.id}' src='https://www.flaticon.com/svg/static/icons/svg/446/446091.svg' alt='remove from recipes to cook'>
       </button>
       <label for='favorite-button' class='hidden'>Click to favorite recipe</label>
       <button aria-label='favorite-button' class='favorite card-button favorite${recipe.id} ${recipe.id}'>
