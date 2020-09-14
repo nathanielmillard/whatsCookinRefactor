@@ -53,6 +53,9 @@ describe('domUpdates', () => {
     expect(domUpdates.viewFavorites()).to.have.been.called(1);
   });
 
-
+  it('should add cards to to cook section', () => {
+    domUpdates.addToToCook();
+    expect(domUpdates.addToToCook()).to.have.been.called(1);
+  });
 
 })
