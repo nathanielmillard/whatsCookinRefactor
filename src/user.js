@@ -48,18 +48,6 @@ class User {
 
   }
 
-  updateUserPantry(){
-    fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData')
-    .then(response => response.json())
-    .then(response => {
-      let pantry = new Pantry(response.wcUsersData[0].pantry)
-      this.pantry = pantry
-    }
-    )
-    .catch(err => console.log(err))
-  }
-
-
   addNeededPantryIngridients(recipe) {
     this.checkHowMuchMore(recipe).forEach((item) => {
     fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData', {
@@ -74,13 +62,22 @@ class User {
        })
      })
      .then(response => response.json())
-     .then(response => {
-       response => console.log(response)
-       this.updateUserPantry()
-     })
+     .then(this.updateUserPantry())
      .catch(error => console.log(error));
    });
   }
+
+  updateUserPantry(){
+    fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData')
+    .then(response => response.json())
+    .then(response => {
+      let pantry = new Pantry(response.wcUsersData[this.id - 1].pantry)
+      this.pantry = pantry
+      this.pantry.createPantry(this.ingredientsData)
+    }
+  )
+  .catch(err => console.log(err))
+}
 
   removeFromFavorites(recipe) {
     const i = this.favoriteRecipes.indexOf(recipe);
