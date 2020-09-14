@@ -18,8 +18,7 @@ describe('domUpdates', () => {
       'showToCookRecipes',
       'removeFromToCook',
       'displayDirections',
-      'filterRecipes',
-      'displayFilteredRecipes'
+      'filterRecipes'
     ], () => {})
   });
 
@@ -39,7 +38,7 @@ describe('domUpdates', () => {
 
   it('should display recipe cards', () => {
     domUpdates.updateDisplay();
-    expect(domUpdates.populateCards()).to.have.been.called.with(domUpdates.cookbook.recipes);
+    expect(domUpdates.populateCards()).to.have.been.called.with('domUpdates.cookbook.recipes');
     //arguments?
   });
 
@@ -55,12 +54,18 @@ describe('domUpdates', () => {
 
   it('should add cards to to cook section', () => {
     domUpdates.addToToCook();
-    expect(domUpdates.addToToCook()).to.have.been.called.with(event);
+    expect(domUpdates.addToToCook()).to.have.been.called.with('event');
   });
 
   it('should display to cook section', () => {
-    domUpdates.displayToCookCards();
-    expect(domUpdates.displayToCookCards()).to.have.been.called();
+    domUpdates.showToCookRecipes();
+    expect(domUpdates.showToCookCards()).to.have.been.called(1);
   });
+
+  it('should remove cards from to cook section', () => {
+    domUpdates.removeFromToCook();
+    expect(removeFromToCook()).to.have.been.called(1);
+  });
+
 
 })
