@@ -165,8 +165,8 @@ let domUpdates = {
       <img tabindex='0' class='card-picture ${recipe.id}'
       src='${recipe.image}' alt='Food from recipe'>
       <div class = "pantry-buttons">
-        <button type="button" name="Add Needed Ingredients"></button>
-        <button type="button" name="Have Cooked"></button>
+        <button type="button" name="Add Needed Ingredients" class="bought-ingridients">Add Needed Ingredients</button>
+        <button type="button" name="Have Cooked" class="have-cooked">Have Cooked</button>
       </div>
       <p>Ingredients Still Needed:</p>
       <ul >
