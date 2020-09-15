@@ -17,13 +17,13 @@ class Pantry {
   }
   createPantry(data) {
     this.userIngredients = this.userPantry.reduce((pantry, ingredient) => {
-      let foodItem = data.find((food) => {
-         return food.id === ingredient.ingredient;
-       });
-      if(foodItem) {
-        pantry[foodItem.name] = ingredient.amount;
-      };
+      if (!pantry[ingredient.ingredient]){
+        pantry[ingredient.ingredient] = ingredient.amount;
+      } else {
+        pantry[ingredient.ingredient] += ingredient.amount;
+      }
       return pantry;
+      cosole.log(pantry)
     }, {});
   }
 }

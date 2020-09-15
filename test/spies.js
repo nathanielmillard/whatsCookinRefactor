@@ -8,7 +8,7 @@ chai.use(spies);
 
 //import domUpdates?
 
-describe.only('domUpdates', () => {
+describe('domUpdates', () => {
   beforeEach(() => {
     global.domUpdates = {};
     chai.spy.on(domUpdates, [

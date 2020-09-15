@@ -11,7 +11,7 @@ let pantryItem;
 let recipe1;
 let newPantry;
 
-describe('Pantry', () => {
+describe.only('Pantry', () => {
   beforeEach(() => {
     pantry = new Pantry(users[0].pantry);
     pantryItem = {
