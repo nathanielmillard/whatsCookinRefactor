@@ -23,7 +23,7 @@ const cardButtonConditionals = (event) => {
     domUpdates.removeFromToCook(event);
   } else if (event.target.classList.contains('have-cooked')) {
     domUpdates.haveCookedRecipe(event);
-  } else if (event.target.classList.contains('bought-ingridients')) {
+  } else if (event.target.classList.contains('bought-ingredients')) {
     domUpdates.buyIngredients(event);
   }
 }

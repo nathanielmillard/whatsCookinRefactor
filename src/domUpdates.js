@@ -55,10 +55,15 @@ let domUpdates = {
     recipes.forEach(recipe => {
       cardArea.insertAdjacentHTML('afterbegin', domUpdates.constructCard(recipe))
     });
-    domUpdates.getFavorites();
   },
 
   constructCard: (recipe) => {
+    let classList
+    if(domUpdates.user.favoriteRecipes.includes(recipe)){
+      classList = 'favorite card-button favorite-active'
+    } else (
+      classList = 'favorite card-button'
+    )
     return `<div class='card ${recipe.id}'>
     <header class='card-header ${recipe.id}'>
       <label for='add-button' class='hidden'>Click to add recipe</label>
@@ -67,20 +72,12 @@ let domUpdates = {
         recipes to cook'>
       </button>
       <label for='favorite-button' class='hidden'>Click to favorite recipe</label>
-      <button aria-label='favorite-button' class='favorite card-button favorite${recipe.id} ${recipe.id}'>
+      <button aria-label='favorite-button' class='${classList} favorite${recipe.id} ${recipe.id}'>
       </button>
     </header>
     <span class='recipe-name ${recipe.id}'>${recipe.name}</span>
       <img tabindex='0' class='card-picture ${recipe.id}'src='${recipe.image}' alt='Food from recipe'>
     </div>`
-  },
-
-  getFavorites: () => {
-    if (domUpdates.user.favoriteRecipes.length) {
-      domUpdates.user.favoriteRecipes.forEach(recipe => {
-        document.querySelector(`.favorite${recipe.id}`).classList.add('favorite-active')
-      })
-    }
   },
 
   favoriteCard: (event) => {
@@ -115,7 +112,6 @@ let domUpdates = {
       domUpdates.user.favoriteRecipes.forEach(recipe => {
         cardArea.insertAdjacentHTML('afterbegin', domUpdates.constructCard(recipe))
       })
-    domUpdates.getFavorites();
     }
   },
 
