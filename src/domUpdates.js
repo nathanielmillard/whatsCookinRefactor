@@ -100,12 +100,11 @@ let domUpdates = {
   },
 
   viewFavorites: () => {
+    const searchBar = document.querySelector('.search-area');
+    searchBar.classList.add('hidden')
     const showFavoritesButton = document.querySelector('.view-favorites');
     const cardArea = document.querySelector('#main-section');
     cardArea.classList = 'all-cards';
-    // if (cardArea.classList.contains('all')) {
-    //   cardArea.classList.remove('all')
-    // }
     if (!domUpdates.user.favoriteRecipes.length) {
       showFavoritesButton.innerHTML = 'You have no favorites!';
       domUpdates.populateCards(domUpdates.cookbook.recipes);
@@ -137,6 +136,8 @@ let domUpdates = {
   },
 
   displayToCookCards: () => {
+    const searchBar = document.querySelector('.search-area');
+    searchBar.classList.add('hidden')
     const cardArea = document.querySelector('#main-section');
     cardArea.classList = '';
     cardArea.innerHTML =
@@ -167,14 +168,14 @@ let domUpdates = {
       <img tabindex='0' class='card-picture ${recipe.id}'
       src='${recipe.image}' alt='Food from recipe'>
       <div class = "pantry-buttons">
-        <button type="button" name="Add Needed Ingredients" class="bought-ingredients ${recipe.id}">Add Needed Ingredients</button>
-        <button type="button" name="Have Cooked" class="have-cooked ${recipe.id}">Have Cooked</button>
+        <button type="button" name="Add Needed Ingredients" class="bought-ingredients bought-ingredients${recipe.id} ${recipe.id}">Add Needed Ingredients</button>
+        <button type="button" name="Have Cooked" class="have-cooked have-cooked${recipe.id} ${recipe.id}">Have Cooked</button>
       </div>
-      <p>Ingredients Still Needed:</p>
+      <p class='needed-ings'>Ingredients Still Needed:</p>
       <ul >
       <li>${neededIngredientsAndAmounts.join('</li><li>')}</li>
       </ul>
-      <p>Cost to Still Get:$${neededCost}</p>
+      <p class='ing-cost'>Cost to Still Get:$${neededCost}</p>
     </div>`);
     });
   },
@@ -201,6 +202,8 @@ let domUpdates = {
   },
 
   displayDirections: (event) => {
+    const searchBar = document.querySelector('.search-area');
+    searchBar.classList.add('hidden')
     const cardArea = document.querySelector('#main-section');
     cardArea.classList = 'recipe-directions';
     let newRecipe = domUpdates.cookbook.recipes.find(recipe => {
@@ -212,7 +215,8 @@ let domUpdates = {
     cardArea.innerHTML = '';
     let neededIngredients = [];
     newRecipe.ingredients.forEach(ingredient => {
-      neededIngredients.push(`${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit} ${ingredient.name}`)
+      let name = newRecipe.ingredientsData.find(item => item.id === ingredient.id).name
+      neededIngredients.push(`${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit} ${name}`)
     })
     let neededSteps = [];
     newRecipe.instructions.forEach(step => {
@@ -221,7 +225,7 @@ let domUpdates = {
     cardArea.innerHTML = `<section class='display-recipe'>
     <div class='display-recipe-info'>
       <h3>${newRecipe.name}</h3>
-      <img src='${newRecipe.image}' alt='Recipe image for ${newRecipe.name}'>
+      <img class='card-picture' src='${newRecipe.image}' alt='Recipe image for ${newRecipe.name}'>
     </div>
     <div class='recipe-ingredients'>
     <h5 class='recipe-ingredients-title'>You will need: </h5>
@@ -266,10 +270,12 @@ let domUpdates = {
         return recipe;
       }
     })
+    const haveCookedButton = document.querySelector(`.have-cooked${specificRecipe.id}`);
     if (domUpdates.user.checkPantryIngredients(specificRecipe) !== 'You have the ingredients!'){
       alert("You don't have what you need yet")
     } else {
       domUpdates.user.removePantryIngridients(specificRecipe)
+      haveCookedButton.disabled = true;
     }
   },
 
@@ -279,7 +285,9 @@ let domUpdates = {
         return recipe;
       }
     })
+    const buyButton = document.querySelector(`.bought-ingredients${specificRecipe.id}`)
     domUpdates.user.addNeededPantryIngridients(specificRecipe)
+    buyButton.disabled = true;
   },
 
 };
