@@ -20,11 +20,10 @@ body {
 }
 
 h1 {
-  font-size: 255%;
+  @include text-appearance(255%, center);
   margin-top: 0;
   margin-bottom: 0;
   padding-top: 10px;
-  text-align: center;
   width: 30%;
 }
 
@@ -157,10 +156,9 @@ ol {
 }
 
 h3 {
-  font-size: 150%;
+  @include text-appearance(150%, center);
   margin: 0;
   @include card-layout($primary-background-color, $box-border)
-  text-align: center;
   font-weight: normal;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -169,22 +167,21 @@ h3 {
 .recipe-name {
   @include card-layout($primary-background-color, $box-border)
   @include common-flex-display(flex, center, row);
-  font-size: 150%;
-  text-align: center;
-}
-
-.card-picture:hover {
-  opacity: 0.7;
-}
-
-.card-picture:active {
-  border: $main-border;
+  @include text-appearance(150%, center);
 }
 
 .card-picture {
   @include dimensions(200px, 94%);
   border: $box-border;
   margin: 10px 3% 8px 2.6%;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:active {
+    border: $main-border;
+  }
 }
 
 main {

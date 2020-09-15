@@ -29,6 +29,11 @@
   color: $color;
 }
 
+@mixin text-appearance($size, $text) {
+  font-size: $size;
+  text-align: $text;
+}
+
 @mixin dimensions($height, $width) {
   height: $height;
   width: $width;
