@@ -5,9 +5,6 @@ import domUpdates from '../src/domUpdates';
 
 chai.use(spies);
 
-
-//import domUpdates?
-
 describe('domUpdates', () => {
   beforeEach(() => {
     global.domUpdates = {};
@@ -15,7 +12,6 @@ describe('domUpdates', () => {
       'getWhatsCookingData',
       'updateDisplay',
       'greetUser',
-      'populateCards',
       'favoriteCard',
       'viewFavorites',
       'addToToCook',
@@ -42,8 +38,7 @@ describe('domUpdates', () => {
 
   it('should display recipe cards', () => {
     domUpdates.updateDisplay();
-    expect(domUpdates.populateCards).to.have.been.called.with('domUpdates.cookbook.recipes');
-    //arguments?
+    expect(domUpdates.updateDisplay).to.have.been.called(1);
   });
 
   it('should add cards to favorites', () => {
@@ -58,7 +53,7 @@ describe('domUpdates', () => {
 
   it('should add cards to to cook section', () => {
     domUpdates.addToToCook();
-    expect(domUpdates.addToToCook).to.have.been.called.with('event');
+    expect(domUpdates.addToToCook).to.have.been.called(1);
   });
 
   it('should display to cook section', () => {
@@ -73,7 +68,7 @@ describe('domUpdates', () => {
 
   it('should show recipe directions', () => {
     domUpdates.displayDirections();
-    expect(domUpdates.displayDirections).to.have.been.called.with('event');
+    expect(domUpdates.displayDirections).to.have.been.called(1);
   });
 
   it('should filter recipes by search', () => {
