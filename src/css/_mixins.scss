@@ -28,3 +28,13 @@
   font-size: $size;
   color: $color;
 }
+
+@mixin dimensions($height, $width) {
+  height: $height;
+  width: $width;
+}
+
+@mixin layout($bgcolor, $border) {
+  background-color: $bgcolor;
+  border: $border;
+}

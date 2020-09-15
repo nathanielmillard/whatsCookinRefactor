@@ -2,8 +2,7 @@
 @import 'mixins';
 
 html {
-  background-color: #37515C;
-  border: $main-border;
+  @include layout(#37515C, $main-border);
   height: 100vh;
 }
 
@@ -16,10 +15,8 @@ body {
 //--Home page view--//
 .main-header {
   @include common-flex-display(flex, space-between, row);
-  background-color: $primary-background-color;
-  border: $main-border;
-  height: auto;
-  width: 100%;
+  @include dimensions(auto, 100%);
+  @include layout($primary-background-color, $main-border);
 }
 
 h1 {
@@ -75,8 +72,7 @@ nav {
 }
 
 .search-image {
-  background-color: $primary-background-color;
-  border: $box-border;
+  @include layout($primary-background-color, $box-border);
   width: 20%;
   margin-right: 0;
 
@@ -140,8 +136,7 @@ img {
 }
 
 .card {
-  background-color: #D7F2FE;
-  border: 3px solid #000;
+  @include layout(#D7F2FE, 3px solid #000);
   width: 100%;
 }
 
@@ -190,16 +185,15 @@ h3 {
 }
 
 .card-picture {
+  @include dimensions(200px, 94%);
   border: $box-border;
-  height: 200px;
   margin: 10px 3% 8px 2.6%;
-  width: 94%;
 }
 
 main {
   background-color: #37515C;
-  height: 100%;
-  width: 100%;
+  @include dimensions(100%, 100%);
+
 }
 
 .favorite-active {
