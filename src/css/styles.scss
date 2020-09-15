@@ -191,6 +191,12 @@ h3 {
   }
 }
 
+.wrap {
+  background-color: inherit;
+  height: inherit;
+  border: 0;
+}
+
 .favorite-active {
   background-image: url(https://image.flaticon.com/icons/svg/148/148841.svg);
   background-repeat: no-repeat;
