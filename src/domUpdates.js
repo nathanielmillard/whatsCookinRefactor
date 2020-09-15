@@ -101,9 +101,6 @@ let domUpdates = {
     const showFavoritesButton = document.querySelector('.view-favorites');
     const cardArea = document.querySelector('#main-section');
     cardArea.classList = 'all-cards';
-    // if (cardArea.classList.contains('all')) {
-    //   cardArea.classList.remove('all')
-    // }
     if (!domUpdates.user.favoriteRecipes.length) {
       showFavoritesButton.innerHTML = 'You have no favorites!';
       domUpdates.populateCards(domUpdates.cookbook.recipes);
@@ -260,6 +257,7 @@ let domUpdates = {
   },
 
   haveCookedRecipe: (event) => {
+    const haveCookedButton = document.querySelector('.have-cooked');
     let specificRecipe = domUpdates.cookbook.recipes.find(recipe => {
       if (event.target.classList.contains(recipe.id)) {
         return recipe;
@@ -269,16 +267,19 @@ let domUpdates = {
       alert("You don't have what you need yet")
     } else {
       domUpdates.user.removePantryIngridients(specificRecipe)
+      haveCookedButton.disabled = true;
     }
   },
 
   buyIngredients: (event) => {
+    const buyButton = document.querySelector('.bought-ingredients')
     let specificRecipe = domUpdates.cookbook.recipes.find(recipe => {
       if (event.target.classList.contains(recipe.id)) {
         return recipe;
       }
     })
     domUpdates.user.addNeededPantryIngridients(specificRecipe)
+    buyButton.disabled = true;
   },
 
 };
