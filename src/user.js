@@ -50,7 +50,7 @@ class User {
   }
 
   checkPantryIngredients(recipe) {
-    console.log(recipe.ingredients);
+    // console.log(recipe.ingredients);
     let missingIngredients = recipe.ingredients.reduce((notPresent, ingredient) => {
       let ingredientID = ingredient.id;
       if(!this.pantry.userIngredients[ingredientID] || ingredient.quantity.amount > this.pantry.userIngredients[ingredientID]) {
@@ -74,6 +74,7 @@ class User {
       };
       return notPresent;
     }, []);
+    // console.log(missingIngredients);
     let difference = missingIngredients.map(ingredient => {
       let neededIng;
       let name = recipe.ingredientsData.find(item => {

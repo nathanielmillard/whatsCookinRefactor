@@ -27,7 +27,7 @@ describe('Pantry', () => {
     expect(pantry.userIngredients.length).to.equal(users[0].pantry.length);
   });
 
-  it.only('Should update the user pantry when a recipe has been cooked', () => {
+  it('Should update the user pantry when a recipe has been cooked', () => {
     pantry.updatePantry(recipe1);
     pantry.createPantry(ingredientsData);
     expect(pantry.userPantry[1].amount).to.equal(0);
