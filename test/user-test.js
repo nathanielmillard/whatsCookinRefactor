@@ -13,7 +13,7 @@ let recipe1;
 let recipe2;
 let needed;
 
-describe.only('User', () => {
+describe('User', () => {
   beforeEach(() => {
     user = {
       id: 1,
@@ -106,14 +106,18 @@ describe.only('User', () => {
     user1.pantry.createPantry(ingredientsData);
     needed = [
       {
+        id: 93696,
+        cost: 19.68,
         name: 'tapioca starch',
-        quantityNeeded: 3,
-        cost: 19.68
+        unit: 'cup',
+        quantityNeeded: 3
       },
       {
+        id: 93626,
+        cost: 12.50,
         name: 'xanthan gum',
-        quantityNeeded: 2,
-        cost: 12.50
+        unit: 'teaspoons',
+        quantityNeeded: 2
       }
     ];
   });
@@ -175,7 +179,7 @@ describe.only('User', () => {
   });
 
   it('Should inform User of the ingredients that they lack for a given recipe', () => {
-    expect(user1.checkPantryIngredients(recipe2)).to.eql('You still need more tapioca starch and xanthan gum.');
+    expect(user1.checkPantryIngredients(recipe2)).to.eql('You still need 2 more ingredients.');
   });
 
   it('should determine the amount of ingredients still needed to cook a given meal, based on what’s in my pantry, and how much they will cost', () => {
