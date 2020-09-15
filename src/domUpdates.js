@@ -77,7 +77,9 @@ let domUpdates = {
       </button>
     </header>
     <span class='recipe-name ${recipe.id}'>${recipe.name}</span>
-      <img tabindex='0' class='card-picture ${recipe.id}'src='${recipe.image}' alt='Food from recipe'>
+      <button aria-label='recipe-info' class='card-picture ${recipe.id}''>
+        <img tabindex='0' class='card-picture ${recipe.id}'src='${recipe.image}' alt='Food from recipe'>
+      </button>
     </div>`
   },
 
