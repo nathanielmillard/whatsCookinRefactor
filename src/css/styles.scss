@@ -1,6 +1,5 @@
 @import 'variables';
 @import 'mixins';
-// @import 'media-queries';
 
 html {
   @include layout(#37515C, $main-border);
@@ -165,8 +164,8 @@ ol {
 
 h3 {
   @include text-appearance(150%, center);
-  margin: 0;
   @include card-layout($primary-background-color, $box-border)
+  margin: 0;
   font-weight: normal;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -196,6 +195,8 @@ h3 {
   background-image: url(https://image.flaticon.com/icons/svg/148/148841.svg);
   background-repeat: no-repeat;
 }
+
+//--Single Recipe Display--//
 
 .display-recipe {
   @include common-grid-display(grid, 7px, .6fr 1fr);
@@ -238,9 +239,7 @@ h3 {
   font-weight: bold;
 }
 
-label,
-.needed-ings,
-.ing-cost {
+.pantry-buttons, .needed-ings, .ing-cost, {
   margin-left: 10px;
 }
 
@@ -250,17 +249,13 @@ label,
   }
 
   .all-cards {
-    display: grid;
-    grid-gap: 30px;
-    grid-template-columns: repeat(3, 1fr);
+    @include common-grid-display(grid, 30px, repeat(3, 1fr));
     padding: 30px 0 30px 30px;
     width: 95.5vw;
   }
 
   .display-recipe {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    @include common-flex-display(flex, space-around, column)
     align-items: center;
   }
 
@@ -271,17 +266,13 @@ label,
 
 @media(max-width: 600px) {
   .all-cards {
-    display: grid;
-    grid-gap: 30px;
-    grid-template-columns: repeat(2, 1fr);
+    @include common-grid-display(grid, 30px, repeat(2, 1fr));
     padding: 30px 0 30px 30px;
     width: 95.5vw;
   }
 
   .display-recipe {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    @include common-flex-display(flex, center, column)
     align-items: center;
   }
 
@@ -302,9 +293,7 @@ label,
   }
 
   .all-cards {
-    display: grid;
-    grid-gap: 30px;
-    grid-template-columns: repeat(1, 1fr);
+    @include common-grid-display(grid, 30px, repeat(1, 1fr));
     padding: 30px 0 30px 30px;
     width: 95.5vw;
   }
