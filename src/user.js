@@ -1,10 +1,13 @@
+import Pantry from './pantry';
+
 class User {
-  constructor(user, pantry) {
+  constructor(user, pantry, ingredientsData) {
     this.id = user.id;
     this.name = user.name;
     this.pantry = pantry;
     this.favoriteRecipes = [];
     this.recipesToCook = [];
+    this.ingredientsData = ingredientsData;
   }
 
   addToFavorites(recipe) {
@@ -38,9 +41,11 @@ class User {
        })
      })
      .then(response => response.json())
-     .then(respone => console.log(response))
+     .then(this.updateUserPantry())
      .catch(error => console.log(error));
+    setTimeout(this.updateUserPantry(), 4000)
    });
+
   }
 
   addNeededPantryIngridients(recipe) {
@@ -57,10 +62,22 @@ class User {
        })
      })
      .then(response => response.json())
-     .then(response => console.log(response))
+     .then(this.updateUserPantry())
      .catch(error => console.log(error));
    });
   }
+
+  updateUserPantry(){
+    fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData')
+    .then(response => response.json())
+    .then(response => {
+      let pantry = new Pantry(response.wcUsersData[this.id - 1].pantry)
+      this.pantry = pantry
+      this.pantry.createPantry(this.ingredientsData)
+    }
+  )
+  .catch(err => console.log(err))
+}
 
   removeFromFavorites(recipe) {
     const i = this.favoriteRecipes.indexOf(recipe);
@@ -83,6 +100,7 @@ class User {
   }
 
   checkPantryIngredients(recipe) {
+    this.pantry.createPantry(this.ingredientsData);
     let missingIngredients = recipe.ingredients.reduce((notPresent, ingredient) => {
       let ingredientID = ingredient.id;
       if(!this.pantry.userIngredients[ingredientID] || ingredient.quantity.amount > this.pantry.userIngredients[ingredientID]) {
