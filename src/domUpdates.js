@@ -210,7 +210,8 @@ let domUpdates = {
     cardArea.innerHTML = '';
     let neededIngredients = [];
     newRecipe.ingredients.forEach(ingredient => {
-      neededIngredients.push(`${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit} ${ingredient.name}`)
+      let name = newRecipe.ingredientsData.find(item => item.id === ingredient.id).name
+      neededIngredients.push(`${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit} ${name}`)
     })
     let neededSteps = [];
     newRecipe.instructions.forEach(step => {
