@@ -169,11 +169,11 @@ let domUpdates = {
         <button type="button" name="Add Needed Ingredients" class="bought-ingredients bought-ingredients${recipe.id} ${recipe.id}">Add Needed Ingredients</button>
         <button type="button" name="Have Cooked" class="have-cooked have-cooked${recipe.id} ${recipe.id}">Have Cooked</button>
       </div>
-      <p>Ingredients Still Needed:</p>
+      <p class='needed-ings'>Ingredients Still Needed:</p>
       <ul >
       <li>${neededIngredientsAndAmounts.join('</li><li>')}</li>
       </ul>
-      <p>Cost to Still Get:$${neededCost}</p>
+      <p class='ing-cost'>Cost to Still Get:$${neededCost}</p>
     </div>`);
     });
   },
@@ -223,7 +223,7 @@ let domUpdates = {
     cardArea.innerHTML = `<section class='display-recipe'>
     <div class='display-recipe-info'>
       <h3>${newRecipe.name}</h3>
-      <img src='${newRecipe.image}' alt='Recipe image for ${newRecipe.name}'>
+      <img class='card-picture' src='${newRecipe.image}' alt='Recipe image for ${newRecipe.name}'>
     </div>
     <div class='recipe-ingredients'>
     <h5 class='recipe-ingredients-title'>You will need: </h5>
