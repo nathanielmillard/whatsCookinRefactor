@@ -17,6 +17,8 @@ const cardButtonConditionals = (event) => {
   } else if (event.target.classList.contains('card-picture')) {
     domUpdates.displayDirections(event);
   } else if (event.target.classList.contains('home')) {
+    const searchBar = document.querySelector('.search-bar');
+    searchBar.classList.remove(."hidden")
     showFavoritesButton.innerHTML = 'View Favorites';
     domUpdates.populateCards(domUpdates.cookbook.recipes);
   } else if (event.target.classList.contains('close-button')) {
