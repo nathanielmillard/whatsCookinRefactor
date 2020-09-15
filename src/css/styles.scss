@@ -1,6 +1,8 @@
+@import 'variables';
+@import 'mixins';
+
 html {
-  background-color: #37515C;
-  border: 2px solid #000;
+  @include layout(#37515C, $main-border);
   height: 100vh;
 }
 
@@ -10,136 +12,136 @@ body {
   margin: auto;
 }
 
-
+//--Home page view--//
 .main-header {
-  background-color: #EBF5EE;
-  border: 2px solid #000;
-  display: flex;
-  height: auto;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.navButton {
-  background-color: #EBF5EE;
-  border-left: 1px solid #000;
-  border-right: 1px solid #000;
-  font-size: 130%;
-  margin: 1%;
+  @include common-flex-display(flex, space-between, row);
+  @include dimensions(auto, 100%);
+  @include layout($primary-background-color, $main-border);
 }
 
 h1 {
-  border-right: 2px solid #000;
-  font-size: 255%;
+  @include text-appearance(255%, center);
   margin-top: 0;
   margin-bottom: 0;
   padding-top: 10px;
-  text-align: center;
   width: 30%;
 }
 
-.user-info {
-  font-size: 180%;
-  margin: auto;
-  text-align: center;
-  width: 40%
+nav {
+  display: flex;
+  padding: 10px;
+}
+
+.navButton {
+  @include font-appearance(130%, #000 !important);
+  background-color: $primary-background-color;
+  border-left: $box-border;
+  border-right: $box-border;
+  margin: 1%;
+  margin-right: 20px;
+
+  &:hover {
+    background-color: $button-hover-color;
+  }
+
+  &:active {
+    background-color: $button-active-color;
+  }
+}
+
+.lower-header {
+  @include common-flex-display(flex, space-between, row);
+}
+
+.greeting {
+  @include font-appearance(30px, $primary-background-color);
+  padding-left: 15px;
+  margin-top: 10px;
+}
+
+.search-area {
+  @include common-flex-display(flex, flex-end, row);
+
 }
 
 .search-bar {
-  display: flex;
-  height: 100%;
-  margin: 10px 0px 10px 0px;
-  width: 30%;
+  max-height: 6vh;
+  margin: 5px;
+  padding: 3px;
 }
 
-.search-button {
-  background-color: #EBF5EE;
-  border: 1px solid #000;
+.search-image {
+  @include layout($primary-background-color, $box-border);
   width: 20%;
-  height: 58px;
-  margin-top: 3px;
-}
+  margin-right: 0;
 
-.search-image:hover,
-.card-button:hover,
-.navButton:hover,
-.search-button:hover {
-  background-color: #cff2da;
-}
+  &:hover {
+    background-color: $button-hover-color;
+  }
 
-
-.search-image:active,
-.card-button:active,
-.navButton:active,
-.search-button:active {
-  background-color: #C3C2C6;
+  &:active {
+    background-color: $button-active-color;
+  }
 }
 
 .search-input {
-  border: 1px solid #000;
+  border: $box-border;
   font-size: 100%;
-  height: 7vh;
-  margin: 3px 7px 0px 0px;
-  padding-left: 10px;
-  width: 90%;
+  min-width: 90%;
 }
 
-
-.card-button {
-  border: 1px solid #000;
-  height: 27px;
-  margin: 3px;
-}
-
-
-
-.add-button {
-  background-color: #EBF5EE;
-  display: flex;
-  width: 12%;
-}
-
-.add {
-  width: 100%;
+.all-cards {
+  @include common-grid-display(grid, 30px, repeat(4, 1fr));
+  padding: 30px 0 30px 30px;
+  width: 95.5vw;
 }
 
 .hidden {
   display: none;
 }
 
-
-.favorite {
-  background-color: #EBF5EE;
-  background-image: url(https://image.flaticon.com/icons/svg/149/149222.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 13%;
-}
-
-.all-cards {
-  display: grid;
-  grid-gap: 30px;
-  grid-template-columns: repeat(4, 1fr);
-  padding: 30px 0 30px 30px;
-  width: 95.5vw;
-}
-
 img {
   cursor: pointer;
 }
 
+.card-button {
+  border: $box-border;
+  height: 27px;
+  margin: 3px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $button-hover-color;
+  }
+
+  &:active {
+    background-color: $button-active-color;
+  }
+}
+
+.add-button {
+  background-color: $primary-background-color;
+  display: flex;
+  width: 12%;
+}
+
+.add {
+  width: 90%;
+}
+
+.favorite {
+  @include button-background($primary-background-color, no-repeat, center, 13%);
+  background-image: url(https://image.flaticon.com/icons/svg/149/149222.svg);
+}
+
 .card {
-  background-color: #D7F2FE;
-  border: 3px solid #000;
+  @include layout(#D7F2FE, 3px solid #000);
   width: 100%;
 }
 
-
 .card-header {
-  background-color: #EBF5EE;
-  border-bottom: 1px solid #000;
-  display: flex;
-  justify-content: space-between;
+  @include card-layout($primary-background-color, $box-border)
+  @include common-flex-display(flex, space-between, row);
 }
 
 .all {
@@ -149,45 +151,94 @@ img {
 
 .all-recipe-info,
 ol {
-  color: #EBF5EE;
-  font-size: 220%;
+  @include font-appearance(150%, $primary-background-color);
   width: 100%;
 }
 
 h3 {
-  color: #EBF5EE;
-  font-size: 250%;
+  @include text-appearance(150%, center);
+  margin: 0;
+  @include card-layout($primary-background-color, $box-border)
+  font-weight: normal;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .recipe-name {
-
-  display: block;
-  font-size: 150%;
-  text-align: center;
-}
-
-.card-picture:hover {
-  opacity: 0.7;
-}
-
-.card-picture:active {
-  border: 2px solid #000;
+  @include card-layout($primary-background-color, $box-border)
+  @include common-flex-display(flex, center, row);
+  @include text-appearance(150%, center);
 }
 
 .card-picture {
-  border: 1px solid #000;
-  height: 200px;
+  @include dimensions(200px, 94%);
+  border: $box-border;
   margin: 10px 3% 8px 2.6%;
-  width: 94%;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:active {
+    border: $main-border;
+  }
 }
 
 main {
   background-color: #37515C;
-  height: 100%;
-  width: 100%;
+  @include dimensions(100%, 100%);
+
 }
 
 .favorite-active {
   background-image: url(https://image.flaticon.com/icons/svg/148/148841.svg);
   background-repeat: no-repeat;
+}
+
+.display-recipe {
+  @include common-grid-display(grid, 7px, .6fr 1fr);
+  grid-template-rows: 1fr 3fr;
+  margin: 15px;
+}
+
+.display-recipe-info {
+  @include grid-settings(1, 1 / 2);
+  height: 40vh;
+}
+
+.recipe-ingredients {
+  justify-self: center;
+  @include grid-settings(2, 1 / 2);
+  overflow: hidden;
+  max-height: auto;
+  @include font-appearance(15px, $primary-background-color);
+}
+
+.recipe-ingredients-title {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.recipe-instructions {
+  @include grid-settings(1/span 2, 2);
+  @include font-appearance(20px, $primary-background-color);
+  max-width: 90vw;
+  margin-top: 100px;
+}
+
+//--To Cook View--//
+.to-cook-greeting {
+  color: $primary-background-color;
+}
+
+.close-button {
+  @include button-background($primary-background-color, no-repeat, center, 13%);
+  background-image: url(https://www.flaticon.com/svg/static/icons/svg/446/446091.svg);
+  font-weight: bold;
+}
+
+label,
+.needed-ings,
+.ing-cost {
+  margin-left: 10px;
 }

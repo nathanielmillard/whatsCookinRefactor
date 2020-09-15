@@ -50,7 +50,8 @@ let domUpdates = {
   },
 
   populateCards: (recipes) => {
-    const cardArea = document.querySelector('.all-cards');
+    const cardArea = document.querySelector('#main-section');
+    cardArea.classList = 'all-cards';
     cardArea.innerHTML = '';
     recipes.forEach(recipe => {
       cardArea.insertAdjacentHTML('afterbegin', domUpdates.constructCard(recipe))
@@ -98,10 +99,11 @@ let domUpdates = {
 
   viewFavorites: () => {
     const showFavoritesButton = document.querySelector('.view-favorites');
-    const cardArea = document.querySelector('.all-cards');
-    if (cardArea.classList.contains('all')) {
-      cardArea.classList.remove('all')
-    }
+    const cardArea = document.querySelector('#main-section');
+    cardArea.classList = 'all-cards';
+    // if (cardArea.classList.contains('all')) {
+    //   cardArea.classList.remove('all')
+    // }
     if (!domUpdates.user.favoriteRecipes.length) {
       showFavoritesButton.innerHTML = 'You have no favorites!';
       domUpdates.populateCards(domUpdates.cookbook.recipes);
@@ -116,13 +118,14 @@ let domUpdates = {
   },
 
   addToToCook: (event) => {
+    const showToCookButton = document.querySelector('.to-cook');
     let specificRecipe = domUpdates.cookbook.recipes.find(recipe => {
       if (event.target.classList.contains(recipe.id)) {
         return recipe;
       }
     });
     if (!event.target.classList.contains('add-active')) {
-      console.log(domUpdates.user.checkPantryIngredients(specificRecipe))
+      showToCookButton.innerText = 'To Cook'
       alert(domUpdates.user.checkPantryIngredients(specificRecipe));
       domUpdates.user.addToRecipesToCook(specificRecipe);
     } else if (event.target.classList.contains('add-active')) {
@@ -132,11 +135,12 @@ let domUpdates = {
   },
 
   displayToCookCards: () => {
-    const cardArea = document.querySelector('.all-cards');
+    const cardArea = document.querySelector('#main-section');
+    cardArea.classList = '';
     cardArea.innerHTML =
       `<section class='to-cook'>
-        <h1>Recipes To Cook</h1>
-        <div class='card-section'>
+        <h1 class='to-cook-greeting'>Recipes To Cook</h1>
+        <div class='card-section all-cards'>
         </div>
       </section>`
     let cardSection = document.querySelector('.card-section')
@@ -148,10 +152,10 @@ let domUpdates = {
         return total += ingredient.cost;
       }, 0);
       cardSection.insertAdjacentHTML('beforeend', `<div class='card ${recipe.id}'>
-    <header class='recipe-name ${recipe.id}'>
+    <header class='card-header ${recipe.id}'>
       <label for='close-button' class='hidden'></label>
       <button aria-label='close-button' class='close-button card-button ${recipe.id}'>
-        <img class='close ${recipe.id}' src='https://www.flaticon.com/svg/static/icons/svg/446/446091.svg' alt='remove from recipes to cook'>
+        <img class='close-button ${recipe.id}' src='https://www.flaticon.com/svg/static/icons/svg/446/446091.svg' alt='remove from recipes to cook'>
       </button>
       <label for='favorite-button' class='hidden'>Click to favorite recipe</label>
       <button aria-label='favorite-button' class='favorite card-button favorite${recipe.id} ${recipe.id}'>
@@ -195,7 +199,8 @@ let domUpdates = {
   },
 
   displayDirections: (event) => {
-    const cardArea = document.querySelector('.all-cards');
+    const cardArea = document.querySelector('#main-section');
+    cardArea.classList = 'recipe-directions';
     let newRecipe = domUpdates.cookbook.recipes.find(recipe => {
       if (event.target.classList.contains(`${recipe.id}`)) {
         return recipe;
@@ -211,19 +216,25 @@ let domUpdates = {
     newRecipe.instructions.forEach(step => {
      neededSteps.push(`${step.number}. ${step.instruction} `)
     })
-    cardArea.innerHTML = `<h3>${newRecipe.name}</h3>
-    <img src='${newRecipe.image}' alt='Recipe image for ${newRecipe.name}'>
-    <div class='all-recipe-info'>
-    <h5>You will need: </h5>
+    cardArea.innerHTML = `<section class='display-recipe'>
+    <div class='display-recipe-info'>
+      <h3>${newRecipe.name}</h3>
+      <img src='${newRecipe.image}' alt='Recipe image for ${newRecipe.name}'>
+    </div>
+    <div class='recipe-ingredients'>
+    <h5 class='recipe-ingredients-title'>You will need: </h5>
     <ul>
     <li>${neededIngredients.join('</li><li>')}</li>
     </ul>
+    </div>
+    <div class='recipe-instructions'>
     <h5>Instructions: </h5>
-    <ul style='list-style-type:none;'>
+    <ul class='instruction-list' style='list-style-type:none;'>
     <li>${neededSteps.join('</li><li>')}</li>
     </ul>
     <h5>This recipe generally costs: $${cost} </h5>
-    </div>`;
+    </div>
+    </section>`;
   },
 
   filterRecipes: () => {
