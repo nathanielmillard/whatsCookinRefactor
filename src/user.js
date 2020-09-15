@@ -123,6 +123,7 @@ class User {
       };
       return notPresent;
     }, []);
+    // console.log(missingIngredients);
     let difference = missingIngredients.map(ingredient => {
       let neededIng;
       let name = recipe.ingredientsData.find(item => {

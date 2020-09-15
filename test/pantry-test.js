@@ -24,17 +24,11 @@ describe('Pantry', () => {
   });
 
   it('should store a user pantry', () => {
-    expect(pantry.userIngredients.length).to.equal(users[0].pantry.length);
+    expect(pantry.userPantry.length).to.equal(users[0].pantry.length);
   });
 
-  it.only('Should update the user pantry when a recipe has been cooked', () => {
-    pantry.updatePantry(recipe1);
+  it('should convert array into ingredients object', () => {
     pantry.createPantry(ingredientsData);
-    expect(pantry.userPantry[1].amount).to.equal(0);
+    expect(pantry.userIngredients).to.be.an('object');
   });
-
-  it('should add name and estimated cost to pantry item', () => {
-    pantry.createPantry(ingredientsData);
-    expect(pantry.userIngredients[0]).to.deep.equal(pantryItem);
-  })
 })
