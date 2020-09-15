@@ -116,7 +116,7 @@ describe('User', () => {
         id: 93626,
         cost: 12.50,
         name: 'xanthan gum',
-        unit: 'teaspoon',
+        unit: 'teaspoons',
         quantityNeeded: 2
       }
     ];
@@ -179,7 +179,7 @@ describe('User', () => {
   });
 
   it('Should inform User of the ingredients that they lack for a given recipe', () => {
-    expect(user1.checkPantryIngredients(recipe2)).to.eql('You still need more tapioca starch and xanthan gum.');
+    expect(user1.checkPantryIngredients(recipe2)).to.eql('You still need 2 more ingredients.');
   });
 
   it('should determine the amount of ingredients still needed to cook a given meal, based on what’s in my pantry, and how much they will cost', () => {
