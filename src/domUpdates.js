@@ -255,13 +255,7 @@ let domUpdates = {
   },
 
   displayFilteredRecipes: (searchTerm) => {
-    let allRecipeResults = domUpdates.cookbook.recipes.filter((recipe)=>{
-      let ingredientNames = recipe.ingredients.map((ingredient)=>{
-        return ingredient.name
-      })
-      return recipe.name.toLowerCase().includes(searchTerm) || recipe.tags.includes(searchTerm) || ingredientNames.includes(searchTerm)
-    })
-    domUpdates.populateCards(allRecipeResults)
+    domUpdates.populateCards(domUpdates.cookbook.findRecipes(searchTerm));
   },
 
   haveCookedRecipe: (event) => {
