@@ -141,8 +141,7 @@ img {
 }
 
 .card-header {
-  background-color: $primary-background-color;
-  border-bottom: $box-border;
+  @include card-layout($primary-background-color, $box-border)
   @include common-flex-display(flex, space-between, row);
 }
 
@@ -160,8 +159,7 @@ ol {
 h3 {
   font-size: 150%;
   margin: 0;
-  background-color: $primary-background-color;
-  border-bottom: $box-border;
+  @include card-layout($primary-background-color, $box-border)
   text-align: center;
   font-weight: normal;
   padding-top: 5px;
@@ -169,8 +167,7 @@ h3 {
 }
 
 .recipe-name {
-  background-color: $primary-background-color;
-  border-bottom: $box-border;
+  @include card-layout($primary-background-color, $box-border)
   @include common-flex-display(flex, center, row);
   font-size: 150%;
   text-align: center;

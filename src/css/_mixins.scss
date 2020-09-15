@@ -38,3 +38,8 @@
   background-color: $bgcolor;
   border: $border;
 }
+
+@mixin card-layout($bgcolor, $bottom) {
+  background-color: $bgcolor;
+  border-bottom: $bottom;
+}
