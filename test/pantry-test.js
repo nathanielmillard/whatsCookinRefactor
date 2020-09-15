@@ -28,7 +28,7 @@ describe('Pantry', () => {
   });
 
   it('should convert array into ingredients object', () => {
-    pantry.createPantry(ingredientsData);
+    pantry.compilePantry(ingredientsData);
     expect(pantry.userIngredients).to.be.an('object');
   });
 })

@@ -4,7 +4,7 @@ class Pantry {
     this.userIngredients = {};
   }
 
-  createPantry(data) {
+  compilePantry(data) {
     this.userIngredients = this.userPantry.reduce((pantry, ingredient) => {
       if (!pantry[ingredient.ingredient]){
         pantry[ingredient.ingredient] = ingredient.amount;
@@ -12,7 +12,6 @@ class Pantry {
         pantry[ingredient.ingredient] += ingredient.amount;
       }
       return pantry;
-      cosole.log(pantry)
     }, {});
   }
 }

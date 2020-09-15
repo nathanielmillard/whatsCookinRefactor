@@ -73,7 +73,7 @@ class User {
     .then(response => {
       let pantry = new Pantry(response.wcUsersData[this.id - 1].pantry)
       this.pantry = pantry
-      this.pantry.createPantry(this.ingredientsData)
+      this.pantry.compilePantry(this.ingredientsData)
     }
   )
   .catch(err => console.log(err))
@@ -100,7 +100,7 @@ class User {
   }
 
   checkPantryIngredients(recipe) {
-    this.pantry.createPantry(this.ingredientsData);
+    this.pantry.compilePantry(this.ingredientsData);
     let missingIngredients = recipe.ingredients.reduce((notPresent, ingredient) => {
       let ingredientID = ingredient.id;
       if(!this.pantry.userIngredients[ingredientID] || ingredient.quantity.amount > this.pantry.userIngredients[ingredientID]) {
