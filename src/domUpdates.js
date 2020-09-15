@@ -219,7 +219,7 @@ let domUpdates = {
     cardArea.innerHTML = `<section class='display-recipe'>
     <div class='display-recipe-info'>
       <h3>${newRecipe.name}</h3>
-      <img src='${newRecipe.image}' alt='Recipe image for ${newRecipe.name}'>
+      <img class='card-picture' src='${newRecipe.image}' alt='Recipe image for ${newRecipe.name}'>
     </div>
     <div class='recipe-ingredients'>
     <h5 class='recipe-ingredients-title'>You will need: </h5>
