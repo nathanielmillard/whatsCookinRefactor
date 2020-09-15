@@ -98,6 +98,8 @@ let domUpdates = {
   },
 
   viewFavorites: () => {
+    const searchBar = document.querySelector('.search-bar');
+    searchBar.classList.add(."hidden")
     const showFavoritesButton = document.querySelector('.view-favorites');
     const cardArea = document.querySelector('#main-section');
     cardArea.classList = 'all-cards';
@@ -132,6 +134,8 @@ let domUpdates = {
   },
 
   displayToCookCards: () => {
+    const searchBar = document.querySelector('.search-bar');
+    searchBar.classList.add(."hidden")
     const cardArea = document.querySelector('#main-section');
     cardArea.classList = '';
     cardArea.innerHTML =
@@ -196,6 +200,8 @@ let domUpdates = {
   },
 
   displayDirections: (event) => {
+    const searchBar = document.querySelector('.search-bar');
+    searchBar.classList.add(."hidden")
     const cardArea = document.querySelector('#main-section');
     cardArea.classList = 'recipe-directions';
     let newRecipe = domUpdates.cookbook.recipes.find(recipe => {
