@@ -4,11 +4,13 @@ class Cookbook {
   }
 
   findRecipes(searchText) {
-     return this.recipes.filter((recipe)=>{
+    return this.recipes.filter((recipe)=>{
       let ingredientNames = recipe.ingredients.map((ingredient)=>{
         return ingredient.name
       })
-      return recipe.name.toLowerCase().includes(searchText) || recipe.tags.includes(searchText) || ingredientNames.includes(searchText)
+      return recipe.name.toLowerCase().includes(searchText) ||
+      recipe.tags.includes(searchText) ||
+      ingredientNames.includes(searchText)
     })
   }
 }

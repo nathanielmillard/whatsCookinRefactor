@@ -19,15 +19,15 @@ let domUpdates = {
       fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/recipes/recipeData'),
       fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/ingredients/ingredientsData')
     ])
-    .then(responses => Promise.all(responses.map(response => response.json())))
-    .then(responses => {
-      domUpdates.users = responses[0].wcUsersData;
-      domUpdates.recipeData = responses[1].recipeData;
-      domUpdates.ingredientsData = responses[2].ingredientsData;
-      domUpdates.createDataModel();
-      domUpdates.updateDisplay();
-    })
-    .catch(error => console.log(error))
+      .then(responses => Promise.all(responses.map(response => response.json())))
+      .then(responses => {
+        domUpdates.users = responses[0].wcUsersData;
+        domUpdates.recipeData = responses[1].recipeData;
+        domUpdates.ingredientsData = responses[2].ingredientsData;
+        domUpdates.createDataModel();
+        domUpdates.updateDisplay();
+      })
+      .catch(error => console.log(error))
   },
 
   createDataModel: () => {
@@ -60,11 +60,11 @@ let domUpdates = {
 
   constructCard: (recipe) => {
     let classList
-    if(domUpdates.user.favoriteRecipes.includes(recipe)){
+    if (domUpdates.user.favoriteRecipes.includes(recipe)) {
       classList = 'favorite card-button favorite-active'
-    } else (
+    } else {
       classList = 'favorite card-button'
-    )
+    }
     return `<div class='card ${recipe.id}'>
     <header class='card-header ${recipe.id}'>
       <label for='add-button' class='hidden'>Click to add recipe</label>
@@ -131,7 +131,7 @@ let domUpdates = {
       domUpdates.user.addToRecipesToCook(specificRecipe);
     } else if (event.target.classList.contains('add-active')) {
       domUpdates.user.removeFromRecipesToCook(specificRecipe)
-    };
+    }
     event.target.classList.toggle('add-active');
   },
 
@@ -148,7 +148,7 @@ let domUpdates = {
       </section>`
     let cardSection = document.querySelector('.card-section')
     domUpdates.user.recipesToCook.forEach(recipe => {
-      let neededIngredientsAndAmounts = domUpdates.user.checkHowMuchMore(recipe).map(obj => {
+      let values = domUpdates.user.checkHowMuchMore(recipe).map(obj => {
         return `${obj.quantityNeeded} ${obj.unit} more ${obj.name}`;
       });
       let neededCost = domUpdates.user.checkHowMuchMore(recipe).reduce((total, ingredient) => {
@@ -173,7 +173,7 @@ let domUpdates = {
       </div>
       <p class='needed-ings'>Ingredients Still Needed:</p>
       <ul >
-      <li>${neededIngredientsAndAmounts.join('</li><li>')}</li>
+      <li>${values.join('</li><li>')}</li>
       </ul>
       <p class='ing-cost'>Cost to Still Get:$${neededCost}</p>
     </div>`);
@@ -206,7 +206,7 @@ let domUpdates = {
     searchBar.classList.add('hidden')
     const cardArea = document.querySelector('#main-section');
     cardArea.classList = 'recipe-directions';
-  let specificRecipe = domUpdates.findSpecificRecipe(event);
+    let specificRecipe = domUpdates.findSpecificRecipe(event);
     let cost = specificRecipe.calculateCost();
     cardArea.innerHTML = '';
     let neededIngredients = [];
@@ -216,7 +216,7 @@ let domUpdates = {
     })
     let neededSteps = [];
     specificRecipe.instructions.forEach(step => {
-     neededSteps.push(`${step.number}. ${step.instruction} `)
+      neededSteps.push(`${step.number}. ${step.instruction} `)
     })
     cardArea.innerHTML = `<section class='display-recipe'>
     <div class='display-recipe-info'>
@@ -257,7 +257,7 @@ let domUpdates = {
   haveCookedRecipe: (event) => {
     let specificRecipe = domUpdates.findSpecificRecipe(event);
     const haveCookedButton = document.querySelector(`.have-cooked${specificRecipe.id}`);
-    if (domUpdates.user.checkPantryIngredients(specificRecipe) !== 'You have the ingredients!'){
+    if (domUpdates.user.checkPantryIngredients(specificRecipe) !== 'You have the ingredients!') {
       alert("You don't have what you need yet")
     } else {
       domUpdates.user.removePantryIngridients(specificRecipe)
