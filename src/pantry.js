@@ -4,9 +4,9 @@ class Pantry {
     this.userIngredients = {};
   }
 
-  compilePantry(data) {
+  compilePantry() {
     this.userIngredients = this.userPantry.reduce((pantry, ingredient) => {
-      if (!pantry[ingredient.ingredient]){
+      if (!pantry[ingredient.ingredient]) {
         pantry[ingredient.ingredient] = ingredient.amount;
       } else {
         pantry[ingredient.ingredient] += ingredient.amount;
