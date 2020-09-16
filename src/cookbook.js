@@ -3,13 +3,14 @@ class Cookbook {
     this.recipes = data;
   }
 
-  findRecipe(searchText) {
-    return this.recipes.filter(recipe => {
-      return recipe.ingredients.find(ingredient => {
-        return (ingredient.name.includes(searchText)) ||
-        (recipe.name.includes(searchText)) ||
-        (recipe.tags.includes(searchText))
-      });
+  findRecipes(searchText) {
+    return this.recipes.filter((recipe)=>{
+      let ingredientNames = recipe.ingredients.map((ingredient)=>{
+        return ingredient.name
+      })
+      return recipe.name.toLowerCase().includes(searchText) ||
+      recipe.tags.includes(searchText) ||
+      ingredientNames.includes(searchText)
     })
   }
 }

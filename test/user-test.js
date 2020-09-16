@@ -59,51 +59,51 @@ describe('User', () => {
           }
         }
       ]
-      };
-      recipe2 = {
-        "name": "milk ice",
-        "id": 595701,
-        "image": "https://spoonacular.com/recipeImages/595736-556x370.jpg",
-        "ingredients": [
-          {
-            "name": "full-fat milk",
-            "id": 1077,
-            "quantity": {
-              "amount": 1,
-              "unit": "c"
-            }
-          },
-          {
-            "name": "ice water",
-            "id": 14412,
-            "quantity": {
-              "amount": 1,
-              "unit": "tsp"
-            }
-          },
-          {
-            "name": "tapioca starch",
-            "id": 93696,
-            "quantity": {
-              "amount": 4,
-              "unit": "cup"
-            }
-          },
-          {
-            "name": "xanthan gum",
-            "id": 93626,
-            "quantity": {
-              "amount": 2,
-              "unit": "teaspoons"
-            }
+    };
+    recipe2 = {
+      "name": "milk ice",
+      "id": 595701,
+      "image": "https://spoonacular.com/recipeImages/595736-556x370.jpg",
+      "ingredients": [
+        {
+          "name": "full-fat milk",
+          "id": 1077,
+          "quantity": {
+            "amount": 1,
+            "unit": "c"
           }
-        ]
-        };
+        },
+        {
+          "name": "ice water",
+          "id": 14412,
+          "quantity": {
+            "amount": 1,
+            "unit": "tsp"
+          }
+        },
+        {
+          "name": "tapioca starch",
+          "id": 93696,
+          "quantity": {
+            "amount": 4,
+            "unit": "cup"
+          }
+        },
+        {
+          "name": "xanthan gum",
+          "id": 93626,
+          "quantity": {
+            "amount": 2,
+            "unit": "teaspoons"
+          }
+        }
+      ]
+    };
     pantry = new Pantry(user.pantry);
     user1 = new User(user, pantry);
     recipe1 = new Recipe(recipe1, ingredientsData);
     recipe2 = new Recipe(recipe2, ingredientsData);
-    user1.pantry.createPantry(ingredientsData);
+    user1.pantry.compilePantry(ingredientsData);
     needed = [
       {
         id: 93696,

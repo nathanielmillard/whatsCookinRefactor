@@ -12,7 +12,6 @@ body {
   font-family: 'Open Sans', sans-serif;
   margin: auto;
 }
-
 //--Home page view--//
 main {
   background-color: #37515C;
@@ -45,8 +44,7 @@ nav {
   background-color: $primary-background-color;
   border-left: $box-border;
   border-right: $box-border;
-  margin: 1%;
-  margin-right: 20px;
+  margin: 1% 20px 1% 1%;
 
   &:hover {
     background-color: $button-hover-color;
@@ -99,7 +97,7 @@ nav {
 
 .all-cards {
   @include common-grid-display(grid, 30px, repeat(4, 1fr));
-  padding: 30px 30px 30px 30px;
+  padding: 30px;
   width: 95.5vw;
 }
 
@@ -138,7 +136,7 @@ img {
 
 .favorite {
   @include button-background($primary-background-color, no-repeat, center, 13%);
-  background-image: url(https://image.flaticon.com/icons/svg/149/149222.svg);
+  background-image: url("https://image.flaticon.com/icons/svg/149/149222.svg");
 }
 
 .card {
@@ -147,12 +145,11 @@ img {
 }
 
 .card-header {
-  @include card-layout($primary-background-color, $box-border)
-  @include common-flex-display(flex, space-between, row);
+  @include card-layout($primary-background-color, $box-border) @include common-flex-display(flex, space-between, row);
 }
 
 .all {
-  grid-gap: 0px;
+  grid-gap: 0;
   grid-template-columns: repeat(1, 1fr);
 }
 
@@ -164,16 +161,14 @@ ol {
 
 h3 {
   @include text-appearance(150%, center);
-  @include card-layout($primary-background-color, $box-border)
-  margin: 0;
+  @include card-layout($primary-background-color, $box-border) margin: 0;
   font-weight: normal;
   padding-top: 5px;
   padding-bottom: 5px;
 }
 
 .recipe-name {
-  @include card-layout($primary-background-color, $box-border)
-  @include common-flex-display(flex, center, row);
+  @include card-layout($primary-background-color, $box-border) @include common-flex-display(flex, center, row);
   @include text-appearance(150%, center);
 }
 
@@ -198,14 +193,12 @@ h3 {
 }
 
 .favorite-active {
-  background-image: url(https://image.flaticon.com/icons/svg/148/148841.svg);
+  background-image: url("https://image.flaticon.com/icons/svg/148/148841.svg");
   background-repeat: no-repeat;
 }
-
 //--Single Recipe Display--//
-
 .display-recipe {
-  @include common-grid-display(grid, 7px, .6fr 1fr);
+  @include common-grid-display(grid, 7px, 0.6fr 1fr);
   grid-template-rows: 1fr 3fr;
   margin: 15px;
 }
@@ -241,11 +234,13 @@ h3 {
 
 .close-button {
   @include button-background($primary-background-color, no-repeat, center, 13%);
-  background-image: url(https://www.flaticon.com/svg/static/icons/svg/446/446091.svg);
+  background-image: url("https://www.flaticon.com/svg/static/icons/svg/446/446091.svg");
   font-weight: bold;
 }
 
-.pantry-buttons, .needed-ings, .ing-cost, {
+.ing-cost,
+.needed-ings,
+.pantry-buttons {
   margin-left: 10px;
 }
 
@@ -261,8 +256,7 @@ h3 {
   }
 
   .display-recipe {
-    @include common-flex-display(flex, space-around, column)
-    align-items: center;
+    @include common-flex-display(flex, space-around, column) align-items: center;
   }
 
   .recipe-instructions {
@@ -278,8 +272,7 @@ h3 {
   }
 
   .display-recipe {
-    @include common-flex-display(flex, center, column)
-    align-items: center;
+    @include common-flex-display(flex, center, column) align-items: center;
   }
 
   .search-image {
@@ -288,8 +281,8 @@ h3 {
 }
 
 @media(max-width: 450px) {
-  .main-header,
-  .lower-header {
+  .lower-header,
+  .main-header {
     flex-direction: column;
     align-items: center;
   }
@@ -317,3 +310,4 @@ h3 {
   .card {
     max-width: 95%;
   }
+}

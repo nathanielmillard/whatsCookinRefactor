@@ -1,4 +1,3 @@
-// import scripts from './scripts';
 import Pantry from './pantry';
 import Recipe from './recipe';
 import User from './user';
@@ -19,15 +18,15 @@ let domUpdates = {
       fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/recipes/recipeData'),
       fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/ingredients/ingredientsData')
     ])
-    .then(responses => Promise.all(responses.map(response => response.json())))
-    .then(responses => {
-      domUpdates.users = responses[0].wcUsersData;
-      domUpdates.recipeData = responses[1].recipeData;
-      domUpdates.ingredientsData = responses[2].ingredientsData;
-      domUpdates.createDataModel();
-      domUpdates.updateDisplay();
-    })
-    .catch(error => console.log(error))
+      .then(responses => Promise.all(responses.map(response => response.json())))
+      .then(responses => {
+        domUpdates.users = responses[0].wcUsersData;
+        domUpdates.recipeData = responses[1].recipeData;
+        domUpdates.ingredientsData = responses[2].ingredientsData;
+        domUpdates.createDataModel();
+        domUpdates.updateDisplay();
+      })
+      .catch(error => console.log(error))
   },
 
   createDataModel: () => {
@@ -60,11 +59,11 @@ let domUpdates = {
 
   constructCard: (recipe) => {
     let classList
-    if(domUpdates.user.favoriteRecipes.includes(recipe)){
+    if (domUpdates.user.favoriteRecipes.includes(recipe)) {
       classList = 'favorite card-button favorite-active'
-    } else (
+    } else {
       classList = 'favorite card-button'
-    )
+    }
     return `<div class='card ${recipe.id}'>
     <header class='card-header ${recipe.id}'>
       <label for='add-button' class='hidden'>Click to add recipe</label>
@@ -83,13 +82,17 @@ let domUpdates = {
     </div>`
   },
 
-  favoriteCard: (event) => {
-    const showFavoritesButton = document.querySelector('.view-favorites');
-    let specificRecipe = domUpdates.cookbook.recipes.find(recipe => {
+  findSpecificRecipe: (event) => {
+    return domUpdates.cookbook.recipes.find(recipe => {
       if (event.target.classList.contains(recipe.id)) {
         return recipe;
       }
     })
+  },
+
+  favoriteCard: (event) => {
+    const showFavoritesButton = document.querySelector('.view-favorites');
+    let specificRecipe = domUpdates.findSpecificRecipe(event);
     if (!event.target.classList.contains('favorite-active')) {
       showFavoritesButton.innerHTML = 'View Favorites';
       domUpdates.user.addToFavorites(specificRecipe);
@@ -120,18 +123,14 @@ let domUpdates = {
 
   addToToCook: (event) => {
     const showToCookButton = document.querySelector('.to-cook');
-    let specificRecipe = domUpdates.cookbook.recipes.find(recipe => {
-      if (event.target.classList.contains(recipe.id)) {
-        return recipe;
-      }
-    });
+    let specificRecipe = domUpdates.findSpecificRecipe(event);
     if (!event.target.classList.contains('add-active')) {
       showToCookButton.innerText = 'To Cook'
       alert(domUpdates.user.checkPantryIngredients(specificRecipe));
       domUpdates.user.addToRecipesToCook(specificRecipe);
     } else if (event.target.classList.contains('add-active')) {
       domUpdates.user.removeFromRecipesToCook(specificRecipe)
-    };
+    }
     event.target.classList.toggle('add-active');
   },
 
@@ -148,7 +147,7 @@ let domUpdates = {
       </section>`
     let cardSection = document.querySelector('.card-section')
     domUpdates.user.recipesToCook.forEach(recipe => {
-      let neededIngredientsAndAmounts = domUpdates.user.checkHowMuchMore(recipe).map(obj => {
+      let values = domUpdates.user.checkHowMuchMore(recipe).map(obj => {
         return `${obj.quantityNeeded} ${obj.unit} more ${obj.name}`;
       });
       let neededCost = domUpdates.user.checkHowMuchMore(recipe).reduce((total, ingredient) => {
@@ -173,7 +172,7 @@ let domUpdates = {
       </div>
       <p class='needed-ings'>Ingredients Still Needed:</p>
       <ul >
-      <li>${neededIngredientsAndAmounts.join('</li><li>')}</li>
+      <li>${values.join('</li><li>')}</li>
       </ul>
       <p class='ing-cost'>Cost to Still Get:$${neededCost}</p>
     </div>`);
@@ -206,26 +205,22 @@ let domUpdates = {
     searchBar.classList.add('hidden')
     const cardArea = document.querySelector('#main-section');
     cardArea.classList = 'recipe-directions';
-    let newRecipe = domUpdates.cookbook.recipes.find(recipe => {
-      if (event.target.classList.contains(`${recipe.id}`)) {
-        return recipe;
-      };
-    });
-    let cost = newRecipe.calculateCost();
+    let specificRecipe = domUpdates.findSpecificRecipe(event);
+    let cost = specificRecipe.calculateCost();
     cardArea.innerHTML = '';
     let neededIngredients = [];
-    newRecipe.ingredients.forEach(ingredient => {
-      let name = newRecipe.ingredientsData.find(item => item.id === ingredient.id).name
+    specificRecipe.ingredients.forEach(ingredient => {
+      let name = specificRecipe.ingredientsData.find(item => item.id === ingredient.id).name
       neededIngredients.push(`${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit} ${name}`)
     })
     let neededSteps = [];
-    newRecipe.instructions.forEach(step => {
-     neededSteps.push(`${step.number}. ${step.instruction} `)
+    specificRecipe.instructions.forEach(step => {
+      neededSteps.push(`${step.number}. ${step.instruction} `)
     })
     cardArea.innerHTML = `<section class='display-recipe'>
     <div class='display-recipe-info'>
-      <h3>${newRecipe.name}</h3>
-      <img class='card-picture' src='${newRecipe.image}' alt='Recipe image for ${newRecipe.name}'>
+      <h3>${specificRecipe.name}</h3>
+      <img class='card-picture' src='${specificRecipe.image}' alt='Recipe image for ${specificRecipe.name}'>
     </div>
     <div class='recipe-ingredients'>
     <h5 class='recipe-ingredients-title'>You will need: </h5>
@@ -255,23 +250,13 @@ let domUpdates = {
   },
 
   displayFilteredRecipes: (searchTerm) => {
-    let allRecipeResults = domUpdates.cookbook.recipes.filter((recipe)=>{
-      let ingredientNames = recipe.ingredients.map((ingredient)=>{
-        return ingredient.name
-      })
-      return recipe.name.toLowerCase().includes(searchTerm) || recipe.tags.includes(searchTerm) || ingredientNames.includes(searchTerm)
-    })
-    domUpdates.populateCards(allRecipeResults)
+    domUpdates.populateCards(domUpdates.cookbook.findRecipes(searchTerm));
   },
 
   haveCookedRecipe: (event) => {
-    let specificRecipe = domUpdates.cookbook.recipes.find(recipe => {
-      if (event.target.classList.contains(recipe.id)) {
-        return recipe;
-      }
-    })
+    let specificRecipe = domUpdates.findSpecificRecipe(event);
     const haveCookedButton = document.querySelector(`.have-cooked${specificRecipe.id}`);
-    if (domUpdates.user.checkPantryIngredients(specificRecipe) !== 'You have the ingredients!'){
+    if (domUpdates.user.checkPantryIngredients(specificRecipe) !== 'You have the ingredients!') {
       alert("You don't have what you need yet")
     } else {
       domUpdates.user.removePantryIngridients(specificRecipe)
@@ -280,11 +265,7 @@ let domUpdates = {
   },
 
   buyIngredients: (event) => {
-    let specificRecipe = domUpdates.cookbook.recipes.find(recipe => {
-      if (event.target.classList.contains(recipe.id)) {
-        return recipe;
-      }
-    })
+    let specificRecipe = domUpdates.findSpecificRecipe(event);
     const buyButton = document.querySelector(`.bought-ingredients${specificRecipe.id}`)
     domUpdates.user.addNeededPantryIngridients(specificRecipe)
     buyButton.disabled = true;
