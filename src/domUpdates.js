@@ -1,4 +1,3 @@
-// import scripts from './scripts';
 import Pantry from './pantry';
 import Recipe from './recipe';
 import User from './user';
