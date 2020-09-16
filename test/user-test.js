@@ -103,7 +103,7 @@ describe('User', () => {
     user1 = new User(user, pantry);
     recipe1 = new Recipe(recipe1, ingredientsData);
     recipe2 = new Recipe(recipe2, ingredientsData);
-    user1.pantry.createPantry(ingredientsData);
+    user1.pantry.compilePantry(ingredientsData);
     needed = [
       {
         id: 93696,

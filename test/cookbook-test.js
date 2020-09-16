@@ -102,15 +102,15 @@ describe('Cookbook', () => {
   });
 
   it('Should be able to filter through ingredients and return an array of recipes', () => {
-    expect(cookbook.findRecipe('baking soda')).to.deep.equal([dummyRecipe1, dummyRecipe2]);
+    expect(cookbook.findRecipes('baking soda')).to.deep.equal([dummyRecipe1, dummyRecipe2]);
   });
 
   it('Should be able to find a recipe by name', () => {
-    expect(cookbook.findRecipe("stuff cake")).to.deep.equal([dummyRecipe2]);
+    expect(cookbook.findRecipes("stuff cake")).to.deep.equal([dummyRecipe2]);
   });
 
   it('Should be able to filter by tags to return an array of recipes', () => {
-    expect(cookbook.findRecipe('test')).to.deep.equal([dummyRecipe2]);
+    expect(cookbook.findRecipes('test')).to.deep.equal([dummyRecipe2]);
   });
 })
 
